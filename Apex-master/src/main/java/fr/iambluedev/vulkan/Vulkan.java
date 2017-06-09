@@ -9,11 +9,15 @@ import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
 import fr.iambluedev.vulkan.state.ListeningState;
+import fr.iambluedev.vulkan.state.WhitelistState;
 
 public class Vulkan {
 
 	private static Vulkan instance;
+	
 	private ListeningState listeningState;
+	private WhitelistState whitelistState;
+	
 	private WhiteListConfig whiteListConfig;
 	private ApexConfig apexConfig;
 	
@@ -21,9 +25,13 @@ public class Vulkan {
 	
 	public Vulkan(){
 		instance = this;
-		this.listeningState = ListeningState.OPEN;
+		
 		this.whiteListConfig = new WhiteListConfig();
 		this.apexConfig = new ApexConfig();
+		
+		this.listeningState = ListeningState.OPEN;
+		this.whitelistState = WhitelistState.OFF;
+		
 		this.whitelistedIp = new ArrayList<String>();
 		JSONObject jsonObj = (JSONObject) this.whiteListConfig.getJsonObject();	
 		JSONArray jsonArr = (JSONArray) jsonObj.get("whitelist");
@@ -55,5 +63,9 @@ public class Vulkan {
 
 	public List<String> getWhitelistedIp() {
 		return this.whitelistedIp;
+	}
+
+	public WhitelistState getWhitelistState() {
+		return this.whitelistState;
 	}
 }
