@@ -593,3 +593,27 @@
 21:23:59 [main] INFO  CloseCommand - The default port is now closed !
 21:24:02 [Apex Worker Thread #3] ERROR ApexSocketChannelInitializer - ListeningState is set to close so redirecting to the Default VulkanNetwork Backend
 21:24:02 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:52212] <-> [164.132.48.233:8282 (defaultWebBackend)]
+21:28:34 [main] INFO  Main - Starting Apex
+21:28:34 [main] INFO  SpartanConfig - Initialising whitelist file
+21:28:34 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:28:34 [main] INFO  SpartanConfig - Initialising apex file
+21:28:34 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:28:34 [main] INFO  Main - Using mode: TCP
+21:28:34 [main] INFO  Apex - Logger level is now DEBUG
+21:28:34 [main] DEBUG Apex - Mode: TCP
+21:28:34 [main] DEBUG Apex - Host: 0.0.0.0
+21:28:34 [main] DEBUG Apex - Port: 80
+21:28:34 [main] DEBUG Apex - Balance: RANDOM
+21:28:34 [main] DEBUG Apex - Backlog: 100
+21:28:34 [main] DEBUG Apex - Boss: 1
+21:28:34 [main] DEBUG Apex - Worker: 4
+21:28:34 [main] DEBUG Apex - Stats: false
+21:28:34 [main] DEBUG Apex - Probe: 5000
+21:28:34 [main] DEBUG Apex - Backend: 164.132.48.233
+21:28:34 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:28:34 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:28:34 [main] INFO  ApexSocket - Bootstrapping socket server
+21:28:34 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:28:34 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:28:34 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:28:34 [main] INFO  Apex - Apex listening on 0.0.0.0:80
