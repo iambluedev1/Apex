@@ -21,6 +21,7 @@ package de.jackwhite20.apex.rest;
 
 import de.jackwhite20.apex.rest.resource.ApexResource;
 import de.jackwhite20.cobra.server.impl.CobraConfig;
+import fr.iambluedev.vulkan.rest.VulkanResource;
 
 /**
  * Created by JackWhite20 on 27.06.2016.
@@ -35,5 +36,6 @@ public class ApexRestConfig extends CobraConfig {
         maxPoolSize(4);
         backLog(50);
         register(ApexResource.class);
+        register(VulkanResource.class);
     }
 }

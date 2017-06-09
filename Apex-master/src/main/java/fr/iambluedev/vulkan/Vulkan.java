@@ -1,5 +1,8 @@
 package fr.iambluedev.vulkan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
 import fr.iambluedev.vulkan.state.ListeningState;
@@ -11,11 +14,14 @@ public class Vulkan {
 	private WhiteListConfig whiteListConfig;
 	private ApexConfig apexConfig;
 	
+	private List<String> whitelistedIp;
+	
 	public Vulkan(){
 		instance = this;
 		this.listeningState = ListeningState.OPEN;
 		this.whiteListConfig = new WhiteListConfig();
 		this.apexConfig = new ApexConfig();
+		this.whitelistedIp = new ArrayList<String>();
 	}
 
 	public ListeningState getListeningState() {
@@ -36,5 +42,9 @@ public class Vulkan {
 
 	public ApexConfig getApexConfig() {
 		return this.apexConfig;
+	}
+
+	public List<String> getWhitelistedIp() {
+		return this.whitelistedIp;
 	}
 }
