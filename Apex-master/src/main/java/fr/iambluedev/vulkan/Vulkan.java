@@ -3,6 +3,9 @@ package fr.iambluedev.vulkan;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jackwhite20.apex.Apex;
+import fr.iambluedev.spartan.api.gson.JSONArray;
+import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
 import fr.iambluedev.vulkan.state.ListeningState;
@@ -22,6 +25,12 @@ public class Vulkan {
 		this.whiteListConfig = new WhiteListConfig();
 		this.apexConfig = new ApexConfig();
 		this.whitelistedIp = new ArrayList<String>();
+		JSONObject jsonObj = (JSONObject) this.whiteListConfig.getJsonObject();	
+		JSONArray jsonArr = (JSONArray) jsonObj.get("whitelist");
+		for(Object obj : jsonArr){
+			this.whitelistedIp.add((String) obj);
+			Apex.getLogger().debug("Added " + obj + " to the whitelist");
+		}
 	}
 
 	public ListeningState getListeningState() {

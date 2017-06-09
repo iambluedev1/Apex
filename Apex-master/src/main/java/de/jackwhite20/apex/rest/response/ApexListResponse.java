@@ -19,8 +19,6 @@
 
 package de.jackwhite20.apex.rest.response;
 
-import de.jackwhite20.apex.util.BackendInfo;
-
 import java.util.List;
 
 /**
@@ -29,12 +27,12 @@ import java.util.List;
 public class ApexListResponse extends ApexResponse {
 	
 	@SuppressWarnings("unused")
-    private List<BackendInfo> backendInfo;
+    private List<?> list;
 
-    public ApexListResponse(Status status, String message, List<BackendInfo> backendInfo) {
+    public ApexListResponse(Status status, String message, List<?> list) {
 
         super(status, message);
 
-        this.backendInfo = backendInfo;
+        this.list = list;
     }
 }

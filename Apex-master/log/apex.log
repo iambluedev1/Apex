@@ -617,3 +617,293 @@
 21:28:34 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
 21:28:34 [main] INFO  RestServer - RESTful API listening on localhost:6000
 21:28:34 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:39:49 [main] INFO  Main - Starting Apex
+21:39:49 [main] INFO  SpartanConfig - Initialising whitelist file
+21:39:49 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:39:49 [main] INFO  SpartanConfig - Initialising apex file
+21:39:49 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:39:49 [main] INFO  Main - Using mode: TCP
+21:39:49 [main] INFO  Apex - Logger level is now DEBUG
+21:39:49 [main] DEBUG Apex - Mode: TCP
+21:39:49 [main] DEBUG Apex - Host: 0.0.0.0
+21:39:49 [main] DEBUG Apex - Port: 80
+21:39:49 [main] DEBUG Apex - Balance: RANDOM
+21:39:49 [main] DEBUG Apex - Backlog: 100
+21:39:49 [main] DEBUG Apex - Boss: 1
+21:39:49 [main] DEBUG Apex - Worker: 4
+21:39:49 [main] DEBUG Apex - Stats: false
+21:39:49 [main] DEBUG Apex - Probe: 5000
+21:39:49 [main] DEBUG Apex - Backend: 164.132.48.233
+21:39:49 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:39:49 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:39:49 [main] INFO  ApexSocket - Bootstrapping socket server
+21:39:49 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:39:49 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:39:49 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:39:49 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:41:18 [main] INFO  Main - Starting Apex
+21:41:18 [main] INFO  SpartanConfig - Initialising whitelist file
+21:41:18 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:41:18 [main] INFO  SpartanConfig - Initialising apex file
+21:41:18 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:41:18 [main] INFO  Main - Using mode: TCP
+21:41:18 [main] INFO  Apex - Logger level is now DEBUG
+21:41:18 [main] DEBUG Apex - Mode: TCP
+21:41:18 [main] DEBUG Apex - Host: 0.0.0.0
+21:41:18 [main] DEBUG Apex - Port: 80
+21:41:18 [main] DEBUG Apex - Balance: RANDOM
+21:41:18 [main] DEBUG Apex - Backlog: 100
+21:41:18 [main] DEBUG Apex - Boss: 1
+21:41:18 [main] DEBUG Apex - Worker: 4
+21:41:18 [main] DEBUG Apex - Stats: false
+21:41:18 [main] DEBUG Apex - Probe: 5000
+21:41:18 [main] DEBUG Apex - Backend: 164.132.48.233
+21:41:18 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:41:18 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:41:18 [main] INFO  ApexSocket - Bootstrapping socket server
+21:41:18 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:41:18 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:41:19 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:41:19 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:44:52 [main] INFO  Main - Starting Apex
+21:44:52 [main] INFO  SpartanConfig - Initialising whitelist file
+21:44:52 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:44:52 [main] INFO  SpartanConfig - Initialising apex file
+21:44:52 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:44:52 [main] INFO  Main - Using mode: TCP
+21:44:52 [main] INFO  Apex - Logger level is now DEBUG
+21:44:52 [main] DEBUG Apex - Mode: TCP
+21:44:52 [main] DEBUG Apex - Host: 0.0.0.0
+21:44:52 [main] DEBUG Apex - Port: 80
+21:44:52 [main] DEBUG Apex - Balance: RANDOM
+21:44:52 [main] DEBUG Apex - Backlog: 100
+21:44:52 [main] DEBUG Apex - Boss: 1
+21:44:52 [main] DEBUG Apex - Worker: 4
+21:44:52 [main] DEBUG Apex - Stats: false
+21:44:52 [main] DEBUG Apex - Probe: 5000
+21:44:53 [main] DEBUG Apex - Backend: 164.132.48.233
+21:44:53 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:44:53 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:44:53 [main] INFO  ApexSocket - Bootstrapping socket server
+21:44:53 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:44:53 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:44:53 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:44:53 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:47:05 [main] INFO  Main - Starting Apex
+21:47:05 [main] INFO  SpartanConfig - Initialising whitelist file
+21:47:05 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:47:05 [main] INFO  SpartanConfig - Initialising apex file
+21:47:05 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:47:38 [main] INFO  Main - Starting Apex
+21:47:38 [main] INFO  SpartanConfig - Initialising whitelist file
+21:47:38 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:47:38 [main] INFO  SpartanConfig - Initialising apex file
+21:47:38 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:48:05 [main] INFO  Main - Starting Apex
+21:48:05 [main] INFO  SpartanConfig - Initialising whitelist file
+21:48:05 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:48:05 [main] INFO  SpartanConfig - Initialising apex file
+21:48:05 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:48:05 [main] INFO  Main - Using mode: TCP
+21:48:05 [main] INFO  Apex - Logger level is now DEBUG
+21:48:05 [main] DEBUG Apex - Mode: TCP
+21:48:05 [main] DEBUG Apex - Host: 0.0.0.0
+21:48:05 [main] DEBUG Apex - Port: 80
+21:48:05 [main] DEBUG Apex - Balance: RANDOM
+21:48:05 [main] DEBUG Apex - Backlog: 100
+21:48:05 [main] DEBUG Apex - Boss: 1
+21:48:05 [main] DEBUG Apex - Worker: 4
+21:48:05 [main] DEBUG Apex - Stats: false
+21:48:05 [main] DEBUG Apex - Probe: 5000
+21:48:05 [main] DEBUG Apex - Backend: 164.132.48.233
+21:48:05 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:48:05 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:48:06 [main] INFO  ApexSocket - Bootstrapping socket server
+21:48:06 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:48:06 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:48:06 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:48:06 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:48:31 [main] INFO  Main - Starting Apex
+21:48:31 [main] INFO  SpartanConfig - Initialising whitelist file
+21:48:31 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:48:31 [main] INFO  SpartanConfig - Initialising apex file
+21:48:31 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:49:04 [main] INFO  Main - Starting Apex
+21:49:04 [main] INFO  SpartanConfig - Initialising whitelist file
+21:49:04 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:49:04 [main] INFO  SpartanConfig - Initialising apex file
+21:49:04 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:49:04 [main] INFO  Main - Using mode: TCP
+21:49:04 [main] INFO  Apex - Logger level is now DEBUG
+21:49:04 [main] DEBUG Apex - Mode: TCP
+21:49:04 [main] DEBUG Apex - Host: 0.0.0.0
+21:49:04 [main] DEBUG Apex - Port: 80
+21:49:04 [main] DEBUG Apex - Balance: RANDOM
+21:49:04 [main] DEBUG Apex - Backlog: 100
+21:49:04 [main] DEBUG Apex - Boss: 1
+21:49:04 [main] DEBUG Apex - Worker: 4
+21:49:04 [main] DEBUG Apex - Stats: false
+21:49:04 [main] DEBUG Apex - Probe: 5000
+21:49:04 [main] DEBUG Apex - Backend: 164.132.48.233
+21:49:04 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:49:04 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:49:04 [main] INFO  ApexSocket - Bootstrapping socket server
+21:49:04 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:49:04 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:49:05 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:49:05 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:49:52 [main] INFO  Main - Starting Apex
+21:49:52 [main] INFO  SpartanConfig - Initialising whitelist file
+21:49:52 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:49:52 [main] INFO  SpartanConfig - Initialising apex file
+21:49:52 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:49:52 [main] INFO  Main - Using mode: TCP
+21:49:52 [main] INFO  Apex - Logger level is now DEBUG
+21:49:52 [main] DEBUG Apex - Mode: TCP
+21:49:52 [main] DEBUG Apex - Host: 0.0.0.0
+21:49:52 [main] DEBUG Apex - Port: 80
+21:49:52 [main] DEBUG Apex - Balance: RANDOM
+21:49:52 [main] DEBUG Apex - Backlog: 100
+21:49:52 [main] DEBUG Apex - Boss: 1
+21:49:52 [main] DEBUG Apex - Worker: 4
+21:49:52 [main] DEBUG Apex - Stats: false
+21:49:52 [main] DEBUG Apex - Probe: 5000
+21:49:52 [main] DEBUG Apex - Backend: 164.132.48.233
+21:49:52 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:49:52 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:49:52 [main] INFO  ApexSocket - Bootstrapping socket server
+21:49:52 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:49:52 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:49:52 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:49:52 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:50:18 [main] INFO  Main - Starting Apex
+21:50:18 [main] INFO  SpartanConfig - Initialising whitelist file
+21:50:18 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:50:18 [main] INFO  SpartanConfig - Initialising apex file
+21:50:18 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:51:11 [main] INFO  Main - Starting Apex
+21:51:11 [main] INFO  SpartanConfig - Initialising whitelist file
+21:51:11 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:51:11 [main] INFO  SpartanConfig - Initialising apex file
+21:51:11 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:52:11 [main] INFO  Main - Starting Apex
+21:52:11 [main] INFO  SpartanConfig - Initialising whitelist file
+21:52:11 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:52:11 [main] INFO  SpartanConfig - Initialising apex file
+21:52:11 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:52:11 [main] INFO  Main - Using mode: TCP
+21:52:11 [main] INFO  Apex - Logger level is now DEBUG
+21:52:11 [main] DEBUG Apex - Mode: TCP
+21:52:11 [main] DEBUG Apex - Host: 0.0.0.0
+21:52:11 [main] DEBUG Apex - Port: 80
+21:52:11 [main] DEBUG Apex - Balance: RANDOM
+21:52:11 [main] DEBUG Apex - Backlog: 100
+21:52:11 [main] DEBUG Apex - Boss: 1
+21:52:11 [main] DEBUG Apex - Worker: 4
+21:52:11 [main] DEBUG Apex - Stats: false
+21:52:11 [main] DEBUG Apex - Probe: 5000
+21:52:11 [main] DEBUG Apex - Backend: 164.132.48.233
+21:52:11 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:52:11 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:52:12 [main] INFO  ApexSocket - Bootstrapping socket server
+21:52:12 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:52:12 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:52:12 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:52:12 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:52:18 [main] INFO  Main - Starting Apex
+21:52:18 [main] INFO  SpartanConfig - Initialising whitelist file
+21:52:18 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:52:18 [main] INFO  SpartanConfig - Initialising apex file
+21:52:18 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:52:18 [main] INFO  Main - Using mode: TCP
+21:52:18 [main] INFO  Apex - Logger level is now DEBUG
+21:52:18 [main] DEBUG Apex - Mode: TCP
+21:52:18 [main] DEBUG Apex - Host: 0.0.0.0
+21:52:18 [main] DEBUG Apex - Port: 80
+21:52:18 [main] DEBUG Apex - Balance: RANDOM
+21:52:18 [main] DEBUG Apex - Backlog: 100
+21:52:18 [main] DEBUG Apex - Boss: 1
+21:52:18 [main] DEBUG Apex - Worker: 4
+21:52:18 [main] DEBUG Apex - Stats: false
+21:52:18 [main] DEBUG Apex - Probe: 5000
+21:52:18 [main] DEBUG Apex - Backend: 164.132.48.233
+21:52:18 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:52:18 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:52:18 [main] INFO  ApexSocket - Bootstrapping socket server
+21:52:19 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:52:19 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:52:19 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:52:19 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:52:32 [main] INFO  Main - Starting Apex
+21:52:32 [main] INFO  SpartanConfig - Initialising whitelist file
+21:52:32 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:52:32 [main] INFO  SpartanConfig - Initialising apex file
+21:52:32 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:52:32 [main] INFO  Main - Using mode: TCP
+21:52:32 [main] INFO  Apex - Logger level is now DEBUG
+21:52:32 [main] DEBUG Apex - Mode: TCP
+21:52:32 [main] DEBUG Apex - Host: 0.0.0.0
+21:52:32 [main] DEBUG Apex - Port: 80
+21:52:32 [main] DEBUG Apex - Balance: RANDOM
+21:52:32 [main] DEBUG Apex - Backlog: 100
+21:52:32 [main] DEBUG Apex - Boss: 1
+21:52:32 [main] DEBUG Apex - Worker: 4
+21:52:32 [main] DEBUG Apex - Stats: false
+21:52:32 [main] DEBUG Apex - Probe: 5000
+21:52:32 [main] DEBUG Apex - Backend: 164.132.48.233
+21:52:32 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:52:32 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:52:32 [main] INFO  ApexSocket - Bootstrapping socket server
+21:52:32 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:52:32 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:52:32 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:52:32 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:52:49 [main] INFO  Main - Starting Apex
+21:52:49 [main] INFO  SpartanConfig - Initialising whitelist file
+21:52:49 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:52:49 [main] INFO  SpartanConfig - Initialising apex file
+21:52:49 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:52:49 [main] INFO  Main - Using mode: TCP
+21:52:50 [main] INFO  Apex - Logger level is now DEBUG
+21:52:50 [main] DEBUG Apex - Mode: TCP
+21:52:50 [main] DEBUG Apex - Host: 0.0.0.0
+21:52:50 [main] DEBUG Apex - Port: 80
+21:52:50 [main] DEBUG Apex - Balance: RANDOM
+21:52:50 [main] DEBUG Apex - Backlog: 100
+21:52:50 [main] DEBUG Apex - Boss: 1
+21:52:50 [main] DEBUG Apex - Worker: 4
+21:52:50 [main] DEBUG Apex - Stats: false
+21:52:50 [main] DEBUG Apex - Probe: 5000
+21:52:50 [main] DEBUG Apex - Backend: 164.132.48.233
+21:52:50 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:52:50 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:52:50 [main] INFO  ApexSocket - Bootstrapping socket server
+21:52:50 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:52:50 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:52:50 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:52:50 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:53:46 [main] INFO  Main - Starting Apex
+21:53:46 [main] INFO  SpartanConfig - Initialising whitelist file
+21:53:46 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:53:46 [main] INFO  SpartanConfig - Initialising apex file
+21:53:46 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:53:46 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:53:46 [main] INFO  Main - Using mode: TCP
+21:53:46 [main] INFO  Apex - Logger level is now DEBUG
+21:53:46 [main] DEBUG Apex - Mode: TCP
+21:53:46 [main] DEBUG Apex - Host: 0.0.0.0
+21:53:46 [main] DEBUG Apex - Port: 80
+21:53:46 [main] DEBUG Apex - Balance: RANDOM
+21:53:46 [main] DEBUG Apex - Backlog: 100
+21:53:46 [main] DEBUG Apex - Boss: 1
+21:53:46 [main] DEBUG Apex - Worker: 4
+21:53:46 [main] DEBUG Apex - Stats: false
+21:53:46 [main] DEBUG Apex - Probe: 5000
+21:53:46 [main] DEBUG Apex - Backend: 164.132.48.233
+21:53:46 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:53:47 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:53:47 [main] INFO  ApexSocket - Bootstrapping socket server
+21:53:47 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:53:47 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:53:47 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:53:47 [main] INFO  Apex - Apex listening on 0.0.0.0:80
