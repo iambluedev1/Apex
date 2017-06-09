@@ -27,6 +27,7 @@ import de.jackwhite20.apex.util.BackendInfo;
 import fr.iambluedev.vulkan.Vulkan;
 import fr.iambluedev.vulkan.backend.DefaultWebBackend;
 import fr.iambluedev.vulkan.state.ListeningState;
+import fr.iambluedev.vulkan.state.WhitelistState;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -70,6 +71,13 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
 			backendInfo = new DefaultWebBackend();
     		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
     		
+    	}
+    	
+    	if(Vulkan.getInstance().getWhitelistState() == WhitelistState.ON){
+			if(!Vulkan.getInstance().getWhitelistedIp().contains(channel.remoteAddress().getHostName())){
+				backendInfo = new DefaultWebBackend();
+	    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
+			}
     	}
     	
         if (backendInfo == null) {

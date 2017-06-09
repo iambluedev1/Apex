@@ -56,6 +56,7 @@ import de.jackwhite20.apex.util.ReflectionUtil;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.command.CloseCommand;
 import fr.iambluedev.vulkan.command.OpenCommand;
+import fr.iambluedev.vulkan.command.WhitelistCommand;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
@@ -120,6 +121,7 @@ public abstract class Apex {
         
         commandManager.addCommand(new CloseCommand("close", "Close the default listened port", "c"));
         commandManager.addCommand(new OpenCommand("open", "Open the default listened port", "o"));
+        commandManager.addCommand(new WhitelistCommand("whitelist", "Manage the whitelist", "w"));
         
         JSONObject jsonObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("general");
         

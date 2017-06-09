@@ -68,4 +68,8 @@ public class Vulkan {
 	public WhitelistState getWhitelistState() {
 		return this.whitelistState;
 	}
+
+	public void setWhitelistState(WhitelistState whitelistState) {
+		this.whitelistState = whitelistState;
+	}
 }
