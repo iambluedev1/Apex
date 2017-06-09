@@ -27,7 +27,8 @@ import java.util.List;
  * Created by JackWhite20 on 28.10.2016.
  */
 public class ApexListResponse extends ApexResponse {
-
+	
+	@SuppressWarnings("unused")
     private List<BackendInfo> backendInfo;
 
     public ApexListResponse(Status status, String message, List<BackendInfo> backendInfo) {

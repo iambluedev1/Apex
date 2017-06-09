@@ -32,14 +32,6 @@
             <version>4.1.7.Final</version>
         </dependency>
 
-        <!-- Cope -->
-        <dependency>
-	   	 	<groupId>com.github.JackWhite20</groupId>
-	   	 	<artifactId>Cope</artifactId>
-	  	 	 <version>v1.2.0</version>
-		</dependency>
-
-
         <!-- Logback classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>

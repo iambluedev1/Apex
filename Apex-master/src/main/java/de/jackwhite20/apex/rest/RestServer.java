@@ -19,13 +19,11 @@
 
 package de.jackwhite20.apex.rest;
 
-import de.jackwhite20.cobra.server.CobraServer;
-import de.jackwhite20.cobra.server.CobraServerFactory;
-import de.jackwhite20.cope.CopeConfig;
-import de.jackwhite20.cope.config.Header;
-import de.jackwhite20.cope.config.Key;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.jackwhite20.cobra.server.CobraServer;
+import de.jackwhite20.cobra.server.CobraServerFactory;
 
 /**
  * Created by JackWhite20 on 27.06.2016.
@@ -33,25 +31,18 @@ import org.slf4j.LoggerFactory;
 public class RestServer {
 
     private static Logger logger = LoggerFactory.getLogger(RestServer.class);
-
-    private CopeConfig copeConfig;
-
     private CobraServer cobraServer;
 
-    public RestServer(CopeConfig copeConfig) {
-
-        this.copeConfig = copeConfig;
+    private String ip;
+    private Integer port;
+    
+    public RestServer(String ip, Integer port) {
+    	this.ip = ip;
+    	this.port = port;
     }
 
     public void start() {
-
-        Header restHeader = copeConfig.getHeader("rest");
-        Key serverKey = restHeader.getKey("server");
-
-        String ip = serverKey.getValue(0).asString();
-        int port = serverKey.getValue(1).asInt();
-
-        cobraServer = CobraServerFactory.create(new ApexRestConfig(ip, port));
+        cobraServer = CobraServerFactory.create(new ApexRestConfig(this.ip, this.port));
         cobraServer.start();
 
         logger.info("RESTful API listening on {}:{}", ip, port);

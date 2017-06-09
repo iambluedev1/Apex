@@ -22,25 +22,33 @@ package de.jackwhite20.apex.rest.response;
 /**
  * Created by JackWhite20 on 30.10.2016.
  */
-@SuppressWarnings("FieldCanBeLocal")
 public class ApexStatsResponse extends ApexResponse {
-
+	
+	@SuppressWarnings("unused")
     private int connections;
 
-    private int connectionsPerSecond;
-
+    @SuppressWarnings("unused")
+	private int connectionsPerSecond;
+    
+    @SuppressWarnings("unused")
     private int onlineBackendServers;
-
+    
+    @SuppressWarnings("unused")
     private long currentReadBytes;
-
+    
+    @SuppressWarnings("unused")
     private long currentWrittenBytes;
-
+    
+    @SuppressWarnings("unused")
     private long lastReadThroughput;
-
+    
+    @SuppressWarnings("unused")
     private long lastWriteThroughput;
-
+    
+    @SuppressWarnings("unused")
     private long totalReadBytes;
-
+    
+    @SuppressWarnings("unused")
     private long totalWrittenBytes;
 
     public ApexStatsResponse(Status status, String message, int connections, int connectionsPerSecond, int onlineBackendServers, long currentReadBytes, long currentWrittenBytes, long lastReadThroughput, long lastWriteThroughput, long totalReadBytes, long totalWrittenBytes) {

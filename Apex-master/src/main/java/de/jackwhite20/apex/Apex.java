@@ -239,9 +239,10 @@ public abstract class Apex {
                 // Shutdown unnecessary scheduler
                 scheduledExecutorService.shutdown();
             }
-
-            /*restServer = new RestServer(copeConfig);
-            restServer.start();*/
+            
+            JSONObject restObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("rest");
+            restServer = new RestServer((String) restObj.get("ip"), Integer.valueOf(restObj.get("port") + ""));
+            restServer.start();
 
             logger.info("Apex listening on {}:{}", ipKey, portKey);
         } catch (Exception e) {
