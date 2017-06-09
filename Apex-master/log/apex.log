@@ -410,3 +410,186 @@
 18:17:13 [Apex Worker Thread #2] ERROR ApexSocketChannelInitializer - ListeningState is set to close so redirecting to the Default VulkanNetwork Backend
 18:17:13 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:51464] <-> [164.132.48.233:8282 (defaultWebBackend)]
 18:17:18 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:51464] <-> [164.132.48.233:8282 (defaultWebBackend)]
+20:57:17 [main] INFO  Main - Starting Apex
+20:57:17 [main] INFO  Main - Config loaded
+20:57:17 [main] INFO  Main - Using mode: TCP
+20:57:18 [main] INFO  SpartanConfig - Initialising whitelist file
+20:57:18 [main] INFO  SpartanConfig - File whitelist successfully created
+20:57:18 [main] INFO  SpartanConfig - Initialising apex file
+20:57:18 [main] INFO  SpartanConfig - File apex successfully created
+20:57:18 [main] INFO  SpartanConfig - File whitelist successfully created
+20:57:18 [main] INFO  SpartanConfig - File apex successfully created
+20:57:18 [main] INFO  Apex - Logger level is now INFO
+20:57:18 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:57:18 [main] INFO  Apex - Using normal select/poll event notification mechanism
+20:57:18 [main] INFO  ApexSocket - Bootstrapping socket server
+20:57:18 [main] INFO  RestServer - RESTful API listening on localhost:6000
+20:57:18 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+20:58:32 [main] INFO  Main - Starting Apex
+20:58:32 [main] INFO  Main - Config loaded
+20:58:32 [main] INFO  Main - Using mode: TCP
+20:58:32 [main] INFO  SpartanConfig - Initialising whitelist file
+20:58:32 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+20:58:32 [main] INFO  SpartanConfig - Initialising apex file
+20:58:32 [main] INFO  SpartanConfig - apex file succesfully loaded
+20:58:32 [main] INFO  SpartanConfig - File whitelist successfully created
+20:58:32 [main] INFO  SpartanConfig - File apex successfully created
+20:58:32 [main] INFO  Apex - Logger level is now INFO
+20:58:32 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:58:32 [main] INFO  Apex - Using normal select/poll event notification mechanism
+20:58:32 [main] INFO  ApexSocket - Bootstrapping socket server
+20:58:33 [main] INFO  RestServer - RESTful API listening on localhost:6000
+20:58:33 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:00:37 [main] INFO  Main - Starting Apex
+21:00:37 [main] INFO  Main - Config loaded
+21:00:37 [main] INFO  Main - Using mode: TCP
+21:00:37 [main] INFO  Apex - Logger level is now INFO
+21:00:37 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:00:37 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:00:38 [main] INFO  ApexSocket - Bootstrapping socket server
+21:00:38 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:00:38 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:01:07 [main] INFO  Main - Starting Apex
+21:01:07 [main] INFO  SpartanConfig - Initialising whitelist file
+21:01:07 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:01:07 [main] INFO  SpartanConfig - Initialising apex file
+21:01:07 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:01:07 [main] INFO  SpartanConfig - File whitelist successfully created
+21:01:07 [main] INFO  SpartanConfig - File apex successfully created
+21:02:17 [main] INFO  Main - Starting Apex
+21:02:17 [main] INFO  SpartanConfig - Initialising whitelist file
+21:02:17 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:02:17 [main] INFO  SpartanConfig - Initialising apex file
+21:02:17 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:02:17 [main] INFO  SpartanConfig - File whitelist successfully created
+21:02:17 [main] INFO  SpartanConfig - File apex successfully created
+21:02:17 [main] INFO  Main - Using mode: TCP
+21:16:36 [main] INFO  Main - Starting Apex
+21:16:36 [main] INFO  SpartanConfig - Initialising whitelist file
+21:16:36 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:16:36 [main] INFO  SpartanConfig - Initialising apex file
+21:16:36 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:16:36 [main] INFO  SpartanConfig - File whitelist successfully created
+21:16:36 [main] INFO  SpartanConfig - File apex successfully created
+21:16:36 [main] INFO  Main - Using mode: TCP
+21:16:52 [main] INFO  Main - Starting Apex
+21:16:52 [main] INFO  SpartanConfig - Initialising whitelist file
+21:16:52 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:16:52 [main] INFO  SpartanConfig - Initialising apex file
+21:16:52 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:16:52 [main] INFO  SpartanConfig - File whitelist successfully created
+21:16:52 [main] INFO  SpartanConfig - File apex successfully created
+21:16:52 [main] INFO  Main - Using mode: TCP
+21:17:17 [main] INFO  Main - Starting Apex
+21:17:17 [main] INFO  SpartanConfig - Initialising whitelist file
+21:17:17 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:17:17 [main] INFO  SpartanConfig - Initialising apex file
+21:17:17 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:17:17 [main] INFO  SpartanConfig - File whitelist successfully created
+21:17:17 [main] INFO  SpartanConfig - File apex successfully created
+21:17:17 [main] INFO  Main - Using mode: TCP
+21:17:29 [main] INFO  Main - Starting Apex
+21:17:29 [main] INFO  SpartanConfig - Initialising whitelist file
+21:17:29 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:17:29 [main] INFO  SpartanConfig - Initialising apex file
+21:17:29 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:17:29 [main] INFO  SpartanConfig - File whitelist successfully created
+21:17:29 [main] INFO  SpartanConfig - File apex successfully created
+21:17:29 [main] INFO  Main - Using mode: TCP
+21:17:30 [main] INFO  Apex - Logger level is now INFO
+21:17:30 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:17:30 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:17:30 [main] INFO  ApexSocket - Bootstrapping socket server
+21:17:30 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:17:50 [main] INFO  Main - Starting Apex
+21:17:50 [main] INFO  SpartanConfig - Initialising whitelist file
+21:17:50 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:17:50 [main] INFO  SpartanConfig - Initialising apex file
+21:17:50 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:17:50 [main] INFO  SpartanConfig - File whitelist successfully created
+21:17:50 [main] INFO  SpartanConfig - File apex successfully created
+21:17:50 [main] INFO  Main - Using mode: TCP
+21:17:50 [main] INFO  Apex - Logger level is now INFO
+21:17:50 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:17:50 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:17:50 [main] INFO  ApexSocket - Bootstrapping socket server
+21:17:50 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:18:56 [main] INFO  Main - Starting Apex
+21:18:56 [main] INFO  SpartanConfig - Initialising whitelist file
+21:18:56 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:18:56 [main] INFO  SpartanConfig - Initialising apex file
+21:18:56 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:18:56 [main] INFO  Main - Using mode: TCP
+21:18:56 [main] INFO  Apex - Logger level is now DEBUG
+21:18:56 [main] DEBUG Apex - Mode: TCP
+21:18:56 [main] DEBUG Apex - Host: 0.0.0.0
+21:18:56 [main] DEBUG Apex - Port: 80
+21:18:56 [main] DEBUG Apex - Balance: RANDOM
+21:18:56 [main] DEBUG Apex - Backlog: 100
+21:18:56 [main] DEBUG Apex - Boss: 1
+21:18:56 [main] DEBUG Apex - Worker: 4
+21:18:56 [main] DEBUG Apex - Stats: false
+21:18:56 [main] DEBUG Apex - Probe: 5000
+21:18:56 [main] DEBUG Apex - Backend: 
+21:18:56 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:18:56 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:18:56 [main] INFO  ApexSocket - Bootstrapping socket server
+21:18:56 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:18:56 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:18:57 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:21:27 [main] INFO  Main - Starting Apex
+21:21:27 [main] INFO  SpartanConfig - Initialising whitelist file
+21:21:27 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:21:27 [main] INFO  SpartanConfig - Initialising apex file
+21:21:27 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:21:27 [main] INFO  Main - Using mode: TCP
+21:21:27 [main] INFO  Apex - Logger level is now DEBUG
+21:21:27 [main] DEBUG Apex - Mode: TCP
+21:21:27 [main] DEBUG Apex - Host: 0.0.0.0
+21:21:27 [main] DEBUG Apex - Port: 80
+21:21:27 [main] DEBUG Apex - Balance: RANDOM
+21:21:27 [main] DEBUG Apex - Backlog: 100
+21:21:27 [main] DEBUG Apex - Boss: 1
+21:21:27 [main] DEBUG Apex - Worker: 4
+21:21:27 [main] DEBUG Apex - Stats: false
+21:21:27 [main] DEBUG Apex - Probe: 5000
+21:21:27 [main] DEBUG Apex - Backend: 
+21:21:27 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:21:27 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:21:27 [main] INFO  ApexSocket - Bootstrapping socket server
+21:21:27 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:21:27 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:21:27 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:23:28 [main] INFO  Main - Starting Apex
+21:23:28 [main] INFO  SpartanConfig - Initialising whitelist file
+21:23:28 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:23:28 [main] INFO  SpartanConfig - Initialising apex file
+21:23:28 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:23:28 [main] INFO  Main - Using mode: TCP
+21:23:28 [main] INFO  Apex - Logger level is now DEBUG
+21:23:28 [main] DEBUG Apex - Mode: TCP
+21:23:28 [main] DEBUG Apex - Host: 0.0.0.0
+21:23:28 [main] DEBUG Apex - Port: 80
+21:23:28 [main] DEBUG Apex - Balance: RANDOM
+21:23:28 [main] DEBUG Apex - Backlog: 100
+21:23:28 [main] DEBUG Apex - Boss: 1
+21:23:28 [main] DEBUG Apex - Worker: 4
+21:23:28 [main] DEBUG Apex - Stats: false
+21:23:28 [main] DEBUG Apex - Probe: 5000
+21:23:28 [main] DEBUG Apex - Backend: 164.132.48.233
+21:23:28 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:23:28 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:23:28 [main] INFO  ApexSocket - Bootstrapping socket server
+21:23:28 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:23:28 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:23:28 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+21:23:52 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:52204] <-> [164.132.48.233:80 (web-01)]
+21:23:53 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:52206] <-> [164.132.48.233:80 (web-01)]
+21:23:53 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:52207] <-> [164.132.48.233:80 (web-01)]
+21:23:58 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:52207] <-> [164.132.48.233:80 (web-01)]
+21:23:58 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:52206] <-> [164.132.48.233:80 (web-01)]
+21:23:58 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:52204] <-> [164.132.48.233:80 (web-01)]
+21:23:59 [main] INFO  Apex - Executing command: close
+21:23:59 [main] INFO  CloseCommand - The default port is now closed !
+21:24:02 [Apex Worker Thread #3] ERROR ApexSocketChannelInitializer - ListeningState is set to close so redirecting to the Default VulkanNetwork Backend
+21:24:02 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:52212] <-> [164.132.48.233:8282 (defaultWebBackend)]

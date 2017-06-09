@@ -38,15 +38,6 @@ public class Main {
 
         logger.info("Starting Apex");
 
-        /*File config = new File("config.cope");
-        if (!config.exists()) {
-            try {
-                Files.copy(Main.class.getClassLoader().getResourceAsStream("config.cope"), config.toPath());
-            } catch (IOException e) {
-                logger.error("Unable to copy default config! No write permissions?", e);
-                return;
-            }
-        }*/
         vulkan = new Vulkan();
         JSONObject jsonObj = (JSONObject) vulkan.getApexConfig().getJsonObject().get("general");
         String modeString = (String) jsonObj.get("mode");
@@ -60,37 +51,6 @@ public class Main {
         Apex apex = ApexFactory.create(mode);
         apex.start(mode);
         apex.console();
-       /* try {
-            CopeConfig copeConfig = Cope.from(config)
-                    .def(new Header("general"), new Key("mode"), new Value("tcp"))
-                    .def(new Header("general"), new Key("server"), new Value("0.0.0.0"), new Value("80"))
-                    .def(new Header("general"), new Key("backlog"), new Value("100"))
-                    .def(new Header("general"), new Key("boss"), new Value(String.valueOf(PipelineUtils.DEFAULT_BOSS_THREADS)))
-                    .def(new Header("general"), new Key("worker"), new Value(String.valueOf(PipelineUtils.DEFAULT_WORKER_THREADS)))
-                    .def(new Header("general"), new Key("balance"), new Value("RANDOM"))
-                    .def(new Header("general"), new Key("timeout"), new Value("60"), new Value("60"))
-                    .def(new Header("general"), new Key("probe"), new Value("10000"))
-                    .def(new Header("general"), new Key("debug"), new Value("true"))
-                    .def(new Header("general"), new Key("stats"), new Value("true"))
-                    .build();
-
-            logger.info("Config loaded");
-            String modeString = copeConfig.getHeader("general").getKey("mode").next().asString();
-            Mode mode = Mode.of(modeString);
-            if (mode == null) {
-                logger.error("Invalid mode '{}', using 'tcp' as default mode", modeString);
-
-                mode = Mode.TCP;
-            } else {
-                logger.info("Using mode: " + mode);
-            }
-
-            Apex apex = ApexFactory.create(mode, copeConfig);
-            apex.start(mode);
-            apex.console();
-        } catch (CopeException e) {
-            logger.error("Unable to load config", e);
-        }*/
     }
 
 	public static Vulkan getVulkan() {

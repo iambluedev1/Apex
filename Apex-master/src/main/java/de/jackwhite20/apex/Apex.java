@@ -145,12 +145,6 @@ public abstract class Apex {
         	BackendInfo info = new BackendInfo((String) obj, (String) backend.get("ip"), Integer.valueOf(backend.get("port") + ""));
         	backendInfo.add(info);
         }
-       /* List<BackendInfo> backendInfo = copeConfig.getHeader("backend").getKeys()
-                .stream()
-                .map(backend -> new BackendInfo(backend.getName(),
-                        backend.next().asString(),
-                        backend.next().asInt()))
-                .collect(Collectors.toList());*/
 
         logger.debug("Mode: {}", mode);
         logger.debug("Host: {}", ipKey);
