@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.util.logging.Level;
 
+import de.jackwhite20.apex.Apex;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.spartan.api.gson.parser.JSONParser;
 import fr.iambluedev.spartan.api.gson.parser.ParseException;
@@ -26,7 +26,7 @@ public abstract class SpartanConfig {
 	public SpartanConfig(String name){
 		this.name = name;
 		
-		//this.instance.getLogger().log(Level.INFO, "Initialising " + this.getName() + " file");
+		Apex.getLogger().info("Initialising " + this.getName() + " file");
 		
 		this.folder = new File("configs");
 		this.file = new File(folder, this.name + ".json");
@@ -43,15 +43,15 @@ public abstract class SpartanConfig {
 				this.file.createNewFile();
 				this.setupConfig();
 			} catch (IOException e) {
-				//this.instance.getLogger().log(Level.SEVERE, "Error when creating the " + this.getName() + " file");
+				Apex.getLogger().error("Error when creating the " + this.getName() + " file");
 				e.printStackTrace();
 			}
 		}else{
 			try {
 				this.jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(new FileInputStream(this.file)));
-				//this.instance.getLogger().log(Level.INFO, this.getName() + " file succesfully loaded");
+				Apex.getLogger().info(this.getName() + " file succesfully loaded");
 			} catch (IOException | ParseException e) {
-				//this.instance.getLogger().log(Level.SEVERE, "Error when loading the " + this.getName() + " file");
+				Apex.getLogger().error("Error when loading the " + this.getName() + " file");
 				e.printStackTrace();
 			}
 		}
@@ -78,15 +78,15 @@ public abstract class SpartanConfig {
 	public void save(){
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.file), "utf-8"))) {
 			writer.write(this.jsonObject.toJSONString());
-			//this.instance.getLogger().log(Level.INFO, "File " + this.getName() + " successfully created");
+			Apex.getLogger().info("File " + this.getName() + " successfully created");
 		} catch (UnsupportedEncodingException e) {
-			//this.instance.getLogger().log(Level.SEVERE, "Error when saving the " + this.getName() + " file");
+			Apex.getLogger().error("Error when saving the " + this.getName() + " file");
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			//this.instance.getLogger().log(Level.SEVERE, "Error when saving the " + this.getName() + " file");
+			Apex.getLogger().error("Error when saving the " + this.getName() + " file");
 			e.printStackTrace();
 		} catch (IOException e) {
-			//this.instance.getLogger().log(Level.SEVERE, "Error when saving the " + this.getName() + " file");
+			Apex.getLogger().error("Error when saving the " + this.getName() + " file");
 			e.printStackTrace();
 		}
 	}

@@ -1,15 +1,24 @@
 package fr.iambluedev.vulkan;
 
+import fr.iambluedev.vulkan.config.ApexConfig;
+import fr.iambluedev.vulkan.config.WhiteListConfig;
 import fr.iambluedev.vulkan.state.ListeningState;
 
 public class Vulkan {
 
-	private ListeningState listeningState;
 	private static Vulkan instance;
+	private ListeningState listeningState;
+	private WhiteListConfig whiteListConfig;
+	private ApexConfig apexConfig;
 	
 	public Vulkan(){
 		instance = this;
-		this.setListeningState(ListeningState.OPEN);
+		this.listeningState = ListeningState.OPEN;
+		this.whiteListConfig = new WhiteListConfig();
+		this.apexConfig = new ApexConfig();
+		
+		this.whiteListConfig.setupConfig();
+		this.apexConfig.setupConfig();
 	}
 
 	public ListeningState getListeningState() {
@@ -22,5 +31,13 @@ public class Vulkan {
 
 	public static Vulkan getInstance() {
 		return instance;
+	}
+
+	public WhiteListConfig getWhiteListConfig() {
+		return this.whiteListConfig;
+	}
+
+	public ApexConfig getApexConfig() {
+		return this.apexConfig;
 	}
 }
