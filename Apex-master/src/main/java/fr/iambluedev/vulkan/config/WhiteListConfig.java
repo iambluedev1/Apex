@@ -1,7 +1,7 @@
 package fr.iambluedev.vulkan.config;
 
 import fr.iambluedev.spartan.api.config.SpartanConfig;
-import fr.iambluedev.spartan.api.gson.JSONObject;
+import fr.iambluedev.spartan.api.gson.JSONArray;
 
 public class WhiteListConfig extends SpartanConfig{
 
@@ -12,7 +12,8 @@ public class WhiteListConfig extends SpartanConfig{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void setupConfig() {
-		JSONObject whitelistObj = new JSONObject();
+		JSONArray whitelistObj = new JSONArray();
+		whitelistObj.add("127.0.0.1");
 		this.getJsonObject().put("whitelist", whitelistObj);
 		this.save();
 	}
