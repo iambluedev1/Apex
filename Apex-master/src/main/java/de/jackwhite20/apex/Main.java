@@ -19,20 +19,12 @@
 
 package de.jackwhite20.apex;
 
-import de.jackwhite20.apex.util.Mode;
-import de.jackwhite20.apex.util.PipelineUtils;
-import de.jackwhite20.cope.Cope;
-import de.jackwhite20.cope.CopeConfig;
-import de.jackwhite20.cope.config.Header;
-import de.jackwhite20.cope.config.Key;
-import de.jackwhite20.cope.config.Value;
-import de.jackwhite20.cope.exception.CopeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+import de.jackwhite20.apex.util.Mode;
+import fr.iambluedev.spartan.api.gson.JSONObject;
+import fr.iambluedev.vulkan.Vulkan;
 
 /**
  * Created by JackWhite20 on 26.06.2016.
@@ -40,12 +32,13 @@ import java.nio.file.Files;
 public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
-
+    private static Vulkan vulkan;
+    
     public static void main(String[] args) {
 
         logger.info("Starting Apex");
 
-        File config = new File("config.cope");
+        /*File config = new File("config.cope");
         if (!config.exists()) {
             try {
                 Files.copy(Main.class.getClassLoader().getResourceAsStream("config.cope"), config.toPath());
@@ -53,9 +46,21 @@ public class Main {
                 logger.error("Unable to copy default config! No write permissions?", e);
                 return;
             }
+        }*/
+        vulkan = new Vulkan();
+        JSONObject jsonObj = (JSONObject) vulkan.getApexConfig().getJsonObject().get("general");
+        String modeString = (String) jsonObj.get("mode");
+        Mode mode = Mode.of(modeString);
+        if (mode == null) {
+            logger.error("Invalid mode '{}', using 'tcp' as default mode", modeString);
+            mode = Mode.TCP;
+        } else {
+            logger.info("Using mode: " + mode);
         }
-
-        try {
+        Apex apex = ApexFactory.create(mode);
+        apex.start(mode);
+        apex.console();
+       /* try {
             CopeConfig copeConfig = Cope.from(config)
                     .def(new Header("general"), new Key("mode"), new Value("tcp"))
                     .def(new Header("general"), new Key("server"), new Value("0.0.0.0"), new Value("80"))
@@ -70,7 +75,6 @@ public class Main {
                     .build();
 
             logger.info("Config loaded");
-
             String modeString = copeConfig.getHeader("general").getKey("mode").next().asString();
             Mode mode = Mode.of(modeString);
             if (mode == null) {
@@ -86,6 +90,10 @@ public class Main {
             apex.console();
         } catch (CopeException e) {
             logger.error("Unable to load config", e);
-        }
+        }*/
     }
+
+	public static Vulkan getVulkan() {
+		return vulkan;
+	}
 }

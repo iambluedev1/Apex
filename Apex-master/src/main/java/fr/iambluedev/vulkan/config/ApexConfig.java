@@ -17,6 +17,7 @@ public class ApexConfig extends SpartanConfig{
 		generalObj.put("debug", false);
 		generalObj.put("ip", "0.0.0.0");
 		generalObj.put("port", 80);
+		generalObj.put("boss", 1);
 		generalObj.put("backlog", 100);
 		generalObj.put("worker", 4);
 		generalObj.put("timeout", 30);

@@ -19,18 +19,18 @@
 
 package de.jackwhite20.apex.tcp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.tcp.pipeline.initialize.ApexSocketChannelInitializer;
 import de.jackwhite20.apex.util.PipelineUtils;
-import de.jackwhite20.cope.CopeConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.epoll.EpollChannelOption;
 import io.netty.channel.epoll.EpollMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by JackWhite20 on 26.06.2016.
@@ -39,10 +39,7 @@ public class ApexSocket extends Apex {
 
     private static Logger logger = LoggerFactory.getLogger(ApexSocket.class);
 
-    public ApexSocket(CopeConfig copeConfig) {
-
-        super(copeConfig);
-    }
+    public ApexSocket() {}
 
     @Override
     public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {

@@ -22,7 +22,6 @@ package de.jackwhite20.apex;
 import de.jackwhite20.apex.tcp.ApexSocket;
 import de.jackwhite20.apex.udp.ApexDatagram;
 import de.jackwhite20.apex.util.Mode;
-import de.jackwhite20.cope.CopeConfig;
 
 /**
  * Created by JackWhite20 on 05.11.2016.
@@ -33,15 +32,15 @@ public final class ApexFactory {
         // No instance
     }
 
-    public static Apex create(Mode mode, CopeConfig copeConfig) {
+    public static Apex create(Mode mode) {
 
         switch (mode) {
             case TCP:
-                return new ApexSocket(copeConfig);
+                return new ApexSocket();
             case UDP:
-                return new ApexDatagram(copeConfig);
+                return new ApexDatagram();
             default:
-                return new ApexSocket(copeConfig);
+                return new ApexSocket();
         }
     }
 }

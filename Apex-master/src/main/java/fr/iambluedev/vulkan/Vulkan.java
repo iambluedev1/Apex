@@ -16,9 +16,6 @@ public class Vulkan {
 		this.listeningState = ListeningState.OPEN;
 		this.whiteListConfig = new WhiteListConfig();
 		this.apexConfig = new ApexConfig();
-		
-		this.whiteListConfig.setupConfig();
-		this.apexConfig.setupConfig();
 	}
 
 	public ListeningState getListeningState() {

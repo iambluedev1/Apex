@@ -19,10 +19,12 @@
 
 package de.jackwhite20.apex.udp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.udp.pipeline.DatagramUpstreamHandler;
 import de.jackwhite20.apex.util.PipelineUtils;
-import de.jackwhite20.cope.CopeConfig;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -30,8 +32,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.epoll.EpollChannelOption;
 import io.netty.channel.epoll.EpollMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by JackWhite20 on 04.11.2016.
@@ -40,10 +40,7 @@ public class ApexDatagram extends Apex {
 
     private static Logger logger = LoggerFactory.getLogger(ApexDatagram.class);
 
-    public ApexDatagram(CopeConfig copeConfig) {
-
-        super(copeConfig);
-    }
+    public ApexDatagram() {}
 
     @Override
     public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {

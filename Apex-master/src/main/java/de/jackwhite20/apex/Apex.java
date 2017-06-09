@@ -19,6 +19,7 @@
 
 package de.jackwhite20.apex;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -52,10 +53,7 @@ import de.jackwhite20.apex.util.FileUtil;
 import de.jackwhite20.apex.util.Mode;
 import de.jackwhite20.apex.util.PipelineUtils;
 import de.jackwhite20.apex.util.ReflectionUtil;
-import de.jackwhite20.cope.CopeConfig;
-import de.jackwhite20.cope.config.Header;
-import de.jackwhite20.cope.config.Key;
-import fr.iambluedev.vulkan.Vulkan;
+import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.command.CloseCommand;
 import fr.iambluedev.vulkan.command.OpenCommand;
 import io.netty.channel.Channel;
@@ -81,8 +79,6 @@ public abstract class Apex {
 
     private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(APEX_PACKAGE_NAME);
 
-    private CopeConfig copeConfig;
-
     private BalancingStrategy balancingStrategy;
 
     private CheckBackendTask backendTask;
@@ -107,17 +103,10 @@ public abstract class Apex {
 
     private ConnectionsPerSecondTask connectionsPerSecondTask;
     
-    private Vulkan vulkan;
-
-    public Apex(CopeConfig copeConfig) {
-
+    public Apex() {
         Apex.instance = this;
-
-        this.copeConfig = copeConfig;
         this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ApexThreadFactory("Check Task"));
         this.commandManager = new CommandManager();
-        
-        this.vulkan = new Vulkan();
     }
 
     public abstract Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception;
@@ -131,40 +120,50 @@ public abstract class Apex {
         
         commandManager.addCommand(new CloseCommand("close", "Close the default listened port", "c"));
         commandManager.addCommand(new OpenCommand("open", "Open the default listened port", "o"));
-
-        Header generalHeader = copeConfig.getHeader("general");
-        Key serverKey = generalHeader.getKey("server");
-        Key balanceKey = generalHeader.getKey("balance");
-        Key bossKey = generalHeader.getKey("boss");
-        Key workerKey = generalHeader.getKey("worker");
-        Key timeoutKey = generalHeader.getKey("timeout");
-        Key backlogKey = generalHeader.getKey("backlog");
-        Key probeKey = generalHeader.getKey("probe");
-        Key debugKey = generalHeader.getKey("debug");
-        Key statsKey = generalHeader.getKey("stats");
+        
+        JSONObject jsonObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("general");
+        
+        String ipKey = (String) jsonObj.get("ip");
+        Integer portKey = Integer.valueOf(jsonObj.get("port") + "");
+        String balanceKey = (String) jsonObj.get("balance");
+        Integer bossKey = Integer.valueOf(jsonObj.get("boss") + "");
+        Integer workerKey = Integer.valueOf(jsonObj.get("worker") + "");
+        Integer timeoutKey = Integer.valueOf(jsonObj.get("timeout") + "");
+        Integer backlogKey = Integer.valueOf( jsonObj.get("backlog") + "");
+        Integer probeKey = Integer.valueOf(jsonObj.get("probe") + "");
+        Boolean debugKey = Boolean.valueOf(jsonObj.get("debug") + "");
+        Boolean statsKey = Boolean.valueOf(jsonObj.get("stats") + "");
 
         // Set the log level to debug or info based on the config value
-        changeDebug((Boolean.valueOf(debugKey.next().asString())) ? Level.DEBUG : Level.INFO);
-
-        List<BackendInfo> backendInfo = copeConfig.getHeader("backend").getKeys()
+        changeDebug(debugKey ? Level.DEBUG : Level.INFO);
+        
+        List<BackendInfo> backendInfo = new ArrayList<BackendInfo>();
+        
+        JSONObject backendObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("backend");
+        for(Object obj : backendObj.keySet()){
+        	JSONObject backend = (JSONObject) ((JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("backend")).get(obj);
+        	BackendInfo info = new BackendInfo((String) obj, (String) backend.get("ip"), Integer.valueOf(backend.get("port") + ""));
+        	backendInfo.add(info);
+        }
+       /* List<BackendInfo> backendInfo = copeConfig.getHeader("backend").getKeys()
                 .stream()
                 .map(backend -> new BackendInfo(backend.getName(),
                         backend.next().asString(),
                         backend.next().asInt()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
         logger.debug("Mode: {}", mode);
-        logger.debug("Host: {}", serverKey.next().asString());
-        logger.debug("Port: {}", serverKey.next().asString());
-        logger.debug("Balance: {}", balanceKey.next().asString());
-        logger.debug("Backlog: {}", backlogKey.next().asInt());
-        logger.debug("Boss: {}", bossKey.next().asInt());
-        logger.debug("Worker: {}", workerKey.next().asInt());
-        logger.debug("Stats: {}", statsKey.next().asString());
-        logger.debug("Probe: {}", probeKey.next().asInt());
+        logger.debug("Host: {}", ipKey);
+        logger.debug("Port: {}", portKey);
+        logger.debug("Balance: {}", balanceKey);
+        logger.debug("Backlog: {}", backlogKey);
+        logger.debug("Boss: {}", bossKey);
+        logger.debug("Worker: {}", workerKey);
+        logger.debug("Stats: {}", statsKey);
+        logger.debug("Probe: {}", probeKey);
         logger.debug("Backend: {}", backendInfo.stream().map(BackendInfo::getHost).collect(Collectors.joining(", ")));
 
-        StrategyType type = StrategyType.valueOf(balanceKey.next().asString());
+        StrategyType type = StrategyType.valueOf(balanceKey);
 
         balancingStrategy = BalancingStrategyFactory.create(type, backendInfo);
 
@@ -178,7 +177,7 @@ public abstract class Apex {
         }
 
         // Check boss thread config value
-        int bossThreads = bossKey.next().asInt();
+        int bossThreads = bossKey;
         if (bossThreads < PipelineUtils.DEFAULT_THREADS_THRESHOLD) {
             bossThreads = PipelineUtils.DEFAULT_BOSS_THREADS;
 
@@ -188,7 +187,7 @@ public abstract class Apex {
         }
 
         // Check worker thread config value
-        int workerThreads = workerKey.next().asInt();
+        int workerThreads = workerKey;
         if (workerThreads < PipelineUtils.DEFAULT_THREADS_THRESHOLD) {
             workerThreads = PipelineUtils.DEFAULT_WORKER_THREADS;
 
@@ -200,7 +199,7 @@ public abstract class Apex {
         bossGroup = PipelineUtils.newEventLoopGroup(bossThreads, new ApexThreadFactory("Apex Boss Thread"));
         workerGroup = PipelineUtils.newEventLoopGroup(workerThreads, new ApexThreadFactory("Apex Worker Thread"));
 
-        if (statsKey.next().asBoolean()) {
+        if (statsKey) {
             // Only measure connections per second if stats are enabled
             connectionsPerSecondTask = new ConnectionsPerSecondTask();
 
@@ -223,13 +222,13 @@ public abstract class Apex {
         try {
             serverChannel = bootstrap(bossGroup,
                     workerGroup,
-                    serverKey.next().asString(),
-                    serverKey.next().asInt(),
-                    backlogKey.next().asInt(),
-                    timeoutKey.next().asInt(),
-                    timeoutKey.next().asInt());
+                    ipKey,
+                    portKey,
+                    backlogKey,
+                    timeoutKey,
+                    timeoutKey);
 
-            int probe = probeKey.next().asInt();
+            int probe = probeKey;
             if (probe < -1 || probe == 0) {
                 probe = 10000;
 
@@ -247,10 +246,10 @@ public abstract class Apex {
                 scheduledExecutorService.shutdown();
             }
 
-            restServer = new RestServer(copeConfig);
-            restServer.start();
+            /*restServer = new RestServer(copeConfig);
+            restServer.start();*/
 
-            logger.info("Apex listening on {}:{}", serverKey.next().asString(), serverKey.next().asInt());
+            logger.info("Apex listening on {}:{}", ipKey, portKey);
         } catch (Exception e) {
             e.printStackTrace();
         }
