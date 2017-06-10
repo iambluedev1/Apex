@@ -78,7 +78,7 @@ public abstract class SpartanConfig {
 	public void save(){
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.file), "utf-8"))) {
 			writer.write(this.jsonObject.toJSONString());
-			Apex.getLogger().info("File " + this.getName() + " successfully created");
+			Apex.getLogger().info("File " + this.getName() + " successfully updated");
 		} catch (UnsupportedEncodingException e) {
 			Apex.getLogger().error("Error when saving the " + this.getName() + " file");
 			e.printStackTrace();

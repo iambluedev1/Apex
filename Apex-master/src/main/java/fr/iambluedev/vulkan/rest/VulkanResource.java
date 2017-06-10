@@ -8,10 +8,12 @@ import de.jackwhite20.apex.rest.response.ApexListResponse;
 import de.jackwhite20.apex.rest.response.ApexResponse;
 import de.jackwhite20.cobra.server.http.Request;
 import de.jackwhite20.cobra.server.http.annotation.Path;
+import de.jackwhite20.cobra.server.http.annotation.PathParam;
 import de.jackwhite20.cobra.server.http.annotation.Produces;
 import de.jackwhite20.cobra.server.http.annotation.method.GET;
 import de.jackwhite20.cobra.shared.ContentType;
 import de.jackwhite20.cobra.shared.http.Response;
+import fr.iambluedev.vulkan.Vulkan;
 import fr.iambluedev.vulkan.state.WhitelistState;
 
 @Path("/vulkan")
@@ -29,7 +31,7 @@ public class VulkanResource {
 	@GET
     @Path("/whitelist/state/{state}")
     @Produces(ContentType.APPLICATION_JSON)
-    public Response stats(Request httpRequest, String state) {
+    public Response stats(Request httpRequest, @PathParam String state) {
 		if(state.equalsIgnoreCase("on")){
 			Main.getVulkan().setWhitelistState(WhitelistState.ON);
 			Apex.getLogger().info("Turning on whitelisting !");
@@ -41,5 +43,21 @@ public class VulkanResource {
 		}else{
 			return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.ERROR, "Please specify a valid arg !"))).build();
 		}
+	}
+	
+	@GET
+    @Path("/whitelist/add/{ip}")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response add(Request httpRequest, @PathParam String ip) {
+		Vulkan.getInstance().addIp(ip);
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
+	}
+	
+	@GET
+    @Path("/whitelist/remove/{ip}")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response remove(Request httpRequest, @PathParam String ip) {
+		Vulkan.getInstance().removeIp(ip);
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
 	}
 }

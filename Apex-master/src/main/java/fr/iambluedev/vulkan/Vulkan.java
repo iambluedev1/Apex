@@ -72,4 +72,18 @@ public class Vulkan {
 	public void setWhitelistState(WhitelistState whitelistState) {
 		this.whitelistState = whitelistState;
 	}
+	
+	public void addIp(String ip){
+		if(!this.whitelistedIp.contains(ip)){
+			this.whitelistedIp.add(ip);
+			this.whiteListConfig.update(this.whitelistedIp);
+		}
+	}
+	
+	public void removeIp(String ip){
+		if(this.whitelistedIp.contains(ip)){
+			this.whitelistedIp.remove(ip);
+			this.whiteListConfig.update(this.whitelistedIp);
+		}
+	}
 }
