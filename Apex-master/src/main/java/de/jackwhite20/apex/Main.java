@@ -42,12 +42,7 @@ public class Main {
         JSONObject jsonObj = (JSONObject) vulkan.getApexConfig().getJsonObject().get("general");
         String modeString = (String) jsonObj.get("mode");
         Mode mode = Mode.of(modeString);
-        if (mode == null) {
-            logger.error("Invalid mode '{}', using 'tcp' as default mode", modeString);
-            mode = Mode.TCP;
-        } else {
-            logger.info("Using mode: " + mode);
-        }
+        logger.info("Using mode: " + mode);
         Apex apex = ApexFactory.create(mode);
         apex.start(mode);
         apex.console();

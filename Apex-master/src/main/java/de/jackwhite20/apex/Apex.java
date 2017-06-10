@@ -57,6 +57,7 @@ import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.command.CloseCommand;
 import fr.iambluedev.vulkan.command.OpenCommand;
 import fr.iambluedev.vulkan.command.WhitelistCommand;
+import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
@@ -80,10 +81,11 @@ public abstract class Apex {
 
     private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(APEX_PACKAGE_NAME);
 
+    // CONVERT TO FRONTEND
     private BalancingStrategy balancingStrategy;
-
     private CheckBackendTask backendTask;
-
+    //---
+    
     private ScheduledExecutorService scheduledExecutorService;
 
     private Channel serverChannel;
@@ -125,12 +127,15 @@ public abstract class Apex {
         
         JSONObject jsonObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("general");
         
+        // CONVERT TO FRONTEND
         String ipKey = (String) jsonObj.get("ip");
         Integer portKey = Integer.valueOf(jsonObj.get("port") + "");
         String balanceKey = (String) jsonObj.get("balance");
+        Integer timeoutKey = Integer.valueOf(jsonObj.get("timeout") + "");
+        //---
+        
         Integer bossKey = Integer.valueOf(jsonObj.get("boss") + "");
         Integer workerKey = Integer.valueOf(jsonObj.get("worker") + "");
-        Integer timeoutKey = Integer.valueOf(jsonObj.get("timeout") + "");
         Integer backlogKey = Integer.valueOf( jsonObj.get("backlog") + "");
         Integer probeKey = Integer.valueOf(jsonObj.get("probe") + "");
         Boolean debugKey = Boolean.valueOf(jsonObj.get("debug") + "");
@@ -147,22 +152,35 @@ public abstract class Apex {
         	BackendInfo info = new BackendInfo((String) obj, (String) backend.get("ip"), Integer.valueOf(backend.get("port") + ""));
         	backendInfo.add(info);
         }
-
+        
+        List<FrontendInfo> frontendInfo = new ArrayList<FrontendInfo>();
+        JSONObject frontendObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("frontend");
+        for(Object obj : frontendObj.keySet()){
+        	JSONObject frontend = (JSONObject) ((JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("frontend")).get(obj);
+        	FrontendInfo info = new FrontendInfo((String) obj, (String) frontend.get("ip"), Integer.valueOf(frontend.get("port") + ""), Mode.of((String) frontend.get("mode")), StrategyType.valueOf((String) frontend.get("balance")), Integer.valueOf(frontend.get("timeout") + ""));
+        	frontendInfo.add(info);
+        }
+        
+        // CONVERT TO FRONTEND
         logger.debug("Mode: {}", mode);
         logger.debug("Host: {}", ipKey);
         logger.debug("Port: {}", portKey);
         logger.debug("Balance: {}", balanceKey);
+        //---
+        
         logger.debug("Backlog: {}", backlogKey);
         logger.debug("Boss: {}", bossKey);
         logger.debug("Worker: {}", workerKey);
         logger.debug("Stats: {}", statsKey);
         logger.debug("Probe: {}", probeKey);
         logger.debug("Backend: {}", backendInfo.stream().map(BackendInfo::getHost).collect(Collectors.joining(", ")));
-
+        logger.debug("Frontend: {}", frontendInfo.stream().map(FrontendInfo::getName).collect(Collectors.joining(", ")));
+        
+        // CONVERT TO FRONTEND
         StrategyType type = StrategyType.valueOf(balanceKey);
-
         balancingStrategy = BalancingStrategyFactory.create(type, backendInfo);
-
+        //---
+        
         // Disable the resource leak detector
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.DISABLED);
 
@@ -214,8 +232,9 @@ public abstract class Apex {
 
             logger.debug("Traffic stats collect handler initialized");
         }
-
+        
         try {
+        	// CONVERT TO FRONTEND
             serverChannel = bootstrap(bossGroup,
                     workerGroup,
                     ipKey,
@@ -223,7 +242,8 @@ public abstract class Apex {
                     backlogKey,
                     timeoutKey,
                     timeoutKey);
-
+            //---
+            
             int probe = probeKey;
             if (probe < -1 || probe == 0) {
                 probe = 10000;
@@ -233,10 +253,12 @@ public abstract class Apex {
             }
 
             if (probe != -1) {
+            	 // CONVERT TO FRONTEND
                 backendTask = (mode == Mode.TCP) ? new CheckSocketBackendTask(balancingStrategy) :
                         new CheckDatagramBackendTask(balancingStrategy);
 
                 scheduledExecutorService.scheduleAtFixedRate(backendTask, 0, probe, TimeUnit.MILLISECONDS);
+                //---
             } else {
                 // Shutdown unnecessary scheduler
                 scheduledExecutorService.shutdown();

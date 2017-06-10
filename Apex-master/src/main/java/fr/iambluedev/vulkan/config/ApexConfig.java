@@ -13,17 +13,21 @@ public class ApexConfig extends SpartanConfig{
 	@Override
 	public void setupConfig() {
 		JSONObject generalObj = new JSONObject();
-		generalObj.put("mode", "tcp");
 		generalObj.put("debug", false);
-		generalObj.put("ip", "0.0.0.0");
-		generalObj.put("port", 80);
+		generalObj.put("stats", false);
 		generalObj.put("boss", 1);
 		generalObj.put("backlog", 100);
 		generalObj.put("worker", 4);
+		generalObj.put("probe", 5000);
+		
+		// CONVERT TO FRONTEND
+		generalObj.put("mode", "tcp");
+		generalObj.put("ip", "0.0.0.0");
+		generalObj.put("port", 80);
 		generalObj.put("timeout", 30);
 		generalObj.put("balance", "RANDOM");
-		generalObj.put("probe", 5000);
-		generalObj.put("stats", false);
+		//---
+		
 		this.getJsonObject().put("general", generalObj);
 		
 		JSONObject restObj = new JSONObject();
@@ -31,11 +35,32 @@ public class ApexConfig extends SpartanConfig{
 		restObj.put("port", 6000);
 		this.getJsonObject().put("rest", restObj);
 		
+		JSONObject frontendObj = new JSONObject();
+		
+		JSONObject frontend1Obj = new JSONObject();
+		frontend1Obj.put("ip", "0.0.0.0");
+		frontend1Obj.put("port", 80);
+		frontend1Obj.put("balance", "RANDOM");
+		frontend1Obj.put("timeout", 30);
+		frontend1Obj.put("mode", "tcp");
+		frontendObj.put("web", frontend1Obj);
+		
+		JSONObject frontend2Obj = new JSONObject();
+		frontend2Obj.put("ip", "0.0.0.0");
+		frontend2Obj.put("port", 25565);
+		frontend2Obj.put("balance", "RANDOM");
+		frontend2Obj.put("timeout", 30);
+		frontend2Obj.put("mode", "tcp");
+		frontendObj.put("mc", frontend2Obj);
+		
+		this.getJsonObject().put("frontend", frontendObj);
+		
 		JSONObject backendObj = new JSONObject();
 		
 		JSONObject backend1Obj = new JSONObject();
 		backend1Obj.put("ip", "164.132.48.233");
 		backend1Obj.put("port", 80);
+		backend1Obj.put("frontend", "web");
 		backendObj.put("web-01", backend1Obj);
 		
 		this.getJsonObject().put("backend", backendObj);

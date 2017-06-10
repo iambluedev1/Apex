@@ -35,6 +35,6 @@ public enum Mode {
             }
         }
 
-        return null;
+        return Mode.TCP;
     }
 }
