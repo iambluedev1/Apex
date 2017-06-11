@@ -9,6 +9,7 @@ import de.jackwhite20.apex.tcp.ApexSocket;
 import de.jackwhite20.apex.udp.ApexDatagram;
 import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.Mode;
+import io.netty.channel.EventLoopGroup;
 
 public class FrontendInfo {
 
@@ -60,8 +61,8 @@ public class FrontendInfo {
 		return this.backend;
 	}
 
-	public void start(){
-        switch (mode) {
+	public void start(EventLoopGroup bossGroup, EventLoopGroup workerGroup, int backlog, int readTimeout, int writeTimeout){
+        switch (this.mode) {
             case TCP:
                 new ApexSocket();
             case UDP:

@@ -1370,3 +1370,167 @@
 23:02:36 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
 23:02:36 [main] INFO  RestServer - RESTful API listening on localhost:6000
 23:02:36 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+14:46:39 [main] INFO  Main - Starting Apex
+14:46:39 [main] INFO  SpartanConfig - Initialising whitelist file
+14:46:39 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:46:39 [main] INFO  SpartanConfig - Initialising apex file
+14:46:39 [main] INFO  SpartanConfig - apex file succesfully loaded
+14:46:39 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:46:39 [main] INFO  Main - Using mode: TCP
+14:46:40 [main] INFO  Apex - Logger level is now DEBUG
+14:49:11 [main] INFO  Main - Starting Apex
+14:49:11 [main] INFO  SpartanConfig - Initialising whitelist file
+14:49:11 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:49:11 [main] INFO  SpartanConfig - Initialising apex file
+14:49:11 [main] INFO  SpartanConfig - apex file succesfully loaded
+14:49:11 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:49:11 [main] INFO  Main - Using mode: TCP
+14:49:11 [main] INFO  Apex - Logger level is now DEBUG
+14:49:11 [main] DEBUG Apex - Mode: TCP
+14:49:11 [main] DEBUG Apex - Host: 0.0.0.0
+14:49:11 [main] DEBUG Apex - Port: 80
+14:49:11 [main] DEBUG Apex - Balance: RANDOM
+14:49:11 [main] DEBUG Apex - Backlog: 100
+14:49:11 [main] DEBUG Apex - Boss: 1
+14:49:11 [main] DEBUG Apex - Worker: 4
+14:49:11 [main] DEBUG Apex - Stats: false
+14:49:11 [main] DEBUG Apex - Probe: 5000
+14:49:11 [main] DEBUG Apex - Backend: 1
+14:49:11 [main] DEBUG Apex - Frontend: 
+14:49:11 [main] INFO  Apex - Using normal select/poll event notification mechanism
+14:49:12 [main] INFO  ApexSocket - Bootstrapping socket server
+14:49:12 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+14:49:12 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+14:49:12 [main] INFO  RestServer - RESTful API listening on localhost:6000
+14:49:12 [main] INFO  Apex - Apex listening on 0.0.0.0:80
+14:49:53 [main] INFO  Main - Starting Apex
+14:49:53 [main] INFO  SpartanConfig - Initialising whitelist file
+14:49:53 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:49:53 [main] INFO  SpartanConfig - Initialising apex file
+14:49:53 [main] INFO  SpartanConfig - apex file succesfully loaded
+14:49:53 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:49:53 [main] INFO  Main - Using mode: TCP
+14:49:53 [main] INFO  Apex - Logger level is now DEBUG
+14:50:59 [main] INFO  Main - Starting Apex
+14:50:59 [main] INFO  SpartanConfig - Initialising whitelist file
+14:50:59 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:50:59 [main] INFO  SpartanConfig - Initialising apex file
+14:50:59 [main] INFO  SpartanConfig - File apex successfully updated
+14:50:59 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:50:59 [main] INFO  Main - Using mode: TCP
+14:50:59 [main] INFO  Apex - Logger level is now INFO
+14:51:42 [main] INFO  Main - Starting Apex
+14:51:42 [main] INFO  SpartanConfig - Initialising whitelist file
+14:51:42 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:51:42 [main] INFO  SpartanConfig - Initialising apex file
+14:51:42 [main] INFO  SpartanConfig - File apex successfully updated
+14:51:42 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:51:42 [main] INFO  Main - Using mode: TCP
+14:51:43 [main] INFO  Apex - Logger level is now INFO
+14:53:18 [main] INFO  Main - Starting Apex
+14:53:18 [main] INFO  SpartanConfig - Initialising whitelist file
+14:53:18 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:53:18 [main] INFO  SpartanConfig - Initialising apex file
+14:53:18 [main] INFO  SpartanConfig - apex file succesfully loaded
+14:53:18 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:53:18 [main] INFO  Main - Using mode: TCP
+14:53:18 [main] INFO  Apex - Logger level is now INFO
+14:53:38 [main] INFO  Main - Starting Apex
+14:53:38 [main] INFO  SpartanConfig - Initialising whitelist file
+14:53:38 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+14:53:38 [main] INFO  SpartanConfig - Initialising apex file
+14:53:38 [main] INFO  SpartanConfig - apex file succesfully loaded
+14:53:38 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+14:53:38 [main] INFO  Main - Using mode: TCP
+14:53:38 [main] INFO  Apex - Logger level is now INFO
+15:00:02 [main] INFO  Main - Starting Apex
+15:00:02 [main] INFO  SpartanConfig - Initialising whitelist file
+15:00:02 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+15:00:02 [main] INFO  SpartanConfig - Initialising apex file
+15:00:02 [main] INFO  SpartanConfig - apex file succesfully loaded
+15:00:02 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+15:00:02 [main] INFO  Main - Using mode: TCP
+15:00:02 [main] INFO  Apex - Logger level is now INFO
+15:00:38 [main] INFO  Main - Starting Apex
+15:00:38 [main] INFO  SpartanConfig - Initialising whitelist file
+15:00:38 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+15:00:38 [main] INFO  SpartanConfig - Initialising apex file
+15:00:38 [main] INFO  SpartanConfig - apex file succesfully loaded
+15:00:38 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+15:00:38 [main] INFO  Main - Using mode: TCP
+15:00:38 [main] INFO  Apex - Logger level is now DEBUG
+15:00:38 [main] DEBUG Apex - Mode: TCP
+15:00:38 [main] DEBUG Apex - Host: 0.0.0.0
+15:00:38 [main] DEBUG Apex - Port: 80
+15:00:38 [main] DEBUG Apex - Balance: RANDOM
+15:00:38 [main] DEBUG Apex - Backlog: 100
+15:00:38 [main] DEBUG Apex - Boss: 1
+15:00:38 [main] DEBUG Apex - Worker: 4
+15:00:38 [main] DEBUG Apex - Stats: false
+15:00:38 [main] DEBUG Apex - Probe: 5000
+15:00:38 [main] DEBUG Apex - Backend: web, mc
+15:00:38 [main] DEBUG Apex - Frontend: web, mc
+15:04:32 [main] INFO  Main - Starting Apex
+15:04:32 [main] INFO  SpartanConfig - Initialising whitelist file
+15:04:32 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+15:04:32 [main] INFO  SpartanConfig - Initialising apex file
+15:04:32 [main] INFO  SpartanConfig - apex file succesfully loaded
+15:04:32 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+15:04:32 [main] INFO  Main - Using mode: TCP
+15:04:33 [main] INFO  Apex - Logger level is now DEBUG
+15:04:33 [main] DEBUG Apex - Mode: TCP
+15:04:33 [main] DEBUG Apex - Host: 0.0.0.0
+15:04:33 [main] DEBUG Apex - Port: 80
+15:04:33 [main] DEBUG Apex - Balance: RANDOM
+15:04:33 [main] DEBUG Apex - Backlog: 100
+15:04:33 [main] DEBUG Apex - Boss: 1
+15:04:33 [main] DEBUG Apex - Worker: 4
+15:04:33 [main] DEBUG Apex - Stats: false
+15:04:33 [main] DEBUG Apex - Probe: 5000
+15:04:33 [main] DEBUG Apex - Backend (web): web-02, web-01
+15:04:33 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+15:04:33 [main] DEBUG Apex - Frontend: web, mc
+15:07:43 [main] INFO  Main - Starting Apex
+15:07:43 [main] INFO  SpartanConfig - Initialising whitelist file
+15:07:43 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+15:07:43 [main] INFO  SpartanConfig - Initialising apex file
+15:07:43 [main] INFO  SpartanConfig - apex file succesfully loaded
+15:07:43 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+15:07:43 [main] INFO  Main - Using mode: TCP
+15:07:44 [main] INFO  Apex - Logger level is now DEBUG
+15:07:44 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+15:07:44 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+15:07:44 [main] DEBUG Apex - Backlog: 100
+15:07:44 [main] DEBUG Apex - Boss: 1
+15:07:44 [main] DEBUG Apex - Worker: 4
+15:07:44 [main] DEBUG Apex - Stats: false
+15:07:44 [main] DEBUG Apex - Probe: 5000
+15:07:44 [main] DEBUG Apex - Backend (web): web-02, web-01
+15:07:44 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+15:07:44 [main] DEBUG Apex - Frontend: web, mc
+15:07:44 [main] INFO  Apex - Using normal select/poll event notification mechanism
+15:07:44 [main] INFO  RestServer - RESTful API listening on localhost:6000
+15:07:44 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:80
+15:07:44 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25565
+15:09:59 [main] INFO  Main - Starting Apex
+15:09:59 [main] INFO  SpartanConfig - Initialising whitelist file
+15:09:59 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+15:09:59 [main] INFO  SpartanConfig - Initialising apex file
+15:09:59 [main] INFO  SpartanConfig - apex file succesfully loaded
+15:09:59 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+15:09:59 [main] INFO  Main - Using mode: TCP
+15:09:59 [main] INFO  Apex - Logger level is now DEBUG
+15:09:59 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+15:09:59 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+15:09:59 [main] DEBUG Apex - Backlog: 100
+15:09:59 [main] DEBUG Apex - Boss: 1
+15:09:59 [main] DEBUG Apex - Worker: 4
+15:09:59 [main] DEBUG Apex - Stats: false
+15:09:59 [main] DEBUG Apex - Probe: 5000
+15:09:59 [main] DEBUG Apex - Backend (web): web-02, web-01
+15:09:59 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+15:09:59 [main] DEBUG Apex - Frontend: web, mc
+15:09:59 [main] INFO  Apex - Using normal select/poll event notification mechanism
+15:10:00 [main] INFO  RestServer - RESTful API listening on localhost:6000
+15:10:00 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:80
+15:10:00 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25565

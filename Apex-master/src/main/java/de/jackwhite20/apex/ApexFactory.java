@@ -31,14 +31,14 @@ public final class ApexFactory {
     private ApexFactory() {}
 
     public static Apex create(Mode mode) {
-
-        switch (mode) {
+       /* switch (mode) {
             case TCP:
                 return new ApexSocket();
             case UDP:
                 return new ApexDatagram();
             default:
                 return new ApexSocket();
-        }
+        }*/
+    	return new ApexSocket();
     }
 }
