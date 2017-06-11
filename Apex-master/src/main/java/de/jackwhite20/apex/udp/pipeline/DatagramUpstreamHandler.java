@@ -42,12 +42,10 @@ import java.net.InetSocketAddress;
 public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
     private static Logger logger = LoggerFactory.getLogger(DatagramUpstreamHandler.class);
-
     private ConnectionsPerSecondTask connectionsPerSecondTask;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
         connectionsPerSecondTask = Apex.getInstance().getConnectionsPerSecondTask();
 
         // Add the traffic counter

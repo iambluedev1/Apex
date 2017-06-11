@@ -28,19 +28,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ApexThreadFactory implements ThreadFactory {
 
     private final AtomicInteger id = new AtomicInteger(0);
-
     private String name;
 
     public ApexThreadFactory(String name) {
-
         this.name = name;
     }
 
     @Override
     public Thread newThread(Runnable r) {
-
         Thread thread = new Thread(r);
-        thread.setName(name + " #" + id.getAndIncrement());
+        thread.setName( this.name + " #" +  this.id.getAndIncrement());
 
         return thread;
     }

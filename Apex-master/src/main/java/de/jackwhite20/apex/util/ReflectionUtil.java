@@ -32,12 +32,9 @@ public final class ReflectionUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ReflectionUtil.class);
 
-    private ReflectionUtil() {
-        // No instance
-    }
+    private ReflectionUtil() {}
 
     public static void setAtomicLong(Object object, String field, long value) {
-
         try {
             Field f = object.getClass().getDeclaredField(field);
             f.setAccessible(true);

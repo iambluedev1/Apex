@@ -33,13 +33,11 @@ public class CheckSocketBackendTask extends CheckBackendTask {
     private static Logger logger = LoggerFactory.getLogger(CheckSocketBackendTask.class);
 
     public CheckSocketBackendTask(BalancingStrategy balancingStrategy) {
-
         super(balancingStrategy);
     }
 
     @Override
     public void check() {
-
         synchronized (balancingStrategy.getBackend()) {
             synchronized (backendInfo) {
                 for (BackendInfo info : backendInfo) {

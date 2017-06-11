@@ -36,43 +36,33 @@ import java.util.concurrent.ThreadFactory;
 public final class PipelineUtils {
 
     public static final int DEFAULT_THREADS_THRESHOLD = 1;
-
     public static final int DEFAULT_BOSS_THREADS = 1;
-
     public static final int DEFAULT_WORKER_THREADS = Runtime.getRuntime().availableProcessors() * 2;
-
     private static boolean epoll;
 
     static {
         epoll = Epoll.isAvailable();
     }
 
-    private PipelineUtils() {
-        // No instance
-    }
+    private PipelineUtils() {}
 
     public static EventLoopGroup newEventLoopGroup(int threads, ThreadFactory threadFactory) {
-
         return epoll ? new EpollEventLoopGroup(threads, threadFactory) : new NioEventLoopGroup(threads, threadFactory);
     }
 
     public static Class<? extends ServerChannel> getServerChannel() {
-
         return epoll ? EpollServerSocketChannel.class : NioServerSocketChannel.class;
     }
 
     public static Class<? extends Channel> getChannel() {
-
         return epoll ? EpollSocketChannel.class : NioSocketChannel.class;
     }
 
     public static Class<? extends Channel> getDatagramChannel() {
-
         return epoll ? EpollDatagramChannel.class : NioDatagramChannel.class;
     }
 
     public static boolean isEpoll() {
-
         return epoll;
     }
 }

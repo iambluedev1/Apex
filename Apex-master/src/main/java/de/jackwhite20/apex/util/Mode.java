@@ -28,13 +28,11 @@ public enum Mode {
     UDP;
 
     public static Mode of(String modeString) {
-
         for (Mode mode : values()) {
             if (mode.name().toLowerCase().equals(modeString.toLowerCase())) {
                 return mode;
             }
         }
-
         return Mode.TCP;
     }
 }

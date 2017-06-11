@@ -32,11 +32,9 @@ import java.util.List;
 public abstract class CheckBackendTask implements Runnable {
 
     protected final List<BackendInfo> backendInfo;
-
     protected BalancingStrategy balancingStrategy;
-
+    
     public CheckBackendTask(BalancingStrategy balancingStrategy) {
-
         this.balancingStrategy = balancingStrategy;
         this.backendInfo = Lists.newArrayList(balancingStrategy.getBackend());
     }
@@ -44,18 +42,15 @@ public abstract class CheckBackendTask implements Runnable {
     public abstract void check();
 
     public synchronized void addBackend(BackendInfo backendInfo) {
-
         this.backendInfo.add(backendInfo);
     }
 
     public synchronized void removeBackend(BackendInfo backendInfo) {
-
         this.backendInfo.remove(backendInfo);
     }
 
     @Override
     public void run() {
-
         if (!Apex.getServerChannel().isActive()) {
             return;
         }

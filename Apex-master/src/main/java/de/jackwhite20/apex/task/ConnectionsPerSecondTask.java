@@ -30,39 +30,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ConnectionsPerSecondTask {
 
     private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-
     private AtomicInteger value = new AtomicInteger();
-
     private int lastValue = 0;
-
     private int perSecond = 0;
 
     public ConnectionsPerSecondTask() {
-
-        scheduledExecutorService.scheduleAtFixedRate(this::check, 0, 1, TimeUnit.SECONDS);
+        this.scheduledExecutorService.scheduleAtFixedRate(this::check, 0, 1, TimeUnit.SECONDS);
     }
 
     public void stop() {
-
-        scheduledExecutorService.shutdown();
+    	 this.scheduledExecutorService.shutdown();
     }
 
     public void inc() {
-
-        value.incrementAndGet();
+    	 this.value.incrementAndGet();
     }
 
     private void check() {
-
         int now = value.get();
-
-        perSecond = Math.max(0, now - lastValue);
-
-        lastValue = now;
+        this.perSecond = Math.max(0, now -  this.lastValue);
+        this.lastValue = now;
     }
 
     public int getPerSecond() {
-
-        return perSecond;
+        return  this.perSecond;
     }
 }
