@@ -97,7 +97,7 @@ public class Apex {
         this.commandManager = new CommandManager();
     }
     
-    public void start(Mode mode) {
+    public void start() {
     	this.commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));
         this.commandManager.addCommand(new EndCommand("end", "Stops Apex", "stop", "exit"));
         this.commandManager.addCommand(new DebugCommand("debug", "Turns the debug mode on/off", "d"));
