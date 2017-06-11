@@ -78,12 +78,14 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	}
     	
         if (backendInfo == null) {
-        	backendInfo = new DefaultWebBackend();
-            // Gracefully close the channel
-            //channel.close();
-
-            logger.error("Unable to select a backend server for the port. All down? Redirecting to the Default VulkanNetwork Backend");
-            // return;
+        	if(this.frontend.getPort().equals(80)){
+        		backendInfo = new DefaultWebBackend();
+        		logger.error("Unable to select a web backend server for the port. All down? Redirecting to the Default VulkanNetwork Backend");
+        	}else{
+        		channel.close();
+        		logger.error("Unable to select a backend server for the port. All down?");
+        		return;
+        	}
         }
         
         channel.pipeline()

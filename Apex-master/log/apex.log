@@ -1656,3 +1656,97 @@
 16:22:25 [main] INFO  RestServer - RESTful API listening on localhost:6000
 16:22:25 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:80
 16:22:25 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25565
+16:28:44 [main] INFO  Main - Starting Apex
+16:28:44 [main] INFO  SpartanConfig - Initialising whitelist file
+16:28:44 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+16:28:44 [main] INFO  SpartanConfig - Initialising apex file
+16:28:44 [main] INFO  SpartanConfig - apex file succesfully loaded
+16:28:44 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+16:28:44 [main] INFO  Main - Using mode: TCP
+16:28:44 [main] INFO  Apex - Logger level is now DEBUG
+16:28:44 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+16:28:44 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+16:28:44 [main] DEBUG Apex - Backlog: 100
+16:28:44 [main] DEBUG Apex - Boss: 1
+16:28:44 [main] DEBUG Apex - Worker: 4
+16:28:44 [main] DEBUG Apex - Stats: false
+16:28:44 [main] DEBUG Apex - Probe: 5000
+16:28:44 [main] DEBUG Apex - Backend (web): web-02, web-01
+16:28:44 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+16:28:44 [main] DEBUG Apex - Frontend: web, mc
+16:28:44 [main] INFO  Apex - Using normal select/poll event notification mechanism
+16:28:45 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:80)
+16:28:45 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+16:28:45 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+16:28:45 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25565)
+16:28:45 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+16:28:45 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+16:28:45 [main] INFO  RestServer - RESTful API listening on localhost:6000
+16:28:45 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:80
+16:28:45 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25565
+16:28:49 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53017] <-> [164.132.48.233:80 (web-01)]
+16:28:49 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53019] <-> [164.132.48.233:80 (web-01)]
+16:28:49 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53021] <-> [164.132.48.233:80 (web-01)]
+16:29:00 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53021] <-> [164.132.48.233:80 (web-01)]
+16:29:00 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53019] <-> [164.132.48.233:80 (web-01)]
+16:29:02 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53017] <-> [164.132.48.233:80 (web-01)]
+16:29:25 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53027] <-> [164.132.48.233:82 (web-02)]
+16:29:26 [Apex Worker Thread #3] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53027] <-> [164.132.48.233:82 (web-02)]
+16:29:26 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53029] <-> [164.132.48.233:80 (web-01)]
+16:29:31 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53029] <-> [164.132.48.233:80 (web-01)]
+16:29:34 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53032] <-> [164.132.48.233:82 (web-02)]
+16:29:36 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53032] <-> [164.132.48.233:82 (web-02)]
+16:29:36 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53034] <-> [164.132.48.233:80 (web-01)]
+16:29:36 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53036] <-> [164.132.48.233:82 (web-02)]
+16:29:37 [Apex Worker Thread #3] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53036] <-> [164.132.48.233:82 (web-02)]
+16:29:45 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53034] <-> [164.132.48.233:80 (web-01)]
+16:30:10 [main] INFO  Main - Starting Apex
+16:30:10 [main] INFO  SpartanConfig - Initialising whitelist file
+16:30:10 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+16:30:10 [main] INFO  SpartanConfig - Initialising apex file
+16:30:10 [main] INFO  SpartanConfig - apex file succesfully loaded
+16:30:10 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+16:30:10 [main] INFO  Main - Using mode: TCP
+16:30:10 [main] INFO  Apex - Logger level is now DEBUG
+16:30:10 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+16:30:10 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+16:30:10 [main] DEBUG Apex - Backlog: 100
+16:30:10 [main] DEBUG Apex - Boss: 1
+16:30:10 [main] DEBUG Apex - Worker: 4
+16:30:10 [main] DEBUG Apex - Stats: false
+16:30:10 [main] DEBUG Apex - Probe: 5000
+16:30:10 [main] DEBUG Apex - Backend (web): web-02, web-01
+16:30:10 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+16:30:10 [main] DEBUG Apex - Frontend: web, mc
+16:30:10 [main] INFO  Apex - Using normal select/poll event notification mechanism
+16:30:10 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:80)
+16:30:10 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+16:30:10 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+16:30:11 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25565)
+16:30:11 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+16:30:11 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+16:30:11 [main] INFO  RestServer - RESTful API listening on localhost:6000
+16:30:11 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:80
+16:30:11 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25565
+16:30:14 [main] INFO  Apex - Executing command: w on
+16:30:14 [main] INFO  WhitelistCommand - Turning on whitelisting !
+16:30:17 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53051] <-> [164.132.48.233:80 (web-01)]
+16:30:23 [main] INFO  Apex - Executing command: w list
+16:30:23 [main] INFO  WhitelistCommand - List : [127.0.0.1]
+16:30:24 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53051] <-> [164.132.48.233:80 (web-01)]
+16:30:29 [main] INFO  Apex - Executing command: w remove 127.0.0.1
+16:30:29 [main] INFO  SpartanConfig - File whitelist successfully updated
+16:30:29 [main] INFO  WhitelistCommand - 127.0.0.1 removed from the whitelist !
+16:30:31 [Apex Worker Thread #1] ERROR ApexSocketChannelInitializer - WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend
+16:30:31 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53055] <-> [164.132.48.233:8282 (defaultWebBackend)]
+16:30:36 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53055] <-> [164.132.48.233:8282 (defaultWebBackend)]
+16:30:40 [main] INFO  Apex - Executing command: w off
+16:30:40 [main] INFO  WhitelistCommand - Turning off whitelisting !
+16:30:43 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53058] <-> [164.132.48.233:80 (web-01)]
+16:30:43 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53061] <-> [164.132.48.233:80 (web-01)]
+16:30:43 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53063] <-> [164.132.48.233:82 (web-02)]
+16:30:44 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53063] <-> [164.132.48.233:82 (web-02)]
+16:30:44 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:53065] <-> [164.132.48.233:82 (web-02)]
+16:30:45 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53065] <-> [164.132.48.233:82 (web-02)]
+16:30:49 [Apex Worker Thread #3] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53061] <-> [164.132.48.233:80 (web-01)]
+16:30:50 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:53058] <-> [164.132.48.233:80 (web-01)]
