@@ -21,11 +21,13 @@ package de.jackwhite20.apex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -40,13 +42,8 @@ import de.jackwhite20.apex.command.impl.EndCommand;
 import de.jackwhite20.apex.command.impl.HelpCommand;
 import de.jackwhite20.apex.command.impl.StatsCommand;
 import de.jackwhite20.apex.rest.RestServer;
-import de.jackwhite20.apex.strategy.BalancingStrategy;
-import de.jackwhite20.apex.strategy.BalancingStrategyFactory;
 import de.jackwhite20.apex.strategy.StrategyType;
-import de.jackwhite20.apex.task.CheckBackendTask;
 import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
-import de.jackwhite20.apex.task.impl.CheckDatagramBackendTask;
-import de.jackwhite20.apex.task.impl.CheckSocketBackendTask;
 import de.jackwhite20.apex.util.ApexThreadFactory;
 import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.FileUtil;
@@ -58,6 +55,7 @@ import fr.iambluedev.vulkan.command.CloseCommand;
 import fr.iambluedev.vulkan.command.OpenCommand;
 import fr.iambluedev.vulkan.command.WhitelistCommand;
 import fr.iambluedev.vulkan.util.FrontendInfo;
+import fr.iambluedev.vulkan.util.MapUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
@@ -81,11 +79,6 @@ public abstract class Apex {
 
     private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(APEX_PACKAGE_NAME);
 
-    // CONVERT TO FRONTEND
-    private BalancingStrategy balancingStrategy;
-    private CheckBackendTask backendTask;
-    //---
-    
     private ScheduledExecutorService scheduledExecutorService;
 
     private Channel serverChannel;
@@ -115,7 +108,6 @@ public abstract class Apex {
     public abstract Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception;
 
     public void start(Mode mode) {
-
         commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));
         commandManager.addCommand(new EndCommand("end", "Stops Apex", "stop", "exit"));
         commandManager.addCommand(new DebugCommand("debug", "Turns the debug mode on/off", "d"));
@@ -127,13 +119,6 @@ public abstract class Apex {
         
         JSONObject jsonObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("general");
         
-        // CONVERT TO FRONTEND
-        String ipKey = (String) jsonObj.get("ip");
-        Integer portKey = Integer.valueOf(jsonObj.get("port") + "");
-        String balanceKey = (String) jsonObj.get("balance");
-        Integer timeoutKey = Integer.valueOf(jsonObj.get("timeout") + "");
-        //---
-        
         Integer bossKey = Integer.valueOf(jsonObj.get("boss") + "");
         Integer workerKey = Integer.valueOf(jsonObj.get("worker") + "");
         Integer backlogKey = Integer.valueOf( jsonObj.get("backlog") + "");
@@ -144,42 +129,39 @@ public abstract class Apex {
         // Set the log level to debug or info based on the config value
         changeDebug(debugKey ? Level.DEBUG : Level.INFO);
         
-        List<BackendInfo> backendInfo = new ArrayList<BackendInfo>();
+        Map<String, List<BackendInfo>> backendInfo = new HashMap<String, List<BackendInfo>>();
         
         JSONObject backendObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("backend");
         for(Object obj : backendObj.keySet()){
         	JSONObject backend = (JSONObject) ((JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("backend")).get(obj);
         	BackendInfo info = new BackendInfo((String) obj, (String) backend.get("ip"), Integer.valueOf(backend.get("port") + ""));
-        	backendInfo.add(info);
+        	if(!backendInfo.containsKey((String) backend.get("frontend"))) {
+        		List<BackendInfo> back = new ArrayList<BackendInfo>();
+        		back.add(info);
+        		backendInfo.put((String) backend.get("frontend"), back);
+        	}else{
+        		backendInfo.put((String) backend.get("frontend"), MapUtil.addAndReturn(backendInfo.get((String) backend.get("frontend")), info));
+        	}
         }
         
         List<FrontendInfo> frontendInfo = new ArrayList<FrontendInfo>();
         JSONObject frontendObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("frontend");
         for(Object obj : frontendObj.keySet()){
         	JSONObject frontend = (JSONObject) ((JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("frontend")).get(obj);
-        	FrontendInfo info = new FrontendInfo((String) obj, (String) frontend.get("ip"), Integer.valueOf(frontend.get("port") + ""), Mode.of((String) frontend.get("mode")), StrategyType.valueOf((String) frontend.get("balance")), Integer.valueOf(frontend.get("timeout") + ""));
+        	FrontendInfo info = new FrontendInfo((String) obj, (String) frontend.get("ip"), Integer.valueOf(frontend.get("port") + ""), Mode.of((String) frontend.get("mode")), StrategyType.valueOf((String) frontend.get("balance")), Integer.valueOf(frontend.get("timeout") + ""), backendInfo.get((String) obj));
         	frontendInfo.add(info);
         }
-        
-        // CONVERT TO FRONTEND
-        logger.debug("Mode: {}", mode);
-        logger.debug("Host: {}", ipKey);
-        logger.debug("Port: {}", portKey);
-        logger.debug("Balance: {}", balanceKey);
-        //---
         
         logger.debug("Backlog: {}", backlogKey);
         logger.debug("Boss: {}", bossKey);
         logger.debug("Worker: {}", workerKey);
         logger.debug("Stats: {}", statsKey);
         logger.debug("Probe: {}", probeKey);
-        logger.debug("Backend: {}", backendInfo.stream().map(BackendInfo::getHost).collect(Collectors.joining(", ")));
-        logger.debug("Frontend: {}", frontendInfo.stream().map(FrontendInfo::getName).collect(Collectors.joining(", ")));
+        for(Entry<String, List<BackendInfo>> backend : backendInfo.entrySet()){
+        	logger.debug("Backend ("+ backend.getKey() + "): {}", backend.getValue().stream().map(BackendInfo::getName).collect(Collectors.joining(", ")));
+        }
         
-        // CONVERT TO FRONTEND
-        StrategyType type = StrategyType.valueOf(balanceKey);
-        balancingStrategy = BalancingStrategyFactory.create(type, backendInfo);
-        //---
+        logger.debug("Frontend: {}", frontendInfo.stream().map(FrontendInfo::getName).collect(Collectors.joining(", ")));
         
         // Disable the resource leak detector
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.DISABLED);
@@ -235,13 +217,13 @@ public abstract class Apex {
         
         try {
         	// CONVERT TO FRONTEND
-            serverChannel = bootstrap(bossGroup,
+            /*serverChannel = bootstrap(bossGroup,
                     workerGroup,
                     ipKey,
                     portKey,
                     backlogKey,
                     timeoutKey,
-                    timeoutKey);
+                    timeoutKey);*/
             //---
             
             int probe = probeKey;
@@ -253,11 +235,9 @@ public abstract class Apex {
             }
 
             if (probe != -1) {
-            	 // CONVERT TO FRONTEND
-                backendTask = (mode == Mode.TCP) ? new CheckSocketBackendTask(balancingStrategy) :
-                        new CheckDatagramBackendTask(balancingStrategy);
-
-                scheduledExecutorService.scheduleAtFixedRate(backendTask, 0, probe, TimeUnit.MILLISECONDS);
+            	// CONVERT TO FRONTEND
+                //backendTask = (mode == Mode.TCP) ? new CheckSocketBackendTask(balancingStrategy) : new CheckDatagramBackendTask(balancingStrategy);
+            	//scheduledExecutorService.scheduleAtFixedRate(backendTask, 0, probe, TimeUnit.MILLISECONDS);
                 //---
             } else {
                 // Shutdown unnecessary scheduler
@@ -268,16 +248,16 @@ public abstract class Apex {
             restServer = new RestServer((String) restObj.get("ip"), Integer.valueOf(restObj.get("port") + ""));
             restServer.start();
 
-            logger.info("Apex listening on {}:{}", ipKey, portKey);
+            for(FrontendInfo frontend : frontendInfo){
+            	logger.info("Apex listening (" + frontend.getName() + ") on {}:{}", frontend.getIp(), frontend.getPort());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void console() {
-
         scanner = new Scanner(System.in);
-
         try {
             String line;
             while ((line = scanner.nextLine()) != null) {
@@ -308,7 +288,6 @@ public abstract class Apex {
     }
 
     public void changeDebug(Level level) {
-
         // Set the log level to debug or info based on the config value
         rootLogger.setLevel(level);
 
@@ -316,13 +295,11 @@ public abstract class Apex {
     }
 
     public void changeDebug() {
-
         // Change the log level based on the current level
         changeDebug((rootLogger.getLevel() == Level.INFO) ? Level.DEBUG : Level.INFO);
     }
 
     public void stop() {
-
         logger.info("Apex is going to be stopped");
 
         // Close the scanner
@@ -362,42 +339,26 @@ public abstract class Apex {
     }
 
     public static CommandManager getCommandManager() {
-
         return instance.commandManager;
     }
-
-    public static BalancingStrategy getBalancingStrategy() {
-
-        return instance.balancingStrategy;
-    }
-
-    public static CheckBackendTask getBackendTask() {
-
-        return instance.backendTask;
-    }
-
+    
     public static Channel getServerChannel() {
-
         return instance.serverChannel;
     }
 
     public static ChannelGroup getChannelGroup() {
-
         return instance.channelGroup;
     }
 
     public GlobalTrafficShapingHandler getTrafficShapingHandler() {
-
         return trafficShapingHandler;
     }
 
     public ConnectionsPerSecondTask getConnectionsPerSecondTask() {
-
         return connectionsPerSecondTask;
     }
 
     public static Apex getInstance() {
-
         return instance;
     }
 

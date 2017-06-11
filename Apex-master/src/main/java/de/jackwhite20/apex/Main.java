@@ -35,9 +35,7 @@ public class Main {
     private static Vulkan vulkan;
     
     public static void main(String[] args) {
-
         logger.info("Starting Apex");
-
         vulkan = new Vulkan();
         JSONObject jsonObj = (JSONObject) vulkan.getApexConfig().getJsonObject().get("general");
         String modeString = (String) jsonObj.get("mode");

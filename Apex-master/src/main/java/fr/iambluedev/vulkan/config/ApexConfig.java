@@ -13,7 +13,7 @@ public class ApexConfig extends SpartanConfig{
 	@Override
 	public void setupConfig() {
 		JSONObject generalObj = new JSONObject();
-		generalObj.put("debug", false);
+		generalObj.put("debug", true);
 		generalObj.put("stats", false);
 		generalObj.put("boss", 1);
 		generalObj.put("backlog", 100);
@@ -62,6 +62,24 @@ public class ApexConfig extends SpartanConfig{
 		backend1Obj.put("port", 80);
 		backend1Obj.put("frontend", "web");
 		backendObj.put("web-01", backend1Obj);
+		
+		JSONObject backend2Obj = new JSONObject();
+		backend2Obj.put("ip", "164.132.48.233");
+		backend2Obj.put("port", 25565);
+		backend2Obj.put("frontend", "mc");
+		backendObj.put("mc-01", backend2Obj);
+		
+		JSONObject backend3Obj = new JSONObject();
+		backend3Obj.put("ip", "164.132.48.233");
+		backend3Obj.put("port", 25566);
+		backend3Obj.put("frontend", "mc");
+		backendObj.put("mc-02", backend3Obj);
+		
+		JSONObject backend4Obj = new JSONObject();
+		backend4Obj.put("ip", "164.132.48.233");
+		backend4Obj.put("port", 82);
+		backend4Obj.put("frontend", "web");
+		backendObj.put("web-02", backend4Obj);
 		
 		this.getJsonObject().put("backend", backendObj);
 		this.save();

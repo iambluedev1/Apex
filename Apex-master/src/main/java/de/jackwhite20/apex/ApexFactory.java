@@ -28,9 +28,7 @@ import de.jackwhite20.apex.util.Mode;
  */
 public final class ApexFactory {
 
-    private ApexFactory() {
-        // No instance
-    }
+    private ApexFactory() {}
 
     public static Apex create(Mode mode) {
 

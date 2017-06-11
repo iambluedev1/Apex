@@ -36,15 +36,11 @@ public final class BalancingStrategyFactory {
 
     private static Logger logger = LoggerFactory.getLogger(BalancingStrategyFactory.class);
 
-    private BalancingStrategyFactory() {
-        // no instance
-    }
+    private BalancingStrategyFactory() {}
 
     public static BalancingStrategy create(StrategyType type, List<BackendInfo> backendInfo) {
-
         if (type == null) {
             type = StrategyType.RANDOM;
-
             logger.info("Using default strategy: {}", type);
         } else {
             logger.info("Using strategy: {}", type);

@@ -1,6 +1,13 @@
 package fr.iambluedev.vulkan.util;
 
+import java.util.List;
+
+import de.jackwhite20.apex.strategy.BalancingStrategy;
+import de.jackwhite20.apex.strategy.BalancingStrategyFactory;
 import de.jackwhite20.apex.strategy.StrategyType;
+import de.jackwhite20.apex.tcp.ApexSocket;
+import de.jackwhite20.apex.udp.ApexDatagram;
+import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.Mode;
 
 public class FrontendInfo {
@@ -11,14 +18,18 @@ public class FrontendInfo {
 	private Mode mode;
 	private StrategyType type;
 	private Integer timeout;
+	private BalancingStrategy balancingStrategy;
+	private List<BackendInfo> backend;
 	
-	public FrontendInfo(String name, String ip, Integer port, Mode mode, StrategyType type, Integer timeout) {
+	public FrontendInfo(String name, String ip, Integer port, Mode mode, StrategyType type, Integer timeout, List<BackendInfo> info) {
 		this.name = name;
 		this.ip = ip;
 		this.port = port;
 		this.mode = mode;
 		this.type = type;
 		this.timeout = timeout;
+		this.backend = info;
+		this.balancingStrategy = BalancingStrategyFactory.create(type, info);
 	}
 
 	public String getName() {
@@ -45,72 +56,25 @@ public class FrontendInfo {
 		return this.timeout;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
-		result = prime * result + ((mode == null) ? 0 : mode.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((port == null) ? 0 : port.hashCode());
-		result = prime * result + ((timeout == null) ? 0 : timeout.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
+	public List<BackendInfo> getBackend() {
+		return this.backend;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		FrontendInfo other = (FrontendInfo) obj;
-		if (ip == null) {
-			if (other.ip != null) {
-				return false;
-			}
-		} else if (!ip.equals(other.ip)) {
-			return false;
-		}
-		if (mode != other.mode) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (port == null) {
-			if (other.port != null) {
-				return false;
-			}
-		} else if (!port.equals(other.port)) {
-			return false;
-		}
-		if (timeout == null) {
-			if (other.timeout != null) {
-				return false;
-			}
-		} else if (!timeout.equals(other.timeout)) {
-			return false;
-		}
-		if (type != other.type) {
-			return false;
-		}
-		return true;
+	public void start(){
+        switch (mode) {
+            case TCP:
+                new ApexSocket();
+            case UDP:
+                new ApexDatagram();
+            default:
+            	new ApexSocket();
+        }
 	}
-
+	
 	@Override
 	public String toString() {
 		return "FrontendInfo [name=" + name + ", ip=" + ip + ", port=" + port + ", mode=" + mode + ", type=" + type
-				+ ", timeout=" + timeout + "]";
+				+ ", timeout=" + timeout + ", balancingStrategy=" + balancingStrategy + ", backend=" + backend + "]";
 	}
 	
 }
