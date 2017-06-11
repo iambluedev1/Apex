@@ -74,24 +74,11 @@ public class ApexSocket extends Apex {
 	
     public Channel bootstrap() throws Exception {
         logger.info("Bootstrapping socket server for frontend : " + this.frontend.getName() + " (" + this.frontend.getIp() + ":" + this.frontend.getPort()+")");
-
-        ServerBootstrap bootstrap = new ServerBootstrap()
-                .group(bossGroup, workerGroup)
-                .channel(PipelineUtils.getServerChannel())
-                .childHandler(new ApexSocketChannelInitializer(this.frontend))
-                .childOption(ChannelOption.AUTO_READ, false);
-
+        ServerBootstrap bootstrap = new ServerBootstrap().group(this.bossGroup, this.workerGroup).channel(PipelineUtils.getServerChannel()).childHandler(new ApexSocketChannelInitializer(this.frontend)).childOption(ChannelOption.AUTO_READ, false);
         if (PipelineUtils.isEpoll()) {
             bootstrap.childOption(EpollChannelOption.EPOLL_MODE, EpollMode.LEVEL_TRIGGERED);
-
             logger.debug("Epoll mode is now level triggered");
         }
-
-        return bootstrap
-                .option(ChannelOption.TCP_NODELAY, true)
-                .option(ChannelOption.SO_BACKLOG, backlog)
-                .bind(this.frontend.getIp(), this.frontend.getPort())
-                .sync()
-                .channel();
+        return bootstrap.option(ChannelOption.TCP_NODELAY, true).option(ChannelOption.SO_BACKLOG, this.backlog).bind(this.frontend.getIp(), this.frontend.getPort()).sync().channel();
     }
 }

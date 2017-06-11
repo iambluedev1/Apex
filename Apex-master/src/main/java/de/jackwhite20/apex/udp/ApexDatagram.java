@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.udp.pipeline.DatagramUpstreamHandler;
 import de.jackwhite20.apex.util.PipelineUtils;
+import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -40,28 +41,46 @@ public class ApexDatagram extends Apex {
 
     private static Logger logger = LoggerFactory.getLogger(ApexDatagram.class);
 
-    public ApexDatagram() {}
+    private EventLoopGroup bossGroup;
+    private EventLoopGroup workerGroup;
+    private FrontendInfo frontend;
+    private int backlog;
+    
+    public ApexDatagram(EventLoopGroup bossGroup, EventLoopGroup workerGroup, FrontendInfo frontend, int backlog) {
+		this.bossGroup = bossGroup;
+		this.workerGroup = workerGroup;
+		this.frontend = frontend;
+		this.backlog = backlog;
+	}
+    
+	public static Logger getLogger() {
+		return logger;
+	}
 
-    /*@Override
-    public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {
+	public EventLoopGroup getBossGroup() {
+		return this.bossGroup;
+	}
 
-        logger.info("Bootstrapping datagram server");
+	public EventLoopGroup getWorkerGroup() {
+		return this.workerGroup;
+	}
 
-        Bootstrap bootstrap = new Bootstrap()
-                .group(workerGroup)
-                .channel(PipelineUtils.getDatagramChannel())
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .handler(new DatagramUpstreamHandler());
+	public FrontendInfo getFrontend() {
+		return this.frontend;
+	}
 
+	public int getBacklog() {
+		return this.backlog;
+	}
+	
+
+    public Channel bootstrap() throws Exception {
+        logger.info("Bootstrapping datagram server for frontend : " + this.frontend.getName() + " (" + this.frontend.getIp() + ":" + this.frontend.getPort()+")");
+        Bootstrap bootstrap = new Bootstrap().group(this.workerGroup) .channel(PipelineUtils.getDatagramChannel()).option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT).handler(new DatagramUpstreamHandler(this.frontend));
         if (PipelineUtils.isEpoll()) {
             bootstrap.option(EpollChannelOption.EPOLL_MODE, EpollMode.LEVEL_TRIGGERED);
-
             logger.debug("Epoll mode is now level triggered");
         }
-
-        return bootstrap
-                .bind(ip, port)
-                .sync()
-                .channel();
-    }*/
+        return bootstrap .bind(this.frontend.getIp(), this.frontend.getPort()).sync().channel();
+    }
 }

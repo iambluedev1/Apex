@@ -19,22 +19,31 @@
 
 package de.jackwhite20.apex.udp.pipeline;
 
-import de.jackwhite20.apex.Apex;
-import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
-import de.jackwhite20.apex.udp.ApexDatagram;
-import de.jackwhite20.apex.util.BackendInfo;
-import de.jackwhite20.apex.util.ChannelUtil;
-import de.jackwhite20.apex.util.PipelineUtils;
-import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.*;
-import io.netty.channel.socket.DatagramPacket;
-import io.netty.handler.traffic.GlobalTrafficShapingHandler;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
+import de.jackwhite20.apex.Apex;
+import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
+import de.jackwhite20.apex.util.BackendInfo;
+import de.jackwhite20.apex.util.ChannelUtil;
+import de.jackwhite20.apex.util.PipelineUtils;
+import fr.iambluedev.vulkan.Vulkan;
+import fr.iambluedev.vulkan.backend.DefaultWebBackend;
+import fr.iambluedev.vulkan.state.ListeningState;
+import fr.iambluedev.vulkan.state.WhitelistState;
+import fr.iambluedev.vulkan.util.FrontendInfo;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.socket.DatagramPacket;
+import io.netty.handler.traffic.GlobalTrafficShapingHandler;
 
 /**
  * Created by JackWhite20 on 05.11.2016.
@@ -43,26 +52,51 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
 
     private static Logger logger = LoggerFactory.getLogger(DatagramUpstreamHandler.class);
     private ConnectionsPerSecondTask connectionsPerSecondTask;
+    private FrontendInfo frontend;
+    
+    public DatagramUpstreamHandler(FrontendInfo frontend){
+    	this.frontend = frontend;
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        connectionsPerSecondTask = Apex.getInstance().getConnectionsPerSecondTask();
-
-        // Add the traffic counter
+        this.connectionsPerSecondTask = Apex.getInstance().getConnectionsPerSecondTask();
         ctx.channel().pipeline().addLast(Apex.getInstance().getTrafficShapingHandler());
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket datagramPacket) throws Exception {
-
-        BackendInfo backendInfo = ApexDatagram.getBalancingStrategy().selectBackend("", 0);
-
+        BackendInfo backendCheck = this.frontend.getBalancingStrategy().selectBackend("", 0);
+        
+        if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
+    		if(this.frontend.getPort().equals(80)){
+    			backendCheck = new DefaultWebBackend();
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
+    		}else{
+        		logger.error("ListeningState is set to close.");
+        		return;
+    		}
+    	}
+    	
+    	if(Vulkan.getInstance().getWhitelistState() == WhitelistState.ON){
+			if(!Vulkan.getInstance().getWhitelistedIp().contains(datagramPacket.sender().getHostName())){
+				if(this.frontend.getPort().equals(80)){
+					backendCheck = new DefaultWebBackend();
+		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
+				}else{
+	        		logger.error("WhitelistState is set to on.");
+	        		return;
+				}
+			}
+    	}
+    	
+    	BackendInfo backendInfo = backendCheck;
+        
         if (backendInfo == null) {
             logger.error("Unable to select a backend server. All down?");
             return;
         }
 
-        // Only copy if there is at least one backend server
         ByteBuf copy = datagramPacket.content().copy().retain();
 
         Bootstrap bootstrap = new Bootstrap()
@@ -72,10 +106,8 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
 
         ChannelFuture channelFuture = bootstrap.bind(0);
 
-        // Add the traffic shaping handler to the channel pipeline
         GlobalTrafficShapingHandler trafficShapingHandler = Apex.getInstance().getTrafficShapingHandler();
         if (trafficShapingHandler != null) {
-            // The handler needs to be the first handler in the pipeline
             channelFuture.channel().pipeline().addFirst(trafficShapingHandler);
         }
 
@@ -88,13 +120,11 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
                 ChannelUtil.close(channel);
             }
 
-            // Release the buffer
             copy.release();
         });
 
-        // Keep track of request per second
-        if (connectionsPerSecondTask != null) {
-            connectionsPerSecondTask.inc();
+        if (this.connectionsPerSecondTask != null) {
+            this.connectionsPerSecondTask.inc();
         }
     }
 
@@ -107,4 +137,8 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
             logger.error(cause.getMessage(), cause);
         }
     }
+
+	public FrontendInfo getFrontend() {
+		return this.frontend;
+	}
 }

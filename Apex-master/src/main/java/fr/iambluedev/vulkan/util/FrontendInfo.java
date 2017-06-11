@@ -70,7 +70,7 @@ public class FrontendInfo {
             case TCP:
                 new ApexSocket(bossGroup, workerGroup, this, backlog).bootstrap();
             case UDP:
-                new ApexDatagram();
+                new ApexDatagram(bossGroup, workerGroup, this, backlog).bootstrap();
         }
 	}
 	

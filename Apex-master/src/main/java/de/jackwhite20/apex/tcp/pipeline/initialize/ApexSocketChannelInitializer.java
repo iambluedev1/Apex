@@ -65,15 +65,26 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	BackendInfo backendInfo = frontend.getBalancingStrategy().selectBackend(channel.remoteAddress().getHostName(), channel.remoteAddress().getPort());
     	
     	if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
-			backendInfo = new DefaultWebBackend();
-    		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
-    		
+    		if(this.frontend.getPort().equals(80)){
+    			backendInfo = new DefaultWebBackend();
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
+    		}else{
+    			channel.close();
+        		logger.error("ListeningState is set to close.");
+        		return;
+    		}
     	}
     	
     	if(Vulkan.getInstance().getWhitelistState() == WhitelistState.ON){
 			if(!Vulkan.getInstance().getWhitelistedIp().contains(channel.remoteAddress().getHostName())){
-				backendInfo = new DefaultWebBackend();
-	    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
+				if(this.frontend.getPort().equals(80)){
+					backendInfo = new DefaultWebBackend();
+		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
+				}else{
+					channel.close();
+	        		logger.error("WhitelistState is set to on.");
+	        		return;
+				}
 			}
     	}
     	
