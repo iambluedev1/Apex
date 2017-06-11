@@ -94,14 +94,14 @@ public class Apex {
     }
     
     public void start(Mode mode) {
-        commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));
-        commandManager.addCommand(new EndCommand("end", "Stops Apex", "stop", "exit"));
-        commandManager.addCommand(new DebugCommand("debug", "Turns the debug mode on/off", "d"));
-        commandManager.addCommand(new StatsCommand("stats", "Shows live stats", "s", "info"));
+    	this.commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));
+        this.commandManager.addCommand(new EndCommand("end", "Stops Apex", "stop", "exit"));
+        this.commandManager.addCommand(new DebugCommand("debug", "Turns the debug mode on/off", "d"));
+        this.commandManager.addCommand(new StatsCommand("stats", "Shows live stats", "s", "info"));
         
-        commandManager.addCommand(new CloseCommand("close", "Close the default listened port", "c"));
-        commandManager.addCommand(new OpenCommand("open", "Open the default listened port", "o"));
-        commandManager.addCommand(new WhitelistCommand("whitelist", "Manage the whitelist", "w"));
+        this.commandManager.addCommand(new CloseCommand("close", "Close the default listened port", "c"));
+        this.commandManager.addCommand(new OpenCommand("open", "Open the default listened port", "o"));
+        this.commandManager.addCommand(new WhitelistCommand("whitelist", "Manage the whitelist", "w"));
         
         JSONObject jsonObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("general");
         
@@ -112,8 +112,7 @@ public class Apex {
         Boolean debugKey = Boolean.valueOf(jsonObj.get("debug") + "");
         Boolean statsKey = Boolean.valueOf(jsonObj.get("stats") + "");
 
-        // Set the log level to debug or info based on the config value
-        changeDebug(debugKey ? Level.DEBUG : Level.INFO);
+        this.changeDebug(debugKey ? Level.DEBUG : Level.INFO);
         
         Map<String, List<BackendInfo>> backendInfo = new HashMap<String, List<BackendInfo>>();
         
@@ -143,13 +142,13 @@ public class Apex {
         logger.debug("Worker: {}", workerKey);
         logger.debug("Stats: {}", statsKey);
         logger.debug("Probe: {}", probeKey);
+        
         for(Entry<String, List<BackendInfo>> backend : backendInfo.entrySet()){
         	logger.debug("Backend ("+ backend.getKey() + "): {}", backend.getValue().stream().map(BackendInfo::getName).collect(Collectors.joining(", ")));
         }
         
         logger.debug("Frontend: {}", frontendInfo.stream().map(FrontendInfo::getName).collect(Collectors.joining(", ")));
         
-        // Disable the resource leak detector
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.DISABLED);
 
         if (PipelineUtils.isEpoll()) {
@@ -158,67 +157,47 @@ public class Apex {
             logger.info("Using normal select/poll event notification mechanism");
         }
 
-        // Check boss thread config value
         int bossThreads = bossKey;
         if (bossThreads < PipelineUtils.DEFAULT_THREADS_THRESHOLD) {
             bossThreads = PipelineUtils.DEFAULT_BOSS_THREADS;
 
-            logger.warn("Boss threads needs to be greater or equal than {}. Using default value of {}",
-                    PipelineUtils.DEFAULT_THREADS_THRESHOLD,
-                    PipelineUtils.DEFAULT_BOSS_THREADS);
+            logger.warn("Boss threads needs to be greater or equal than {}. Using default value of {}",  PipelineUtils.DEFAULT_THREADS_THRESHOLD, PipelineUtils.DEFAULT_BOSS_THREADS);
         }
 
-        // Check worker thread config value
         int workerThreads = workerKey;
         if (workerThreads < PipelineUtils.DEFAULT_THREADS_THRESHOLD) {
             workerThreads = PipelineUtils.DEFAULT_WORKER_THREADS;
 
-            logger.warn("Worker threads needs to be greater or equal than {}. Using default value of {}",
-                    PipelineUtils.DEFAULT_THREADS_THRESHOLD,
-                    PipelineUtils.DEFAULT_WORKER_THREADS);
+            logger.warn("Worker threads needs to be greater or equal than {}. Using default value of {}", PipelineUtils.DEFAULT_THREADS_THRESHOLD, PipelineUtils.DEFAULT_WORKER_THREADS);
         }
 
-        bossGroup = PipelineUtils.newEventLoopGroup(bossThreads, new ApexThreadFactory("Apex Boss Thread"));
-        workerGroup = PipelineUtils.newEventLoopGroup(workerThreads, new ApexThreadFactory("Apex Worker Thread"));
+        this.bossGroup = PipelineUtils.newEventLoopGroup(bossThreads, new ApexThreadFactory("Apex Boss Thread"));
+        this.workerGroup = PipelineUtils.newEventLoopGroup(workerThreads, new ApexThreadFactory("Apex Worker Thread"));
 
         if (statsKey) {
-            // Only measure connections per second if stats are enabled
             connectionsPerSecondTask = new ConnectionsPerSecondTask();
-
-            // Load the total stats
+            
             long[] totalBytes = FileUtil.loadStats();
-
+            
             logger.debug("Loaded total read bytes: {}", totalBytes[0]);
             logger.debug("Loaded total written bytes: {}", totalBytes[1]);
-
-            // Traffic shaping handler with default check interval of one second
-            trafficShapingHandler = new GlobalTrafficShapingHandler(workerGroup, 0, 0);
-
-            // Set the total stats
-            ReflectionUtil.setAtomicLong(trafficShapingHandler.trafficCounter(), "cumulativeReadBytes", totalBytes[0]);
-            ReflectionUtil.setAtomicLong(trafficShapingHandler.trafficCounter(), "cumulativeWrittenBytes", totalBytes[1]);
-
+            
+            this.trafficShapingHandler = new GlobalTrafficShapingHandler(workerGroup, 0, 0);
+            
+            ReflectionUtil.setAtomicLong(this.trafficShapingHandler.trafficCounter(), "cumulativeReadBytes", totalBytes[0]);
+            ReflectionUtil.setAtomicLong(this.trafficShapingHandler.trafficCounter(), "cumulativeWrittenBytes", totalBytes[1]);
+            
             logger.debug("Traffic stats collect handler initialized");
         }
         
         try {
-        	// CONVERT TO FRONTEND
-            /*serverChannel = bootstrap(bossGroup,
-                    workerGroup,
-                    ipKey,
-                    portKey,
-                    backlogKey,
-                    timeoutKey,
-                    timeoutKey);*/
-            //---
         	for(FrontendInfo frontend : frontendInfo){
-        		frontend.start(bossGroup, workerGroup, backlogKey);
+        		frontend.start(this.bossGroup, this.workerGroup, backlogKey);
     	 	}
             
             int probe = probeKey;
             if (probe < -1 || probe == 0) {
                 probe = 10000;
-
                 logger.warn("Probe time value must be -1 to turn it off or greater than 0");
                 logger.warn("Using default probe time of 10000 milliseconds (10 seconds)");
             }
@@ -229,13 +208,12 @@ public class Apex {
             	//scheduledExecutorService.scheduleAtFixedRate(backendTask, 0, probe, TimeUnit.MILLISECONDS);
                 //---
             } else {
-                // Shutdown unnecessary scheduler
-                scheduledExecutorService.shutdown();
+            	this.scheduledExecutorService.shutdown();
             }
             
             JSONObject restObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("rest");
-            restServer = new RestServer((String) restObj.get("ip"), Integer.valueOf(restObj.get("port") + ""));
-            restServer.start();
+            this.restServer = new RestServer((String) restObj.get("ip"), Integer.valueOf(restObj.get("port") + ""));
+            this.restServer.start();
 
             for(FrontendInfo frontend : frontendInfo){
             	logger.info("Apex listening (" + frontend.getName() + ") on {}:{}", frontend.getIp(), frontend.getPort());
@@ -246,10 +224,10 @@ public class Apex {
     }
 
     public void console() {
-        scanner = new Scanner(System.in);
+    	this. scanner = new Scanner(System.in);
         try {
             String line;
-            while ((line = scanner.nextLine()) != null) {
+            while ((line = this.scanner.nextLine()) != null) {
                 if (!line.isEmpty()) {
                     String[] split = ARGS_PATTERN.split(line);
 
@@ -257,15 +235,10 @@ public class Apex {
                         continue;
                     }
 
-                    // Get the command name
                     String commandName = split[0].toLowerCase();
-
-                    // Try to get the command with the name
-                    Command command = commandManager.findCommand(commandName);
-
+                    Command command = this.commandManager.findCommand(commandName);
                     if (command != null) {
                         logger.info("Executing command: {}", line);
-
                         String[] cmdArgs = Arrays.copyOfRange(split, 1, split.length);
                         command.execute(cmdArgs);
                     } else {
@@ -277,49 +250,40 @@ public class Apex {
     }
 
     public void changeDebug(Level level) {
-        // Set the log level to debug or info based on the config value
         rootLogger.setLevel(level);
-
         logger.info("Logger level is now {}", rootLogger.getLevel());
     }
 
     public void changeDebug() {
-        // Change the log level based on the current level
         changeDebug((rootLogger.getLevel() == Level.INFO) ? Level.DEBUG : Level.INFO);
     }
 
     public void stop() {
         logger.info("Apex is going to be stopped");
 
-        // Close the scanner
-        scanner.close();
+        this.scanner.close();
 
-        // Close the server channel
-        if (serverChannel != null) {
-            serverChannel.close();
+        if (this.serverChannel != null) {
+        	this.serverChannel.close();
         }
 
-        if (connectionsPerSecondTask != null) {
-            connectionsPerSecondTask.stop();
+        if (this.connectionsPerSecondTask != null) {
+        	this.connectionsPerSecondTask.stop();
         }
 
-        scheduledExecutorService.shutdown();
+        this.scheduledExecutorService.shutdown();
 
-        // Release the traffic shaping handler
-        if (trafficShapingHandler != null) {
-            FileUtil.saveStats(trafficShapingHandler.trafficCounter().cumulativeReadBytes(),
-                    trafficShapingHandler.trafficCounter().cumulativeWrittenBytes());
-
-            logger.info("Total bytes stats saved");
-
-            trafficShapingHandler.release();
+        if (this.trafficShapingHandler != null) {
+            FileUtil.saveStats(this.trafficShapingHandler.trafficCounter().cumulativeReadBytes(), this.trafficShapingHandler.trafficCounter().cumulativeWrittenBytes());
+        	logger.info("Total bytes stats saved");
+			this.trafficShapingHandler.release();
         }
 
-        bossGroup.shutdownGracefully();
-        workerGroup.shutdownGracefully();
+        this.bossGroup.shutdownGracefully();
+        this.workerGroup.shutdownGracefully();
 
         try {
-            restServer.stop();
+        	this.restServer.stop();
         } catch (Exception e) {
             logger.warn("RESTful API server already stopped");
         }
@@ -340,11 +304,11 @@ public class Apex {
     }
 
     public GlobalTrafficShapingHandler getTrafficShapingHandler() {
-        return trafficShapingHandler;
+        return this.trafficShapingHandler;
     }
 
     public ConnectionsPerSecondTask getConnectionsPerSecondTask() {
-        return connectionsPerSecondTask;
+        return this.connectionsPerSecondTask;
     }
 
     public static Apex getInstance() {
