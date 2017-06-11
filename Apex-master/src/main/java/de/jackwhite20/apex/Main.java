@@ -41,7 +41,7 @@ public class Main {
         String modeString = (String) jsonObj.get("mode");
         Mode mode = Mode.of(modeString);
         logger.info("Using mode: " + mode);
-        Apex apex = ApexFactory.create(mode);
+        Apex apex = new Apex();
         apex.start(mode);
         apex.console();
     }

@@ -42,7 +42,7 @@ public class ApexDatagram extends Apex {
 
     public ApexDatagram() {}
 
-    @Override
+    /*@Override
     public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {
 
         logger.info("Bootstrapping datagram server");
@@ -63,5 +63,5 @@ public class ApexDatagram extends Apex {
                 .bind(ip, port)
                 .sync()
                 .channel();
-    }
+    }*/
 }

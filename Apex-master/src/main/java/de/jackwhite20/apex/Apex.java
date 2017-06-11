@@ -67,7 +67,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 /**
  * Created by JackWhite20 on 05.11.2016.
  */
-public abstract class Apex {
+public class Apex {
 
     private static final String APEX_PACKAGE_NAME = "de.jackwhite20.apex";
 
@@ -105,7 +105,7 @@ public abstract class Apex {
         this.commandManager = new CommandManager();
     }
 
-    public abstract Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception;
+    //public abstract Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception;
 
     public void start(Mode mode) {
         commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));

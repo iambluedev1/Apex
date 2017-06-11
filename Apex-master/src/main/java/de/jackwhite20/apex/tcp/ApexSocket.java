@@ -41,7 +41,7 @@ public class ApexSocket extends Apex {
 
     public ApexSocket() {}
 
-    @Override
+  /*  @Override
     public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {
 
         logger.info("Bootstrapping socket server");
@@ -64,5 +64,5 @@ public class ApexSocket extends Apex {
                 .bind(ip, port)
                 .sync()
                 .channel();
-    }
+    }*/
 }
