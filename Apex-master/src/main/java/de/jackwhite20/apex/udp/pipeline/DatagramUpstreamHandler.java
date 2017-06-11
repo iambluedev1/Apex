@@ -130,7 +130,6 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-
         ChannelUtil.close(ctx.channel());
 
         if (!(cause instanceof IOException)) {
