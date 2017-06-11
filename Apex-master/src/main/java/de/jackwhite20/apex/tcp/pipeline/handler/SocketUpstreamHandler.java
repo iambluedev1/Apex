@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.jackwhite20.apex.Apex;
-import de.jackwhite20.apex.tcp.ApexSocket;
 import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.ChannelUtil;
 import de.jackwhite20.apex.util.PipelineUtils;

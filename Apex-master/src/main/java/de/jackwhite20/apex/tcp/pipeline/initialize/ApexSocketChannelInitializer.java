@@ -29,6 +29,7 @@ import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
 import de.jackwhite20.apex.tcp.pipeline.handler.SocketUpstreamHandler;
 import de.jackwhite20.apex.util.BackendInfo;
 import fr.iambluedev.vulkan.Vulkan;
+import fr.iambluedev.vulkan.backend.DefaultMcBackend;
 import fr.iambluedev.vulkan.backend.DefaultWebBackend;
 import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
@@ -67,7 +68,10 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
     		if(this.frontend.getPort().equals(80)){
     			backendInfo = new DefaultWebBackend();
-        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Web Backend");
+    		}else if(this.frontend.getPort().equals(25565)){
+    			backendInfo = new DefaultMcBackend();
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Mc Backend");
     		}else{
     			channel.close();
         		logger.error("ListeningState is set to close.");
@@ -79,8 +83,11 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
 			if(!Vulkan.getInstance().getWhitelistedIp().contains(channel.remoteAddress().getHostName())){
 				if(this.frontend.getPort().equals(80)){
 					backendInfo = new DefaultWebBackend();
-		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
-				}else{
+		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Web Backend");
+				}else if(this.frontend.getPort().equals(25565)){
+	    			backendInfo = new DefaultMcBackend();
+	    			logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Mc Backend");
+	    		}else{
 					channel.close();
 	        		logger.error("WhitelistState is set to on.");
 	        		return;
@@ -91,10 +98,13 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
         if (backendInfo == null) {
         	if(this.frontend.getPort().equals(80)){
         		backendInfo = new DefaultWebBackend();
-        		logger.error("Unable to select a web backend server for the port. All down? Redirecting to the Default VulkanNetwork Backend");
-        	}else{
+        		logger.error("Unable to select a web backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Web Backend");
+        	}else if(this.frontend.getPort().equals(25565)){
+    			backendInfo = new DefaultMcBackend();
+    			logger.error("Unable to select a mc backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Mc Backend");
+    		}else{
         		channel.close();
-        		logger.error("Unable to select a backend server for the port. All down?");
+        		logger.error("Unable to select a backend server for the port (" + this.frontend.getPort() + "). All down?");
         		return;
         	}
         }

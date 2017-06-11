@@ -31,6 +31,7 @@ import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.ChannelUtil;
 import de.jackwhite20.apex.util.PipelineUtils;
 import fr.iambluedev.vulkan.Vulkan;
+import fr.iambluedev.vulkan.backend.DefaultMcBackend;
 import fr.iambluedev.vulkan.backend.DefaultWebBackend;
 import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
@@ -71,7 +72,10 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
         if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
     		if(this.frontend.getPort().equals(80)){
     			backendCheck = new DefaultWebBackend();
-        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Backend");
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Web Backend");
+    		}else if(this.frontend.getPort().equals(25565)){
+    			backendCheck = new DefaultMcBackend();
+        		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Mc Backend");
     		}else{
         		logger.error("ListeningState is set to close.");
         		return;
@@ -82,21 +86,32 @@ public class DatagramUpstreamHandler extends SimpleChannelInboundHandler<Datagra
 			if(!Vulkan.getInstance().getWhitelistedIp().contains(datagramPacket.sender().getHostName())){
 				if(this.frontend.getPort().equals(80)){
 					backendCheck = new DefaultWebBackend();
-		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Backend");
-				}else{
+		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Web Backend");
+				}else if(this.frontend.getPort().equals(25565)){
+					backendCheck = new DefaultMcBackend();
+	    			logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Mc Backend");
+	    		}else{
 	        		logger.error("WhitelistState is set to on.");
 	        		return;
 				}
 			}
     	}
     	
-    	BackendInfo backendInfo = backendCheck;
-        
-        if (backendInfo == null) {
-            logger.error("Unable to select a backend server. All down?");
-            return;
+    	if (backendCheck == null) {
+        	if(this.frontend.getPort().equals(80)){
+        		backendCheck = new DefaultWebBackend();
+        		logger.error("Unable to select a web backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Web Backend");
+        	}else if(this.frontend.getPort().equals(25565)){
+        		backendCheck = new DefaultMcBackend();
+    			logger.error("Unable to select a mc backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Mc Backend");
+    		}else{
+        		logger.error("Unable to select a backend server for the port (" + this.frontend.getPort() + "). All down?");
+        		return;
+        	}
         }
 
+    	BackendInfo backendInfo = backendCheck;
+    	
         ByteBuf copy = datagramPacket.content().copy().retain();
 
         Bootstrap bootstrap = new Bootstrap()
