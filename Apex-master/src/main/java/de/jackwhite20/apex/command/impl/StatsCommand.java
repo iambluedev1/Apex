@@ -34,23 +34,19 @@ public class StatsCommand extends Command {
     private static Logger logger = LoggerFactory.getLogger(StatsCommand.class);
 
     public StatsCommand(String name, String description, String... aliases) {
-
         super(name, description, aliases);
     }
 
     @Override
     public boolean execute(String[] args) {
-
         logger.info("Connections: {}", Apex.getChannelGroup().size());
         if (Apex.getInstance().getConnectionsPerSecondTask() != null) {
             logger.info("Connections per second: {}", Apex.getInstance().getConnectionsPerSecondTask().getPerSecond());
         }
         logger.info("Online backend servers: {}", Apex.getBalancingStrategy().size());
-
         GlobalTrafficShapingHandler trafficShapingHandler = Apex.getInstance().getTrafficShapingHandler();
         if (trafficShapingHandler != null) {
             TrafficCounter trafficCounter = trafficShapingHandler.trafficCounter();
-
             logger.info("Current bytes read: {}", trafficCounter.currentReadBytes());
             logger.info("Current bytes written: {}", trafficCounter.currentWrittenBytes());
             logger.info("Last read throughput: {}", trafficCounter.lastReadThroughput());
@@ -58,7 +54,6 @@ public class StatsCommand extends Command {
             logger.info("Total bytes read: {}", trafficCounter.cumulativeReadBytes());
             logger.info("Total bytes written: {}", trafficCounter.cumulativeWrittenBytes());
         }
-
         return true;
     }
 }
