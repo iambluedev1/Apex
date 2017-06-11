@@ -69,15 +69,13 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  */
 public class Apex {
 
-    private static final String APEX_PACKAGE_NAME = "de.jackwhite20.apex";
-
     private static final Pattern ARGS_PATTERN = Pattern.compile(" ");
 
     private static Logger logger = LoggerFactory.getLogger(Apex.class);
 
     private static Apex instance;
 
-    private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(APEX_PACKAGE_NAME);
+    private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("de.jackwhite20.apex");
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -225,6 +223,9 @@ public class Apex {
                     timeoutKey,
                     timeoutKey);*/
             //---
+        	for(FrontendInfo frontend : frontendInfo){
+        		frontend.start(bossGroup, workerGroup, backlogKey);
+    	 	}
             
             int probe = probeKey;
             if (probe < -1 || probe == 0) {

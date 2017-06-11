@@ -61,14 +61,14 @@ public class FrontendInfo {
 		return this.backend;
 	}
 
-	public void start(EventLoopGroup bossGroup, EventLoopGroup workerGroup, int backlog, int readTimeout, int writeTimeout){
+	public void start(EventLoopGroup bossGroup, EventLoopGroup workerGroup, int backlog) throws Exception{
         switch (this.mode) {
             case TCP:
-                new ApexSocket();
+                new ApexSocket(bossGroup, workerGroup, this, backlog).bootstrap();
             case UDP:
                 new ApexDatagram();
             default:
-            	new ApexSocket();
+            	new ApexSocket(bossGroup, workerGroup, this, backlog).bootstrap();
         }
 	}
 	

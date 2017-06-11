@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.tcp.pipeline.initialize.ApexSocketChannelInitializer;
 import de.jackwhite20.apex.util.PipelineUtils;
+import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -39,17 +40,45 @@ public class ApexSocket extends Apex {
 
     private static Logger logger = LoggerFactory.getLogger(ApexSocket.class);
 
-    public ApexSocket() {}
+    private EventLoopGroup bossGroup;
+    private EventLoopGroup workerGroup;
+    private FrontendInfo frontend;
+    private int backlog;
+    
+	public ApexSocket(EventLoopGroup bossGroup, EventLoopGroup workerGroup, FrontendInfo frontend, int backlog) {
+		this.bossGroup = bossGroup;
+		this.workerGroup = workerGroup;
+		this.frontend = frontend;
+		this.backlog = backlog;
+	}
 
-  /*  @Override
-    public Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception {
+	public static Logger getLogger() {
+		return logger;
+	}
 
-        logger.info("Bootstrapping socket server");
+	public EventLoopGroup getBossGroup() {
+		return this.bossGroup;
+	}
+
+	public EventLoopGroup getWorkerGroup() {
+		return this.workerGroup;
+	}
+
+	public FrontendInfo getFrontend() {
+		return this.frontend;
+	}
+
+	public int getBacklog() {
+		return this.backlog;
+	}
+	
+    public Channel bootstrap() throws Exception {
+        logger.info("Bootstrapping socket server for frontend : " + this.frontend.getName() + " (" + this.frontend.getIp() + ":" + this.frontend.getPort()+")");
 
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .group(bossGroup, workerGroup)
                 .channel(PipelineUtils.getServerChannel())
-                .childHandler(new ApexSocketChannelInitializer(readTimeout, writeTimeout))
+                .childHandler(new ApexSocketChannelInitializer(this.frontend.getTimeout(), this.frontend.getTimeout()))
                 .childOption(ChannelOption.AUTO_READ, false);
 
         if (PipelineUtils.isEpoll()) {
@@ -61,8 +90,8 @@ public class ApexSocket extends Apex {
         return bootstrap
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.SO_BACKLOG, backlog)
-                .bind(ip, port)
+                .bind(this.frontend.getIp(), this.frontend.getPort())
                 .sync()
                 .channel();
-    }*/
+    }
 }
