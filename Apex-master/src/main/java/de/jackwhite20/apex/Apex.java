@@ -51,6 +51,9 @@ import de.jackwhite20.apex.util.Mode;
 import de.jackwhite20.apex.util.PipelineUtils;
 import de.jackwhite20.apex.util.ReflectionUtil;
 import fr.iambluedev.spartan.api.gson.JSONObject;
+import fr.iambluedev.spartan.utils.Callback;
+import fr.iambluedev.spartan.utils.RedisJsonMessage;
+import fr.iambluedev.vulkan.Vulkan;
 import fr.iambluedev.vulkan.command.CloseCommand;
 import fr.iambluedev.vulkan.command.OpenCommand;
 import fr.iambluedev.vulkan.command.WhitelistCommand;
@@ -63,6 +66,7 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.traffic.GlobalTrafficShapingHandler;
 import io.netty.util.ResourceLeakDetector;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import redis.clients.jedis.Jedis;
 
 /**
  * Created by JackWhite20 on 05.11.2016.
@@ -221,6 +225,13 @@ public class Apex {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
+			@Override
+			public void call(Jedis jedis) {
+				jedis.publish("apex", new RedisJsonMessage().setCmd("started").setContent("Apex started !").get());
+			}
+		});
     }
 
     public void console() {

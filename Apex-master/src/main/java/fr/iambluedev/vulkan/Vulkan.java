@@ -6,11 +6,14 @@ import java.util.List;
 import de.jackwhite20.apex.Apex;
 import fr.iambluedev.spartan.api.gson.JSONArray;
 import fr.iambluedev.spartan.api.gson.JSONObject;
+import fr.iambluedev.spartan.utils.Callback;
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
+import fr.iambluedev.vulkan.redis.ChannelHandler;
 import fr.iambluedev.vulkan.redis.Redis;
 import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
+import redis.clients.jedis.Jedis;
 
 public class Vulkan {
 
@@ -42,6 +45,27 @@ public class Vulkan {
 			this.whitelistedIp.add((String) obj);
 			Apex.getLogger().debug("Added " + obj + " to the whitelist");
 		}
+		
+		jsonObj = (JSONObject) this.apexConfig.getJsonObject().get("redis");
+		String redisHost = (String) jsonObj.get("host");
+		Integer redisPort = Integer.valueOf(jsonObj.get("port") + "");
+		@SuppressWarnings("unused")
+		String redisPassword = (String) jsonObj.get("password");
+		
+		Apex.getLogger().info("Connection to Redis !");
+		this.redis = new Redis(redisHost, redisPort);
+		
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				Vulkan.this.getRedis().get(new Callback<Jedis>() {
+					@Override
+					public void call(Jedis jedis) {
+						jedis.subscribe(new ChannelHandler(), "apex");
+					}
+				});
+			}
+		}).start();
 	}
 
 	public ListeningState getListeningState() {
