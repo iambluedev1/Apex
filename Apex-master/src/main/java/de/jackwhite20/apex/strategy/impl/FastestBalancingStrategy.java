@@ -30,37 +30,28 @@ import java.util.List;
 public class FastestBalancingStrategy extends BalancingStrategy {
 
     public FastestBalancingStrategy(List<BackendInfo> backend) {
-
         super(backend);
     }
 
     @Override
     public synchronized BackendInfo selectBackend(String originHost, int originPort) {
-
         BackendInfo current = null;
         double connectTime = Integer.MAX_VALUE;
-        for (BackendInfo info : getBackend()) {
+        for (BackendInfo info : this.getBackend()) {
             if (info.getConnectTime() < connectTime) {
                 connectTime = info.getConnectTime();
                 current = info;
             }
         }
-
         return current;
     }
 
     @Override
-    public void disconnectedFrom(BackendInfo backendInfo) {
-
-    }
+    public void disconnectedFrom(BackendInfo backendInfo) {}
 
     @Override
-    public void removeBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void removeBackendStrategy(BackendInfo backendInfo) {}
 
     @Override
-    public void addBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void addBackendStrategy(BackendInfo backendInfo) {}
 }

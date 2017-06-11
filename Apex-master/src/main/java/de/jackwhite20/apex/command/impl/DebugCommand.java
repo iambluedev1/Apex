@@ -28,15 +28,12 @@ import de.jackwhite20.apex.command.Command;
 public class DebugCommand extends Command {
 
     public DebugCommand(String name, String description, String... aliases) {
-
         super(name, description, aliases);
     }
 
     @Override
     public boolean execute(String[] args) {
-
         Apex.getInstance().changeDebug();
-
         return true;
     }
 }

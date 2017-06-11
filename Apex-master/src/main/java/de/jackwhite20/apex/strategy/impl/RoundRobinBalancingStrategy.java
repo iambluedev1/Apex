@@ -33,35 +33,25 @@ public class RoundRobinBalancingStrategy extends BalancingStrategy {
     private AtomicInteger currentTarget = new AtomicInteger(-1);
 
     public RoundRobinBalancingStrategy(List<BackendInfo> backend) {
-
         super(backend);
     }
 
     @Override
     public synchronized BackendInfo selectBackend(String originHost, int originPort) {
-
-        int now = currentTarget.incrementAndGet();
-
-        if (now == backend.size()) {
+        int now = this.currentTarget.incrementAndGet();
+        if (now == this.backend.size()) {
             now = 0;
-            currentTarget.set(0);
+            this.currentTarget.set(0);
         }
-
-        return (!backend.isEmpty()) ? backend.get(now) : null;
+        return (!this.backend.isEmpty()) ? this.backend.get(now) : null;
     }
 
     @Override
-    public void disconnectedFrom(BackendInfo backendInfo) {
-
-    }
+    public void disconnectedFrom(BackendInfo backendInfo) {}
 
     @Override
-    public void removeBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void removeBackendStrategy(BackendInfo backendInfo) {}
 
     @Override
-    public void addBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void addBackendStrategy(BackendInfo backendInfo) {}
 }

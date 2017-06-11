@@ -32,24 +32,18 @@ public class CommandManager {
     private Map<String, Command> commands = new HashMap<>();
 
     public Command findCommand(String name) {
-
-        return (commands.containsKey(name)) ?
-                commands.get(name) :
-                commands.values().stream().filter((Command c) -> c.isValidAlias(name)).findFirst().orElse(null);
+        return (this.commands.containsKey(name)) ? this.commands.get(name) : this.commands.values().stream().filter((Command c) -> c.isValidAlias(name)).findFirst().orElse(null);
     }
 
     public void addCommand(Command command) {
-
-        commands.put(command.getName(), command);
+    	this.commands.put(command.getName(), command);
     }
 
     public void removeCommand(String command) {
-
-        commands.remove(command);
+    	this.commands.remove(command);
     }
 
     public List<Command> getCommands() {
-
-        return new ArrayList<>(commands.values());
+        return new ArrayList<>(this.commands.values());
     }
 }

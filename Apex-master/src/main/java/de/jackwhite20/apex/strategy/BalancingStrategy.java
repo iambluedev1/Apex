@@ -30,11 +30,9 @@ import java.util.List;
 public abstract class BalancingStrategy {
 
     protected final List<BackendInfo> backend;
-
     private int size;
 
     public BalancingStrategy(List<BackendInfo> backend) {
-
         this.backend = Collections.synchronizedList(backend);
         this.size = backend.size();
     }
@@ -48,35 +46,26 @@ public abstract class BalancingStrategy {
     public abstract void addBackendStrategy(BackendInfo backendInfo);
 
     public synchronized void addBackend(BackendInfo targetData) {
-
         backend.add(targetData);
-
         addBackendStrategy(targetData);
-
         size++;
     }
 
     public synchronized void removeBackend(BackendInfo targetData) {
-
         backend.remove(targetData);
-
         removeBackendStrategy(targetData);
-
         size--;
     }
 
     public boolean hasBackend(BackendInfo backendInfo) {
-
         return backend.contains(backendInfo);
     }
 
     public int size() {
-
         return size;
     }
 
     public List<BackendInfo> getBackend() {
-
         return backend;
     }
 }

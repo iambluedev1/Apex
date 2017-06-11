@@ -23,7 +23,6 @@ package de.jackwhite20.apex.strategy;
  * Created by JackWhite20 on 30.06.2016.
  */
 public enum StrategyType {
-
     RANDOM,
     ROUND_ROBIN,
     LEAST_CON,

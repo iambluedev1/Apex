@@ -33,28 +33,21 @@ public class RandomBalancingStrategy extends BalancingStrategy {
     private Random random = new Random();
 
     public RandomBalancingStrategy(List<BackendInfo> backend) {
-
         super(backend);
     }
 
     @Override
     public synchronized BackendInfo selectBackend(String originHost, int originPort) {
 
-        return (!backend.isEmpty()) ? backend.get(random.nextInt(backend.size())) : null;
+        return (!this.backend.isEmpty()) ? this.backend.get(this.random.nextInt(this.backend.size())) : null;
     }
 
     @Override
-    public void disconnectedFrom(BackendInfo backendInfo) {
-
-    }
+    public void disconnectedFrom(BackendInfo backendInfo) {}
 
     @Override
-    public void removeBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void removeBackendStrategy(BackendInfo backendInfo) {}
 
     @Override
-    public void addBackendStrategy(BackendInfo backendInfo) {
-
-    }
+    public void addBackendStrategy(BackendInfo backendInfo) {}
 }
