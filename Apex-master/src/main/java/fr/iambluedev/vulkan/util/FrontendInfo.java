@@ -60,6 +60,10 @@ public class FrontendInfo {
 	public List<BackendInfo> getBackend() {
 		return this.backend;
 	}
+	
+	public BalancingStrategy getBalancingStrategy() {
+		return this.balancingStrategy;
+	}
 
 	public void start(EventLoopGroup bossGroup, EventLoopGroup workerGroup, int backlog) throws Exception{
         switch (this.mode) {
@@ -67,8 +71,6 @@ public class FrontendInfo {
                 new ApexSocket(bossGroup, workerGroup, this, backlog).bootstrap();
             case UDP:
                 new ApexDatagram();
-            default:
-            	new ApexSocket(bossGroup, workerGroup, this, backlog).bootstrap();
         }
 	}
 	

@@ -19,7 +19,11 @@
 
 package de.jackwhite20.apex.tcp.pipeline.initialize;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Preconditions;
+
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
 import de.jackwhite20.apex.tcp.pipeline.handler.SocketUpstreamHandler;
@@ -28,13 +32,12 @@ import fr.iambluedev.vulkan.Vulkan;
 import fr.iambluedev.vulkan.backend.DefaultWebBackend;
 import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
+import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import io.netty.handler.traffic.GlobalTrafficShapingHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by JackWhite20 on 26.06.2016.
@@ -43,29 +46,23 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
 
     private Logger logger = LoggerFactory.getLogger(ApexSocketChannelInitializer.class);
 
-    private int readTimeout;
-
-    private int writeTimeout;
-
     private ConnectionsPerSecondTask connectionsPerSecondTask;
-
-    public ApexSocketChannelInitializer(int readTimeout, int writeTimeout) {
-
-        Preconditions.checkState(readTimeout > 0, "readTimeout cannot be negative");
-        Preconditions.checkState(writeTimeout > 0, "writeTimeout cannot be negative");
-
-        this.readTimeout = readTimeout;
-        this.writeTimeout = writeTimeout;
+    private FrontendInfo frontend;
+    
+    public ApexSocketChannelInitializer(FrontendInfo frontend) {
+        Preconditions.checkState(frontend.getTimeout() > 0, "readTimeout cannot be negative");
+        Preconditions.checkState(frontend.getTimeout() > 0, "writeTimeout cannot be negative");
+        
+        this.frontend = frontend;
         this.connectionsPerSecondTask = Apex.getInstance().getConnectionsPerSecondTask();
 
-        logger.debug("Read timeout: {}", readTimeout);
-        logger.debug("Write timeout: {}", writeTimeout);
+        logger.debug("Read timeout: {}", frontend.getTimeout());
+        logger.debug("Write timeout: {}", frontend.getTimeout());
     }
 
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
-    	BackendInfo backendInfo = Apex.getBalancingStrategy()
-                .selectBackend(channel.remoteAddress().getHostName(), channel.remoteAddress().getPort());
+    	BackendInfo backendInfo = frontend.getBalancingStrategy().selectBackend(channel.remoteAddress().getHostName(), channel.remoteAddress().getPort());
     	
     	if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
 			backendInfo = new DefaultWebBackend();
@@ -90,15 +87,15 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
         }
         
         channel.pipeline()
-                .addLast(new ReadTimeoutHandler(readTimeout))
-                .addLast(new WriteTimeoutHandler(writeTimeout));
+                .addLast(new ReadTimeoutHandler(this.frontend.getTimeout()))
+                .addLast(new WriteTimeoutHandler(this.frontend.getTimeout()));
 
         GlobalTrafficShapingHandler trafficShapingHandler = Apex.getInstance().getTrafficShapingHandler();
         if (trafficShapingHandler != null) {
             channel.pipeline().addLast(trafficShapingHandler);
         }
 
-        channel.pipeline().addLast(new SocketUpstreamHandler(backendInfo));
+        channel.pipeline().addLast(new SocketUpstreamHandler(backendInfo, this.frontend));
 
         // Keep track of connections per second
         if (connectionsPerSecondTask != null) {
@@ -107,4 +104,8 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
 
         logger.debug("Connected [{}] <-> [{}:{} ({})]", channel.remoteAddress(), backendInfo.getHost(), backendInfo.getPort(), backendInfo.getName());
     }
+
+	public FrontendInfo getFrontend() {
+		return this.frontend;
+	}
 }

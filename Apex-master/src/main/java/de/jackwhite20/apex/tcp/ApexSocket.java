@@ -78,7 +78,7 @@ public class ApexSocket extends Apex {
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .group(bossGroup, workerGroup)
                 .channel(PipelineUtils.getServerChannel())
-                .childHandler(new ApexSocketChannelInitializer(this.frontend.getTimeout(), this.frontend.getTimeout()))
+                .childHandler(new ApexSocketChannelInitializer(this.frontend))
                 .childOption(ChannelOption.AUTO_READ, false);
 
         if (PipelineUtils.isEpoll()) {

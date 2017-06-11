@@ -19,18 +19,25 @@
 
 package de.jackwhite20.apex.tcp.pipeline.handler;
 
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.tcp.ApexSocket;
 import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.ChannelUtil;
 import de.jackwhite20.apex.util.PipelineUtils;
+import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.TimeoutException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Created by JackWhite20 on 26.06.2016.
@@ -40,12 +47,14 @@ public class SocketUpstreamHandler extends ChannelInboundHandlerAdapter {
     private static Logger logger = LoggerFactory.getLogger(SocketUpstreamHandler.class);
 
     private BackendInfo backendInfo;
+    private FrontendInfo frontendInfo;
 
     private Channel downstreamChannel;
 
-    public SocketUpstreamHandler(BackendInfo backendInfo) {
+    public SocketUpstreamHandler(BackendInfo backendInfo, FrontendInfo frontendInfo) {
 
         this.backendInfo = backendInfo;
+        this.frontendInfo = frontendInfo;
     }
 
     @Override
@@ -97,7 +106,7 @@ public class SocketUpstreamHandler extends ChannelInboundHandlerAdapter {
 
         ChannelUtil.closeOnFlush(downstreamChannel);
 
-        ApexSocket.getBalancingStrategy().disconnectedFrom(backendInfo);
+        this.frontendInfo.getBalancingStrategy().disconnectedFrom(backendInfo);
 
         logger.debug("Disconnected [{}] <-> [{}:{} ({})]", ctx.channel().remoteAddress(), backendInfo.getHost(), backendInfo.getPort(), backendInfo.getName());
     }
@@ -112,4 +121,12 @@ public class SocketUpstreamHandler extends ChannelInboundHandlerAdapter {
             logger.error(cause.getMessage(), cause);
         }
     }
+
+	public BackendInfo getBackendInfo() {
+		return this.backendInfo;
+	}
+
+	public FrontendInfo getFrontendInfo() {
+		return this.frontendInfo;
+	}
 }
