@@ -68,33 +68,23 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  * Created by JackWhite20 on 05.11.2016.
  */
 public class Apex {
-
+	
+	private static Apex instance;
+	
+	private static Logger logger = LoggerFactory.getLogger(Apex.class);
+	private ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+	private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("de.jackwhite20.apex");
+	 
     private static final Pattern ARGS_PATTERN = Pattern.compile(" ");
-
-    private static Logger logger = LoggerFactory.getLogger(Apex.class);
-
-    private static Apex instance;
-
-    private static ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger("de.jackwhite20.apex");
-
+    
     private ScheduledExecutorService scheduledExecutorService;
-
     private Channel serverChannel;
-
     private EventLoopGroup bossGroup;
-
     private EventLoopGroup workerGroup;
-
     private GlobalTrafficShapingHandler trafficShapingHandler;
-
     private RestServer restServer;
-
     private CommandManager commandManager;
-
     private Scanner scanner;
-
-    private ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-
     private ConnectionsPerSecondTask connectionsPerSecondTask;
     
     public Apex() {
@@ -102,9 +92,7 @@ public class Apex {
         this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ApexThreadFactory("Check Task"));
         this.commandManager = new CommandManager();
     }
-
-    //public abstract Channel bootstrap(EventLoopGroup bossGroup, EventLoopGroup workerGroup, String ip, int port, int backlog, int readTimeout, int writeTimeout) throws Exception;
-
+    
     public void start(Mode mode) {
         commandManager.addCommand(new HelpCommand("help", "List of available commands", "h"));
         commandManager.addCommand(new EndCommand("end", "Stops Apex", "stop", "exit"));

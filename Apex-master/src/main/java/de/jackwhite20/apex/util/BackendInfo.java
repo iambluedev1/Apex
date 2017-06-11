@@ -19,14 +19,13 @@
 
 package de.jackwhite20.apex.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
+import fr.iambluedev.vulkan.util.FrontendInfo;
 
 /**
  * Created by JackWhite20 on 26.06.2016.
@@ -34,59 +33,49 @@ import java.net.Socket;
 public class BackendInfo {
 
     public static final int DEFAULT_TCP_TIMEOUT = 4000;
-
     private static final int DEFAULT_UDP_TIMEOUT = 1500;
-
     private static final byte[] EMPTY_BUFFER = new byte[] {};
-
     private static final DatagramPacket EMPTY_PACKET = new DatagramPacket(EMPTY_BUFFER, EMPTY_BUFFER.length);
 
-    @SuppressWarnings("unused")
-	private static Logger logger = LoggerFactory.getLogger(BackendInfo.class);
-
     private String name;
-
     private String host;
-
     private int port;
-
     private double connectTime;
+    private FrontendInfo frontend;
 
     public BackendInfo(String name, String host, int port) {
-
         this.name = name;
         this.host = host;
         this.port = port;
     }
 
     public String getName() {
-
-        return name;
+        return this.name;
     }
 
     public String getHost() {
-
-        return host;
+        return this.host;
     }
 
     public int getPort() {
-
-        return port;
+        return this.port;
     }
 
     public double getConnectTime() {
-
-        return connectTime;
+        return this.connectTime;
     }
 
-    public boolean checkSocket() {
+    public FrontendInfo getFrontend() {
+		return this.frontend;
+	}
 
+	public boolean checkSocket() {
         boolean online = false;
 
         try (Socket socket = new Socket()) {
             long now = System.currentTimeMillis();
-            socket.connect(new InetSocketAddress(host, port), DEFAULT_TCP_TIMEOUT);
-            connectTime = System.currentTimeMillis() - now;
+            socket.connect(new InetSocketAddress(this.host, this.port), DEFAULT_TCP_TIMEOUT);
+            this.connectTime = System.currentTimeMillis() - now;
 
             online = true;
         } catch (IOException ignore) {}
@@ -95,16 +84,15 @@ public class BackendInfo {
     }
 
     public boolean checkDatagram() {
-
         boolean online = false;
 
         try (DatagramSocket datagramSocket = new DatagramSocket()) {
             datagramSocket.setSoTimeout(DEFAULT_UDP_TIMEOUT);
             long now = System.currentTimeMillis();
-            datagramSocket.connect(new InetSocketAddress(host, port));
+            datagramSocket.connect(new InetSocketAddress(this.host, this.port));
             datagramSocket.send(EMPTY_PACKET);
             datagramSocket.receive(EMPTY_PACKET);
-            connectTime = System.currentTimeMillis() - now;
+            this.connectTime = System.currentTimeMillis() - now;
 
             online = true;
         } catch (Exception ignore) {}
@@ -114,7 +102,6 @@ public class BackendInfo {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) {
             return true;
         }
@@ -132,7 +119,6 @@ public class BackendInfo {
 
     @Override
     public int hashCode() {
-
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (host != null ? host.hashCode() : 0);
         result = 31 * result + port;
@@ -142,7 +128,6 @@ public class BackendInfo {
 
     @Override
     public String toString() {
-
         return "BackendInfo{" +
                 "name='" + name + '\'' +
                 ", host='" + host + '\'' +
