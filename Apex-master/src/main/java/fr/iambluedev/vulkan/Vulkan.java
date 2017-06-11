@@ -8,6 +8,7 @@ import fr.iambluedev.spartan.api.gson.JSONArray;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
+import fr.iambluedev.vulkan.redis.Redis;
 import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
 
@@ -22,6 +23,8 @@ public class Vulkan {
 	private ApexConfig apexConfig;
 	
 	private List<String> whitelistedIp;
+	
+	private Redis redis;
 	
 	public Vulkan(){
 		instance = this;
@@ -85,5 +88,9 @@ public class Vulkan {
 			this.whitelistedIp.remove(ip);
 			this.whiteListConfig.update(this.whitelistedIp);
 		}
+	}
+
+	public Redis getRedis() {
+		return this.redis;
 	}
 }

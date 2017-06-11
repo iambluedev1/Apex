@@ -19,16 +19,13 @@ public class ApexConfig extends SpartanConfig{
 		generalObj.put("backlog", 100);
 		generalObj.put("worker", 4);
 		generalObj.put("probe", 5000);
-		
-		// CONVERT TO FRONTEND
-		generalObj.put("mode", "tcp");
-		generalObj.put("ip", "0.0.0.0");
-		generalObj.put("port", 80);
-		generalObj.put("timeout", 30);
-		generalObj.put("balance", "RANDOM");
-		//---
-		
 		this.getJsonObject().put("general", generalObj);
+		
+		JSONObject redisObj = new JSONObject();
+		redisObj.put("host", "localhost");
+		redisObj.put("port", 6379);
+		redisObj.put("password", "mypassword");
+		this.getJsonObject().put("redis", redisObj);
 		
 		JSONObject restObj = new JSONObject();
 		restObj.put("ip", "localhost");
