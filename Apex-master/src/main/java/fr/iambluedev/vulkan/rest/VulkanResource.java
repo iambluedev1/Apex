@@ -24,14 +24,34 @@ public class VulkanResource {
 	@GET
     @Path("/whitelist/list")
     @Produces(ContentType.APPLICATION_JSON)
-    public Response stats(Request httpRequest) {
-		 return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip", Main.getVulkan().getWhitelistedIp()))).build();
+    public Response list(Request httpRequest) {
+		return this.list();
+	}
+	
+	public Response list(){
+		return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip", Main.getVulkan().getWhitelistedIp()))).build();
+	}
+	
+
+	@GET
+    @Path("/whitelist/status")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response status(Request httpRequest) {
+		return this.status();
+	}
+	
+	public Response status(){
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Status : " + Vulkan.getInstance().getWhitelistState()))).build();
 	}
 	
 	@GET
     @Path("/whitelist/state/{state}")
     @Produces(ContentType.APPLICATION_JSON)
-    public Response stats(Request httpRequest, @PathParam String state) {
+    public Response state(Request httpRequest, @PathParam String state) {
+		return this.state(state);
+	}
+	
+	public Response state(String state){
 		if(state.equalsIgnoreCase("on")){
 			Main.getVulkan().setWhitelistState(WhitelistState.ON);
 			Apex.getLogger().info("Turning on whitelisting !");
@@ -49,6 +69,10 @@ public class VulkanResource {
     @Path("/whitelist/add/{ip}")
     @Produces(ContentType.APPLICATION_JSON)
     public Response add(Request httpRequest, @PathParam String ip) {
+		return this.add(ip);
+	}
+	
+	public Response add(String ip){
 		Vulkan.getInstance().addIp(ip);
 		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
 	}
@@ -57,7 +81,11 @@ public class VulkanResource {
     @Path("/whitelist/remove/{ip}")
     @Produces(ContentType.APPLICATION_JSON)
     public Response remove(Request httpRequest, @PathParam String ip) {
+		return this.remove(ip);
+	}
+	
+	public Response remove(String ip){
 		Vulkan.getInstance().removeIp(ip);
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " removed from the whitelist !"))).build();
 	}
 }

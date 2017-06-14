@@ -92,7 +92,7 @@ public class Apex {
     private ConnectionsPerSecondTask connectionsPerSecondTask;
     
     public Apex() {
-        Apex.instance = this;
+        instance = this;
         this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ApexThreadFactory("Check Task"));
         this.commandManager = new CommandManager();
     }
@@ -302,8 +302,8 @@ public class Apex {
         logger.info("Apex has been stopped");
     }
 
-    public static CommandManager getCommandManager() {
-        return instance.commandManager;
+    public CommandManager getCommandManager() {
+        return this.commandManager;
     }
     
     public static Channel getServerChannel() {
