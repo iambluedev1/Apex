@@ -1,5 +1,9 @@
 package fr.iambluedev.vulkan.redis;
 
+import com.google.gson.Gson;
+
+import de.jackwhite20.apex.Apex;
+import de.jackwhite20.apex.rest.response.ApexResponse;
 import de.jackwhite20.cobra.shared.http.Response;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.spartan.api.gson.parser.JSONParser;
@@ -30,6 +34,7 @@ public class ChannelHandler extends JedisPubSub {
 			}
 			final String name = player;
 			if(cmd.equals("cmd")){
+				Apex.getLogger().info("Received command from " + player + " : " + content);
 				if(content.equals("whitelist on") || content.equals("whitelist off") || content.equals("w on") || content.equals("w off")){
 					String split[] = content.split(" ");
 					Response resp = new VulkanResource().state(split[1]);
@@ -98,6 +103,45 @@ public class ChannelHandler extends JedisPubSub {
 							});
 						}
 					}).start();
+				}else if(content.equals("close") || content.equals("c")){
+					Response resp = new VulkanResource().close();
+                    new Thread(new Runnable(){
+						@Override
+						public void run() {
+							Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
+								@Override
+								public void call(Jedis jedis) {
+									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(resp.body().content()).get());
+								}
+							});
+						}
+					}).start();
+				}else if(content.equals("pstatus") || content.equals("ps")){
+					Response resp = new VulkanResource().pstatus();
+                    new Thread(new Runnable(){
+						@Override
+						public void run() {
+							Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
+								@Override
+								public void call(Jedis jedis) {
+									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(resp.body().content()).get());
+								}
+							});
+						}
+					}).start();
+				}else if(content.equals("open") || content.equals("o")){
+					Response resp = new VulkanResource().open();
+                    new Thread(new Runnable(){
+						@Override
+						public void run() {
+							Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
+								@Override
+								public void call(Jedis jedis) {
+									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(resp.body().content()).get());
+								}
+							});
+						}
+					}).start();
 				}else{
 					new Thread(new Runnable(){
 						@Override
@@ -105,7 +149,7 @@ public class ChannelHandler extends JedisPubSub {
 							Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
 								@Override
 								public void call(Jedis jedis) {
-									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent("Command not found !").get());
+									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(Response.ok().content(new Gson().toJson(new ApexResponse(ApexResponse.Status.OK, "Command not found !"))).build().body().content()).get());
 								}
 							});
 						}

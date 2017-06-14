@@ -14,6 +14,7 @@ import de.jackwhite20.cobra.server.http.annotation.method.GET;
 import de.jackwhite20.cobra.shared.ContentType;
 import de.jackwhite20.cobra.shared.http.Response;
 import fr.iambluedev.vulkan.Vulkan;
+import fr.iambluedev.vulkan.state.ListeningState;
 import fr.iambluedev.vulkan.state.WhitelistState;
 
 @Path("/vulkan")
@@ -31,7 +32,6 @@ public class VulkanResource {
 	public Response list(){
 		return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip", Main.getVulkan().getWhitelistedIp()))).build();
 	}
-	
 
 	@GET
     @Path("/whitelist/status")
@@ -74,6 +74,7 @@ public class VulkanResource {
 	
 	public Response add(String ip){
 		Vulkan.getInstance().addIp(ip);
+		Apex.getLogger().info(ip + " added to the whitelist !");
 		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
 	}
 	
@@ -86,6 +87,44 @@ public class VulkanResource {
 	
 	public Response remove(String ip){
 		Vulkan.getInstance().removeIp(ip);
+		Apex.getLogger().info(ip + " removed from the whitelist !");
 		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " removed from the whitelist !"))).build();
+	}
+	
+	@GET
+    @Path("/ports/close")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response close(Request httpRequest) {
+		return this.close();
+	}
+	
+	public Response close(){
+		Vulkan.getInstance().setListeningState(ListeningState.CLOSE);
+		Apex.getLogger().info("Frontend ports are been closed");
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Frontend ports are been closed"))).build();
+	}
+	
+	@GET
+    @Path("/ports/open")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response open(Request httpRequest) {
+		return this.open();
+	}
+	
+	public Response open(){
+		Vulkan.getInstance().setListeningState(ListeningState.OPEN);
+		Apex.getLogger().info("Frontend ports are been opened");
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Frontend ports are been opened"))).build();
+	}
+	
+	@GET
+    @Path("/ports/status")
+    @Produces(ContentType.APPLICATION_JSON)
+    public Response pstatus(Request httpRequest) {
+		return this.pstatus();
+	}
+	
+	public Response pstatus(){
+		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Status : " + Vulkan.getInstance().getListeningState()))).build();
 	}
 }

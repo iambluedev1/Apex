@@ -890,3 +890,195 @@
 20:59:25 [Thread-1] INFO  SpartanConfig - File whitelist successfully updated
 20:59:46 [Thread-1] INFO  VulkanResource - Turning on whitelisting !
 20:59:52 [Thread-1] INFO  VulkanResource - Turning off whitelisting !
+21:05:15 [main] INFO  Main - Starting Apex
+21:05:15 [main] INFO  SpartanConfig - Initialising whitelist file
+21:05:15 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:05:15 [main] INFO  SpartanConfig - Initialising apex file
+21:05:15 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:05:15 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:05:15 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:05:15 [main] INFO  Vulkan - Connection to Redis !
+21:05:15 [main] INFO  Apex - Logger level is now DEBUG
+21:05:15 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:05:15 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:05:15 [main] DEBUG Apex - Backlog: 100
+21:05:15 [main] DEBUG Apex - Boss: 1
+21:05:15 [main] DEBUG Apex - Worker: 4
+21:05:15 [main] DEBUG Apex - Stats: false
+21:05:15 [main] DEBUG Apex - Probe: 5000
+21:05:15 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:05:15 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:05:15 [main] DEBUG Apex - Frontend: web, mc
+21:05:15 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:05:15 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:05:15 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:05:15 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:05:15 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:05:15 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:05:15 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:05:15 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:05:15 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:05:15 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:05:15 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:05:15 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:05:38 [main] INFO  Main - Starting Apex
+21:05:38 [main] INFO  SpartanConfig - Initialising whitelist file
+21:05:38 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:05:38 [main] INFO  SpartanConfig - Initialising apex file
+21:05:38 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:05:38 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:05:38 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:05:38 [main] INFO  Vulkan - Connection to Redis !
+21:05:39 [main] INFO  Apex - Logger level is now DEBUG
+21:05:39 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:05:39 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:05:39 [main] DEBUG Apex - Backlog: 100
+21:05:39 [main] DEBUG Apex - Boss: 1
+21:05:39 [main] DEBUG Apex - Worker: 4
+21:05:39 [main] DEBUG Apex - Stats: false
+21:05:39 [main] DEBUG Apex - Probe: 5000
+21:05:39 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:05:39 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:05:39 [main] DEBUG Apex - Frontend: web, mc
+21:05:39 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:05:39 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:05:39 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:05:39 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:05:39 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:05:39 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:05:39 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:05:39 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:05:39 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:05:40 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:05:40 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:05:40 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:10:34 [main] INFO  Main - Starting Apex
+21:10:34 [main] INFO  SpartanConfig - Initialising whitelist file
+21:10:34 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:10:34 [main] INFO  SpartanConfig - Initialising apex file
+21:10:34 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:10:34 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:10:34 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:10:34 [main] INFO  Vulkan - Connection to Redis !
+21:10:34 [main] INFO  Apex - Logger level is now DEBUG
+21:10:34 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:10:34 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:10:34 [main] DEBUG Apex - Backlog: 100
+21:10:34 [main] DEBUG Apex - Boss: 1
+21:10:34 [main] DEBUG Apex - Worker: 4
+21:10:34 [main] DEBUG Apex - Stats: false
+21:10:34 [main] DEBUG Apex - Probe: 5000
+21:10:34 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:10:34 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:10:34 [main] DEBUG Apex - Frontend: web, mc
+21:10:34 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:10:34 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:10:34 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:10:34 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:10:35 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:10:35 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:10:35 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:10:35 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:10:35 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:10:35 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:10:35 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:10:35 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:10:39 [Thread-1] INFO  VulkanResource - Frontend ports are been closed
+21:11:18 [main] INFO  Main - Starting Apex
+21:11:18 [main] INFO  SpartanConfig - Initialising whitelist file
+21:11:18 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:11:18 [main] INFO  SpartanConfig - Initialising apex file
+21:11:18 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:11:18 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:11:18 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:11:18 [main] INFO  Vulkan - Connection to Redis !
+21:11:18 [main] INFO  Apex - Logger level is now DEBUG
+21:11:18 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:11:18 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:11:18 [main] DEBUG Apex - Backlog: 100
+21:11:18 [main] DEBUG Apex - Boss: 1
+21:11:18 [main] DEBUG Apex - Worker: 4
+21:11:18 [main] DEBUG Apex - Stats: false
+21:11:18 [main] DEBUG Apex - Probe: 5000
+21:11:18 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:11:18 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:11:18 [main] DEBUG Apex - Frontend: web, mc
+21:11:19 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:11:19 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:11:19 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:11:19 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:11:19 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:11:19 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:11:19 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:11:19 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:11:19 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:11:19 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:11:19 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:11:19 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:11:25 [Thread-1] INFO  VulkanResource - Frontend ports are been closed
+21:17:10 [main] INFO  Main - Starting Apex
+21:17:10 [main] INFO  SpartanConfig - Initialising whitelist file
+21:17:10 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:17:10 [main] INFO  SpartanConfig - Initialising apex file
+21:17:10 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:17:10 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:17:10 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:17:10 [main] INFO  Vulkan - Connection to Redis !
+21:17:10 [main] INFO  Apex - Logger level is now DEBUG
+21:17:10 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:17:10 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:17:10 [main] DEBUG Apex - Backlog: 100
+21:17:10 [main] DEBUG Apex - Boss: 1
+21:17:10 [main] DEBUG Apex - Worker: 4
+21:17:10 [main] DEBUG Apex - Stats: false
+21:17:10 [main] DEBUG Apex - Probe: 5000
+21:17:10 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:17:10 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:17:10 [main] DEBUG Apex - Frontend: web, mc
+21:17:10 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:17:10 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:17:10 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:17:10 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:17:11 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:17:11 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:17:11 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:17:11 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:17:11 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:17:11 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:17:11 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:17:11 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:18:02 [main] INFO  Main - Starting Apex
+21:18:02 [main] INFO  SpartanConfig - Initialising whitelist file
+21:18:02 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+21:18:02 [main] INFO  SpartanConfig - Initialising apex file
+21:18:02 [main] INFO  SpartanConfig - apex file succesfully loaded
+21:18:02 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+21:18:02 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+21:18:02 [main] INFO  Vulkan - Connection to Redis !
+21:18:03 [main] INFO  Apex - Logger level is now DEBUG
+21:18:03 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:18:03 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+21:18:03 [main] DEBUG Apex - Backlog: 100
+21:18:03 [main] DEBUG Apex - Boss: 1
+21:18:03 [main] DEBUG Apex - Worker: 4
+21:18:03 [main] DEBUG Apex - Stats: false
+21:18:03 [main] DEBUG Apex - Probe: 5000
+21:18:03 [main] DEBUG Apex - Backend (web): web-02, web-01
+21:18:03 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+21:18:03 [main] DEBUG Apex - Frontend: web, mc
+21:18:03 [main] INFO  Apex - Using normal select/poll event notification mechanism
+21:18:03 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+21:18:03 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:18:03 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:18:03 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+21:18:03 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+21:18:03 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+21:18:03 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+21:18:03 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+21:18:03 [main] INFO  RestServer - RESTful API listening on localhost:6000
+21:18:03 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+21:18:03 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+21:18:06 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : ps
+21:18:15 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : psa
+21:18:30 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : psa
+21:18:31 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : ps
