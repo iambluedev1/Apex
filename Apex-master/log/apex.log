@@ -1082,3 +1082,83 @@
 21:18:15 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : psa
 21:18:30 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : psa
 21:18:31 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : ps
+20:15:32 [main] INFO  Main - Starting Apex
+20:15:32 [main] INFO  SpartanConfig - Initialising whitelist file
+20:15:32 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+20:15:32 [main] INFO  SpartanConfig - Initialising apex file
+20:15:32 [main] INFO  SpartanConfig - apex file succesfully loaded
+20:15:32 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+20:15:32 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+20:15:32 [main] INFO  Vulkan - Connection to Redis !
+20:15:33 [main] INFO  Apex - Logger level is now DEBUG
+20:15:33 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:15:33 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:15:33 [main] DEBUG Apex - Backlog: 100
+20:15:33 [main] DEBUG Apex - Boss: 1
+20:15:33 [main] DEBUG Apex - Worker: 4
+20:15:33 [main] DEBUG Apex - Stats: false
+20:15:33 [main] DEBUG Apex - Probe: 5000
+20:15:33 [main] DEBUG Apex - Backend (web): web-02, web-01
+20:15:33 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+20:15:33 [main] DEBUG Apex - Frontend: web, mc
+20:15:33 [main] INFO  Apex - Using normal select/poll event notification mechanism
+20:15:33 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+20:15:33 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+20:15:33 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+20:15:33 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+20:15:33 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+20:15:33 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+20:15:33 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+20:15:33 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+20:15:33 [main] INFO  RestServer - RESTful API listening on localhost:6000
+20:15:33 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+20:15:33 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+20:33:35 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : w list
+20:33:44 [main] INFO  Apex - Executing command: w list
+20:33:44 [main] INFO  WhitelistCommand - List : [127.0.0.1, 77.77.77.77]
+20:34:47 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : w list
+20:35:59 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : w list
+20:36:35 [main] INFO  Main - Starting Apex
+20:36:35 [main] INFO  SpartanConfig - Initialising whitelist file
+20:36:35 [main] INFO  SpartanConfig - whitelist file succesfully loaded
+20:36:35 [main] INFO  SpartanConfig - Initialising apex file
+20:36:35 [main] INFO  SpartanConfig - apex file succesfully loaded
+20:36:35 [main] DEBUG Vulkan - Added 127.0.0.1 to the whitelist
+20:36:35 [main] DEBUG Vulkan - Added 77.77.77.77 to the whitelist
+20:36:35 [main] INFO  Vulkan - Connection to Redis !
+20:36:35 [main] INFO  Apex - Logger level is now DEBUG
+20:36:35 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:36:35 [main] INFO  BalancingStrategyFactory - Using strategy: RANDOM
+20:36:35 [main] DEBUG Apex - Backlog: 100
+20:36:35 [main] DEBUG Apex - Boss: 1
+20:36:35 [main] DEBUG Apex - Worker: 4
+20:36:35 [main] DEBUG Apex - Stats: false
+20:36:35 [main] DEBUG Apex - Probe: 5000
+20:36:35 [main] DEBUG Apex - Backend (web): web-02, web-01
+20:36:35 [main] DEBUG Apex - Backend (mc): mc-02, mc-01
+20:36:35 [main] DEBUG Apex - Frontend: web, mc
+20:36:35 [main] INFO  Apex - Using normal select/poll event notification mechanism
+20:36:35 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : web (0.0.0.0:82)
+20:36:35 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+20:36:35 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+20:36:36 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : web (0.0.0.0:82)
+20:36:36 [main] INFO  ApexSocket - Bootstrapping socket server for frontend : mc (0.0.0.0:25589)
+20:36:36 [main] DEBUG ApexSocketChannelInitializer - Read timeout: 30
+20:36:36 [main] DEBUG ApexSocketChannelInitializer - Write timeout: 30
+20:36:36 [main] INFO  ApexDatagram - Bootstrapping datagram server for frontend : mc (0.0.0.0:25589)
+20:36:36 [main] INFO  RestServer - RESTful API listening on localhost:6000
+20:36:36 [main] INFO  Apex - Apex listening (web) on 0.0.0.0:82
+20:36:36 [main] INFO  Apex - Apex listening (mc) on 0.0.0.0:25589
+20:36:37 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : w list
+20:36:52 [Thread-1] INFO  ChannelHandler - Received command from IamBlueDev : w on
+20:36:52 [Thread-1] INFO  VulkanResource - Turning on whitelisting !
+20:37:08 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:50649] <-> [164.132.48.233:25566 (mc-02)]
+20:37:09 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:50649] <-> [164.132.48.233:25566 (mc-02)]
+20:37:09 [Apex Worker Thread #3] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:50654] <-> [164.132.48.233:25565 (mc-01)]
+20:37:10 [Apex Worker Thread #3] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:50654] <-> [164.132.48.233:25565 (mc-01)]
+20:37:13 [Apex Worker Thread #0] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:50656] <-> [164.132.48.233:25566 (mc-02)]
+20:37:14 [Apex Worker Thread #0] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:50656] <-> [164.132.48.233:25566 (mc-02)]
+20:37:57 [Apex Worker Thread #1] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:50712] <-> [164.132.48.233:25566 (mc-02)]
+20:37:58 [Apex Worker Thread #1] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:50712] <-> [164.132.48.233:25566 (mc-02)]
+20:37:58 [Apex Worker Thread #2] DEBUG ApexSocketChannelInitializer - Connected [127.0.0.1/127.0.0.1:50717] <-> [164.132.48.233:25565 (mc-01)]
+20:37:59 [Apex Worker Thread #2] DEBUG SocketUpstreamHandler - Disconnected [127.0.0.1/127.0.0.1:50717] <-> [164.132.48.233:25565 (mc-01)]

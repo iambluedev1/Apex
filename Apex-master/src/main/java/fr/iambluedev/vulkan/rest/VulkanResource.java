@@ -30,7 +30,7 @@ public class VulkanResource {
 	}
 	
 	public Response list(){
-		return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip", Main.getVulkan().getWhitelistedIp()))).build();
+		return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip : ", Main.getVulkan().getWhitelistedIp()))).build();
 	}
 
 	@GET
