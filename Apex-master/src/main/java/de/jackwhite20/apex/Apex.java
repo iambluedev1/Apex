@@ -229,7 +229,7 @@ public class Apex {
         Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
 			@Override
 			public void call(Jedis jedis) {
-				jedis.publish("apex", new RedisJsonMessage().setCmd("started").setContent("Apex started !").get());
+				jedis.publish("apex", new RedisJsonMessage().setCmd("global").setContent("Apex started !").get());
 			}
 		});
     }
