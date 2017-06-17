@@ -22,8 +22,6 @@ package de.jackwhite20.apex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.jackwhite20.apex.util.Mode;
-import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.vulkan.Vulkan;
 
 /**

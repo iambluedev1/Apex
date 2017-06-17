@@ -44,17 +44,17 @@ public class CheckDatagramBackendTask extends CheckBackendTask {
                     if (info.checkDatagram()) {
                         if (!balancingStrategy.hasBackend(info)) {
                             balancingStrategy.addBackend(info);
-                            logger.info("{} is up again and was added back to the load balancer", info.getName());
+                            logger.info("["+ info.getFrontend().getName() +"] {} is up again and was added back to the load balancer", info.getName());
                         }
                     } else {
                         if (balancingStrategy.hasBackend(info)) {
-                            logger.warn("{} went down and was removed from the load balancer", info.getName());
+                            logger.warn("["+ info.getFrontend().getName() +"] {} went down and was removed from the load balancer", info.getName());
                             balancingStrategy.removeBackend(info);
 
                             if (balancingStrategy.getBackend().size() == 0) {
-                                logger.error("No more backend servers online");
+                                logger.error("["+ info.getFrontend().getName() +"] No more backend servers online");
                             } else {
-                                logger.info("{} backend servers left", balancingStrategy.getBackend().size());
+                                logger.info("["+ info.getFrontend().getName() +"] {} backend servers left", balancingStrategy.getBackend().size());
                             }
                         }
                     }

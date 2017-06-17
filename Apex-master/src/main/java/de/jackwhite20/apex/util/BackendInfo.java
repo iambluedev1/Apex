@@ -48,6 +48,10 @@ public class BackendInfo {
         this.host = host;
         this.port = port;
     }
+    
+    public void setFrontend(FrontendInfo info){
+    	this.frontend = info;
+    }
 
     public String getName() {
         return this.name;

@@ -1,12 +1,18 @@
 package fr.iambluedev.vulkan.util;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import de.jackwhite20.apex.strategy.BalancingStrategy;
 import de.jackwhite20.apex.strategy.BalancingStrategyFactory;
 import de.jackwhite20.apex.strategy.StrategyType;
+import de.jackwhite20.apex.task.CheckBackendTask;
+import de.jackwhite20.apex.task.impl.CheckDatagramBackendTask;
+import de.jackwhite20.apex.task.impl.CheckSocketBackendTask;
 import de.jackwhite20.apex.tcp.ApexSocket;
 import de.jackwhite20.apex.udp.ApexDatagram;
+import de.jackwhite20.apex.util.ApexThreadFactory;
 import de.jackwhite20.apex.util.BackendInfo;
 import de.jackwhite20.apex.util.Mode;
 import io.netty.channel.EventLoopGroup;
@@ -21,6 +27,8 @@ public class FrontendInfo {
 	private Integer timeout;
 	private BalancingStrategy balancingStrategy;
 	private List<BackendInfo> backend;
+	private ScheduledExecutorService scheduledExecutorService;
+	private CheckBackendTask backendTask;
 	
 	public FrontendInfo(String name, String ip, Integer port, Mode mode, StrategyType type, Integer timeout, List<BackendInfo> info) {
 		this.name = name;
@@ -31,6 +39,8 @@ public class FrontendInfo {
 		this.timeout = timeout;
 		this.backend = info;
 		this.balancingStrategy = BalancingStrategyFactory.create(type, info);
+		this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ApexThreadFactory("Check Task Frontend " + this.name));
+		this.backendTask = (this.mode == Mode.TCP) ? new CheckSocketBackendTask(this.balancingStrategy) : new CheckDatagramBackendTask(this.balancingStrategy);
 	}
 
 	public String getName() {
@@ -79,5 +89,14 @@ public class FrontendInfo {
 		return "FrontendInfo [name=" + name + ", ip=" + ip + ", port=" + port + ", mode=" + mode + ", type=" + type
 				+ ", timeout=" + timeout + ", balancingStrategy=" + balancingStrategy + ", backend=" + backend + "]";
 	}
+
+	public ScheduledExecutorService getScheduledExecutorService() {
+		return this.scheduledExecutorService;
+	}
+
+	public CheckBackendTask getBackendTask() {
+		return this.backendTask;
+	}
+	
 	
 }

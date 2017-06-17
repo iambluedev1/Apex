@@ -19,12 +19,12 @@
 
 package de.jackwhite20.apex.task;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
-import de.jackwhite20.apex.Apex;
+
 import de.jackwhite20.apex.strategy.BalancingStrategy;
 import de.jackwhite20.apex.util.BackendInfo;
-
-import java.util.List;
 
 /**
  * Created by JackWhite20 on 06.11.2016.
@@ -51,10 +51,6 @@ public abstract class CheckBackendTask implements Runnable {
 
     @Override
     public void run() {
-        if (!Apex.getServerChannel().isActive()) {
-            return;
-        }
-
         check();
     }
 }

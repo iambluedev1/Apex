@@ -26,8 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -81,7 +80,6 @@ public class Apex {
 	 
     private static final Pattern ARGS_PATTERN = Pattern.compile(" ");
     
-    private ScheduledExecutorService scheduledExecutorService;
     private Channel serverChannel;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
@@ -91,10 +89,12 @@ public class Apex {
     private Scanner scanner;
     private ConnectionsPerSecondTask connectionsPerSecondTask;
     
+    private List<FrontendInfo> frontendInfo;
+    
     public Apex() {
         instance = this;
-        this.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new ApexThreadFactory("Check Task"));
         this.commandManager = new CommandManager();
+        this.frontendInfo = new ArrayList<FrontendInfo>();
     }
     
     public void start() {
@@ -149,6 +149,13 @@ public class Apex {
         
         for(Entry<String, List<BackendInfo>> backend : backendInfo.entrySet()){
         	logger.debug("Backend ("+ backend.getKey() + "): {}", backend.getValue().stream().map(BackendInfo::getName).collect(Collectors.joining(", ")));
+        	for(FrontendInfo info : frontendInfo){
+        		if(info.getName().equals(backend.getKey())){
+        			for(BackendInfo backendI : backend.getValue()){
+        				backendI.setFrontend(info);
+        			}
+        		}
+        	}
         }
         
         logger.debug("Frontend: {}", frontendInfo.stream().map(FrontendInfo::getName).collect(Collectors.joining(", ")));
@@ -198,6 +205,8 @@ public class Apex {
         	for(FrontendInfo frontend : frontendInfo){
         		frontend.start(this.bossGroup, this.workerGroup, backlogKey);
     	 	}
+        	
+        	this.frontendInfo = frontendInfo;
             
             int probe = probeKey;
             if (probe < -1 || probe == 0) {
@@ -206,13 +215,13 @@ public class Apex {
                 logger.warn("Using default probe time of 10000 milliseconds (10 seconds)");
             }
 
-            if (probe != -1) {
-            	// CONVERT TO FRONTEND
-                //backendTask = (mode == Mode.TCP) ? new CheckSocketBackendTask(balancingStrategy) : new CheckDatagramBackendTask(balancingStrategy);
-            	//scheduledExecutorService.scheduleAtFixedRate(backendTask, 0, probe, TimeUnit.MILLISECONDS);
-                //---
-            } else {
-            	this.scheduledExecutorService.shutdown();
+            for(FrontendInfo frontend : this.getFrontendInfo()){
+            	if (probe != -1) {
+            		logger.info("Starting BackendTasks for Frontend : " + frontend.getName());
+            		frontend.getScheduledExecutorService().scheduleAtFixedRate(frontend.getBackendTask(), 0, 1000, TimeUnit.MILLISECONDS);
+                } else {
+                    frontend.getScheduledExecutorService().shutdown();
+                }
             }
             
             JSONObject restObj = (JSONObject) Main.getVulkan().getApexConfig().getJsonObject().get("rest");
@@ -282,7 +291,9 @@ public class Apex {
         	this.connectionsPerSecondTask.stop();
         }
 
-        this.scheduledExecutorService.shutdown();
+        for(FrontendInfo frontend : this.getFrontendInfo()){
+        	frontend.getScheduledExecutorService().shutdown();
+        }
 
         if (this.trafficShapingHandler != null) {
             FileUtil.saveStats(this.trafficShapingHandler.trafficCounter().cumulativeReadBytes(), this.trafficShapingHandler.trafficCounter().cumulativeWrittenBytes());
@@ -328,5 +339,9 @@ public class Apex {
 
 	public static Logger getLogger() {
 		return logger;
+	}
+
+	public List<FrontendInfo> getFrontendInfo() {
+		return this.frontendInfo;
 	}
 }

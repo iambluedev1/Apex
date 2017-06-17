@@ -19,12 +19,14 @@
 
 package de.jackwhite20.apex.command.impl;
 
-import de.jackwhite20.apex.Apex;
-import de.jackwhite20.apex.command.Command;
-import io.netty.handler.traffic.GlobalTrafficShapingHandler;
-import io.netty.handler.traffic.TrafficCounter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.jackwhite20.apex.Apex;
+import de.jackwhite20.apex.command.Command;
+import fr.iambluedev.vulkan.util.FrontendInfo;
+import io.netty.handler.traffic.GlobalTrafficShapingHandler;
+import io.netty.handler.traffic.TrafficCounter;
 
 /**
  * Created by JackWhite20 on 31.10.2016.
@@ -32,7 +34,7 @@ import org.slf4j.LoggerFactory;
 public class StatsCommand extends Command {
 
     private static Logger logger = LoggerFactory.getLogger(StatsCommand.class);
-
+    
     public StatsCommand(String name, String description, String... aliases) {
         super(name, description, aliases);
     }
@@ -43,7 +45,13 @@ public class StatsCommand extends Command {
         if (Apex.getInstance().getConnectionsPerSecondTask() != null) {
             logger.info("Connections per second: {}", Apex.getInstance().getConnectionsPerSecondTask().getPerSecond());
         }
-        logger.info("Online backend servers: {}", Apex.getBalancingStrategy().size());
+        
+        int size = 0;
+		for(FrontendInfo info : Apex.getInstance().getFrontendInfo()){
+        	size += info.getBalancingStrategy().getBackend().size();
+        }
+		logger.info("Online backend servers: {}", size);
+		
         GlobalTrafficShapingHandler trafficShapingHandler = Apex.getInstance().getTrafficShapingHandler();
         if (trafficShapingHandler != null) {
             TrafficCounter trafficCounter = trafficShapingHandler.trafficCounter();

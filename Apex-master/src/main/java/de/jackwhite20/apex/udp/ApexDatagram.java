@@ -22,7 +22,6 @@ package de.jackwhite20.apex.udp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.udp.pipeline.DatagramUpstreamHandler;
 import de.jackwhite20.apex.util.PipelineUtils;
 import fr.iambluedev.vulkan.util.FrontendInfo;
@@ -37,7 +36,7 @@ import io.netty.channel.epoll.EpollMode;
 /**
  * Created by JackWhite20 on 04.11.2016.
  */
-public class ApexDatagram extends Apex {
+public class ApexDatagram {
 
     private static Logger logger = LoggerFactory.getLogger(ApexDatagram.class);
 

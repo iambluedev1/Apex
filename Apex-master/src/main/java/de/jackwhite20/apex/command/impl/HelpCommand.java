@@ -38,7 +38,7 @@ public class HelpCommand extends Command {
     @Override
     public boolean execute(String[] args) {
         logger.info("Available Commands:");
-        for (Command command : Apex.getCommandManager().getCommands()) {
+        for (Command command : Apex.getInstance().getCommandManager().getCommands()) {
             logger.info("{} [{}] - {}", command.getName(), String.join(", ", command.getAliases()), command.getDescription());
         }
         return true;

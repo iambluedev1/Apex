@@ -22,7 +22,6 @@ package de.jackwhite20.apex.tcp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.tcp.pipeline.initialize.ApexSocketChannelInitializer;
 import de.jackwhite20.apex.util.PipelineUtils;
 import fr.iambluedev.vulkan.util.FrontendInfo;
@@ -36,7 +35,7 @@ import io.netty.channel.epoll.EpollMode;
 /**
  * Created by JackWhite20 on 26.06.2016.
  */
-public class ApexSocket extends Apex {
+public class ApexSocket {
 
     private static Logger logger = LoggerFactory.getLogger(ApexSocket.class);
 

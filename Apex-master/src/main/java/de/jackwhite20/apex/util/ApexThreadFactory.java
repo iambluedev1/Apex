@@ -38,7 +38,6 @@ public class ApexThreadFactory implements ThreadFactory {
     public Thread newThread(Runnable r) {
         Thread thread = new Thread(r);
         thread.setName( this.name + " #" +  this.id.getAndIncrement());
-
         return thread;
     }
 }
