@@ -36,7 +36,7 @@ public class ApexConfig extends SpartanConfig{
 		
 		JSONObject frontend1Obj = new JSONObject();
 		frontend1Obj.put("ip", "0.0.0.0");
-		frontend1Obj.put("port", 80);
+		frontend1Obj.put("port", 84);
 		frontend1Obj.put("balance", "RANDOM");
 		frontend1Obj.put("timeout", 30);
 		frontend1Obj.put("mode", "tcp");
@@ -44,7 +44,7 @@ public class ApexConfig extends SpartanConfig{
 		
 		JSONObject frontend2Obj = new JSONObject();
 		frontend2Obj.put("ip", "0.0.0.0");
-		frontend2Obj.put("port", 25565);
+		frontend2Obj.put("port", 25577);
 		frontend2Obj.put("balance", "RANDOM");
 		frontend2Obj.put("timeout", 30);
 		frontend2Obj.put("mode", "tcp");

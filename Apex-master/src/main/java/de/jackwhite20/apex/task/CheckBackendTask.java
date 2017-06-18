@@ -25,6 +25,10 @@ import com.google.common.collect.Lists;
 
 import de.jackwhite20.apex.strategy.BalancingStrategy;
 import de.jackwhite20.apex.util.BackendInfo;
+import fr.iambluedev.spartan.utils.Callback;
+import fr.iambluedev.spartan.utils.RedisJsonMessage;
+import fr.iambluedev.vulkan.Vulkan;
+import redis.clients.jedis.Jedis;
 
 /**
  * Created by JackWhite20 on 06.11.2016.
@@ -48,6 +52,21 @@ public abstract class CheckBackendTask implements Runnable {
     public synchronized void removeBackend(BackendInfo backendInfo) {
         this.backendInfo.remove(backendInfo);
     }
+    
+    public void sendMessage(String msg){
+    	new Thread(new Runnable(){
+			@Override
+			public void run() {
+				Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
+					@Override
+					public void call(Jedis jedis) {
+						jedis.publish("apex", new RedisJsonMessage().setCmd("global").setContent(msg).get());
+					}
+				});
+			}
+		}).start();
+    }
+    
 
     @Override
     public void run() {

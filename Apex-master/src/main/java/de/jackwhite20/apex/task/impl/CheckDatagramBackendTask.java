@@ -45,16 +45,20 @@ public class CheckDatagramBackendTask extends CheckBackendTask {
                         if (!balancingStrategy.hasBackend(info)) {
                             balancingStrategy.addBackend(info);
                             logger.info("["+ info.getFrontend().getName() +"] {} is up again and was added back to the load balancer", info.getName());
+                            this.sendMessage("["+ info.getFrontend().getName() +"] " + info.getName() + " is up again and was added back to the load balancer");
                         }
                     } else {
                         if (balancingStrategy.hasBackend(info)) {
                             logger.warn("["+ info.getFrontend().getName() +"] {} went down and was removed from the load balancer", info.getName());
+                            this.sendMessage("["+ info.getFrontend().getName() +"] " + info.getName() + " went down and was removed from the load balancer");
                             balancingStrategy.removeBackend(info);
 
                             if (balancingStrategy.getBackend().size() == 0) {
                                 logger.error("["+ info.getFrontend().getName() +"] No more backend servers online");
+                                this.sendMessage("["+ info.getFrontend().getName() +"] No more backend servers online");
                             } else {
                                 logger.info("["+ info.getFrontend().getName() +"] {} backend servers left", balancingStrategy.getBackend().size());
+                                this.sendMessage("["+ info.getFrontend().getName() +"] " + balancingStrategy.getBackend().size() + " backend servers left");
                             }
                         }
                     }
