@@ -61,7 +61,7 @@ public class Vulkan {
 				Vulkan.this.getRedis().get(new Callback<Jedis>() {
 					@Override
 					public void call(Jedis jedis) {
-						jedis.subscribe(new ChannelHandler(), "apex");
+						jedis.subscribe(new ChannelHandler(), "apex", "node");
 					}
 				});
 			}

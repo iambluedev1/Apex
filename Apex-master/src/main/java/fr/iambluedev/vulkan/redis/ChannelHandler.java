@@ -157,5 +157,18 @@ public class ChannelHandler extends JedisPubSub {
 				}
 			}
 		}
+		if(channel.equalsIgnoreCase("node")){
+			JSONObject jsonObj = null;
+			try {
+				jsonObj = (JSONObject) new JSONParser().parse(message);
+			} catch (ParseException e) {}
+			String id = (String) jsonObj.get("id");
+			String cmd = (String) jsonObj.get("cmd");
+			String content = (String) jsonObj.get("content");
+			
+			if(cmd.equals("hasEnoughtResponse")){
+				Apex.getLogger().info("Received hasEnoughtResponse from node : " + id);
+			}
+		}
 	}
 }
