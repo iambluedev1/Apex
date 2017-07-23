@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jackwhite20.apex.Apex;
+import de.jackwhite20.apex.util.BackendInfo;
 import fr.iambluedev.spartan.api.gson.JSONArray;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.spartan.utils.Callback;
+import fr.iambluedev.vulkan.backend.DefaultMcBackend;
+import fr.iambluedev.vulkan.backend.DefaultWebBackend;
 import fr.iambluedev.vulkan.config.ApexConfig;
 import fr.iambluedev.vulkan.config.WhiteListConfig;
 import fr.iambluedev.vulkan.redis.ChannelHandler;
@@ -28,6 +31,9 @@ public class Vulkan {
 	private List<String> whitelistedIp;
 	
 	private Redis redis;
+	
+	private BackendInfo mcBackend;
+	private BackendInfo webBackend;
 	
 	public Vulkan(){
 		instance = this;
@@ -54,6 +60,16 @@ public class Vulkan {
 		
 		Apex.getLogger().info("Connection to Redis !");
 		this.redis = new Redis(redisHost, redisPort);
+		
+		jsonObj = (JSONObject) this.apexConfig.getJsonObject().get("defaults");
+		
+		JSONObject defaultBack = (JSONObject) jsonObj.get("mc");
+		this.mcBackend = new DefaultMcBackend((String) defaultBack.get("ip"), Integer.valueOf(defaultBack.get("port") + ""));
+		Apex.getLogger().debug("Default MC Backend set to : " + this.mcBackend.getHost() + ":" + this.mcBackend.getPort());
+		
+		defaultBack = (JSONObject) jsonObj.get("web");
+		this.webBackend = new DefaultWebBackend((String) defaultBack.get("ip"), Integer.valueOf(defaultBack.get("port") + ""));
+		Apex.getLogger().debug("Default WEB Backend set to : " + this.webBackend.getHost() + ":" + this.webBackend.getPort());
 		
 		new Thread(new Runnable(){
 			@Override
@@ -116,5 +132,13 @@ public class Vulkan {
 
 	public Redis getRedis() {
 		return this.redis;
+	}
+
+	public BackendInfo getMcBackend() {
+		return this.mcBackend;
+	}
+
+	public BackendInfo getWebBackend() {
+		return this.webBackend;
 	}
 }

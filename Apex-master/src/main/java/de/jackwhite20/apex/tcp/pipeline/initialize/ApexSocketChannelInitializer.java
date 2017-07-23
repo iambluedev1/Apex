@@ -67,10 +67,10 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	
     	if(Vulkan.getInstance().getListeningState() == ListeningState.CLOSE){
     		if(this.frontend.getPort().equals(80)){
-    			backendInfo = new DefaultWebBackend();
+    			backendInfo = Vulkan.getInstance().getWebBackend();
         		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Web Backend");
     		}else if(this.frontend.getPort().equals(25565)){
-    			backendInfo = new DefaultMcBackend();
+    			backendInfo = Vulkan.getInstance().getMcBackend();
         		logger.error("ListeningState is set to close so redirecting to the Default VulkanNetwork Mc Backend");
     		}else{
     			channel.close();
@@ -80,12 +80,12 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	}
     	
     	if(Vulkan.getInstance().getWhitelistState() == WhitelistState.ON){
-			if(!Vulkan.getInstance().getWhitelistedIp().contains(channel.remoteAddress().getHostName())){
+			if(!Vulkan.getInstance().getWhitelistedIp().contains(channel.remoteAddress().getHostString())){
 				if(this.frontend.getPort().equals(80)){
-					backendInfo = new DefaultWebBackend();
+					backendInfo = Vulkan.getInstance().getWebBackend();
 		    		logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Web Backend");
 				}else if(this.frontend.getPort().equals(25565)){
-	    			backendInfo = new DefaultMcBackend();
+					backendInfo = Vulkan.getInstance().getMcBackend();
 	    			logger.error("WhitelistState is set to on so redirecting to the Default VulkanNetwork Mc Backend");
 	    		}else{
 					channel.close();
@@ -97,10 +97,10 @@ public class ApexSocketChannelInitializer extends ChannelInitializer<SocketChann
     	
         if (backendInfo == null) {
         	if(this.frontend.getPort().equals(80)){
-        		backendInfo = new DefaultWebBackend();
+        		backendInfo = Vulkan.getInstance().getWebBackend();
         		logger.error("Unable to select a web backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Web Backend");
         	}else if(this.frontend.getPort().equals(25565)){
-    			backendInfo = new DefaultMcBackend();
+        		backendInfo = Vulkan.getInstance().getMcBackend();
     			logger.error("Unable to select a mc backend server for the port (" + this.frontend.getPort() + "). All down? Redirecting to the Default VulkanNetwork Mc Backend");
     		}else{
         		channel.close();
