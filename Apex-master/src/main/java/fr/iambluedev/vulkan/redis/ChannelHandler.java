@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import de.jackwhite20.apex.Apex;
 import de.jackwhite20.apex.rest.response.ApexResponse;
+import de.jackwhite20.cobra.shared.Status;
 import de.jackwhite20.cobra.shared.http.Response;
 import fr.iambluedev.spartan.api.gson.JSONObject;
 import fr.iambluedev.spartan.api.gson.parser.JSONParser;
@@ -149,7 +150,7 @@ public class ChannelHandler extends JedisPubSub {
 							Vulkan.getInstance().getRedis().get(new Callback<Jedis>() {
 								@Override
 								public void call(Jedis jedis) {
-									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(Response.ok().content(new Gson().toJson(new ApexResponse(ApexResponse.Status.OK, "Command not found !"))).build().body().content()).get());
+									jedis.publish("apex", new RedisJsonMessage().setCmd("response:" + name).setContent(Response.ok().content(new Gson().toJson(new ApexResponse(Status.OK, "Command not found !"))).build().body().content()).get());
 								}
 							});
 						}

@@ -19,6 +19,8 @@
 
 package de.jackwhite20.apex.rest.response;
 
+import de.jackwhite20.cobra.shared.Status;
+
 /**
  * Created by JackWhite20 on 30.10.2016.
  */

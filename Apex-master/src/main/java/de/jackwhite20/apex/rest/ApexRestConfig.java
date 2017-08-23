@@ -21,6 +21,7 @@ package de.jackwhite20.apex.rest;
 
 import de.jackwhite20.apex.rest.resource.ApexResource;
 import de.jackwhite20.cobra.server.impl.CobraConfig;
+import fr.iambluedev.vulkan.rest.VulkanFilter;
 import fr.iambluedev.vulkan.rest.VulkanResource;
 
 /**
@@ -37,5 +38,6 @@ public class ApexRestConfig extends CobraConfig {
         backLog(50);
         register(ApexResource.class);
         register(VulkanResource.class);
+        filter(VulkanFilter.class);
     }
 }

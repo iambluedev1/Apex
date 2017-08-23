@@ -40,6 +40,7 @@ import de.jackwhite20.cobra.server.http.annotation.PathParam;
 import de.jackwhite20.cobra.server.http.annotation.Produces;
 import de.jackwhite20.cobra.server.http.annotation.method.GET;
 import de.jackwhite20.cobra.shared.ContentType;
+import de.jackwhite20.cobra.shared.Status;
 import de.jackwhite20.cobra.shared.http.Response;
 import fr.iambluedev.vulkan.rest.ApexMapResponse;
 import fr.iambluedev.vulkan.util.FrontendInfo;
@@ -63,7 +64,7 @@ public class ApexResource {
     private static ConnectionsPerSecondTask connectionsPerSecondTask = Apex.getInstance().getConnectionsPerSecondTask();
 
     static {
-        STATS_DISABLED = Response.ok().content(gson.toJson(new ApexStatsResponse(ApexResponse.Status.ERROR,
+        STATS_DISABLED = Response.ok().content(gson.toJson(new ApexStatsResponse(Status.NOT_IMPLEMENTED,
                 "Stats are disabled",
                 -1,
                 -1,
@@ -104,14 +105,14 @@ public class ApexResource {
 
                 logger.info("Added backend server {}:{} to the load balancer", ip, port);
 
-                return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK,
+                return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
                         "Successfully added server"))).build();
             } else {
-                return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.SERVER_ALREADY_ADDED,
+                return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_MODIFIED,
                         "Server was already added"))).build();
             }
     	}else{
-    		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.SERVER_NOT_FOUND,
+    		return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
                     "Frontend not found"))).build();
     	}
     }
@@ -143,14 +144,14 @@ public class ApexResource {
 
                 logger.info("Removed backend server {} from the load balancer", name);
 
-                return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK,
+                return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
                         "Successfully removed server"))).build();
             } else {
-            	 return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.SERVER_NOT_FOUND,
+            	 return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
                          "Server not found"))).build();
             }
     	}else{
-    		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.SERVER_NOT_FOUND,
+    		return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
                     "Frontend not found"))).build();
     	}
     }
@@ -174,9 +175,9 @@ public class ApexResource {
         }
     	
         if (backend.size() != 0) {
-            return Response.ok().content(gson.toJson(new ApexMapResponse(ApexResponse.Status.OK, "Map received", backend))).build();
+            return Response.ok().content(gson.toJson(new ApexMapResponse(Status.OK, "Map received", backend))).build();
         } else {
-            return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.ERROR, "No Backend up !"))).build();
+            return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "No Backend up !"))).build();
         }
     }
 
@@ -191,7 +192,7 @@ public class ApexResource {
             for(FrontendInfo info : Apex.getInstance().getFrontendInfo()){
             	size += info.getBalancingStrategy().getBackend().size();
             }
-            return Response.ok().content(gson.toJson(new ApexStatsResponse(ApexResponse.Status.OK,
+            return Response.ok().content(gson.toJson(new ApexStatsResponse(Status.OK,
                     "OK",
                     Apex.getChannelGroup().size(),
                     connectionsPerSecondTask.getPerSecond(),

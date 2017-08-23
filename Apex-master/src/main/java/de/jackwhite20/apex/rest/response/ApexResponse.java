@@ -19,6 +19,8 @@
 
 package de.jackwhite20.apex.rest.response;
 
+import de.jackwhite20.cobra.shared.Status;
+
 /**
  * Created by JackWhite20 on 02.07.2016.
  */
@@ -42,13 +44,5 @@ public class ApexResponse {
     public String getMessage() {
 
         return message;
-    }
-
-    public enum Status {
-
-        OK,
-        SERVER_NOT_FOUND,
-        SERVER_ALREADY_ADDED,
-        ERROR
     }
 }

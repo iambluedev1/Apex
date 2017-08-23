@@ -1,7 +1,10 @@
 package fr.iambluedev.vulkan.config;
 
+import java.security.SecureRandom;
+
 import fr.iambluedev.spartan.api.config.SpartanConfig;
 import fr.iambluedev.spartan.api.gson.JSONObject;
+import fr.iambluedev.vulkan.util.Token;
 
 public class ApexConfig extends SpartanConfig{
 
@@ -14,11 +17,12 @@ public class ApexConfig extends SpartanConfig{
 	public void setupConfig() {
 		JSONObject generalObj = new JSONObject();
 		generalObj.put("debug", true);
-		generalObj.put("stats", false);
+		generalObj.put("stats", true);
 		generalObj.put("boss", 1);
 		generalObj.put("backlog", 100);
 		generalObj.put("worker", 4);
 		generalObj.put("probe", 5000);
+		
 		this.getJsonObject().put("general", generalObj);
 		
 		JSONObject redisObj = new JSONObject();
@@ -30,6 +34,7 @@ public class ApexConfig extends SpartanConfig{
 		JSONObject restObj = new JSONObject();
 		restObj.put("ip", "localhost");
 		restObj.put("port", 6000);
+		restObj.put("token", Token.getToken(10));
 		this.getJsonObject().put("rest", restObj);
 		
 		JSONObject frontendObj = new JSONObject();

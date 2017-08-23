@@ -12,6 +12,7 @@ import de.jackwhite20.cobra.server.http.annotation.PathParam;
 import de.jackwhite20.cobra.server.http.annotation.Produces;
 import de.jackwhite20.cobra.server.http.annotation.method.GET;
 import de.jackwhite20.cobra.shared.ContentType;
+import de.jackwhite20.cobra.shared.Status;
 import de.jackwhite20.cobra.shared.http.Response;
 import fr.iambluedev.vulkan.Vulkan;
 import fr.iambluedev.vulkan.state.ListeningState;
@@ -30,7 +31,7 @@ public class VulkanResource {
 	}
 	
 	public Response list(){
-		return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List of whitelisted ip : ", Main.getVulkan().getWhitelistedIp()))).build();
+		return Response.ok().content(gson.toJson(new ApexListResponse(Status.OK, "List of whitelisted ip : ", Main.getVulkan().getWhitelistedIp()))).build();
 	}
 
 	@GET
@@ -41,7 +42,7 @@ public class VulkanResource {
 	}
 	
 	public Response status(){
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Status : " + Vulkan.getInstance().getWhitelistState()))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Status : " + Vulkan.getInstance().getWhitelistState()))).build();
 	}
 	
 	@GET
@@ -55,13 +56,13 @@ public class VulkanResource {
 		if(state.equalsIgnoreCase("on")){
 			Main.getVulkan().setWhitelistState(WhitelistState.ON);
 			Apex.getLogger().info("Turning on whitelisting !");
-			return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Turning on whitelisting"))).build();
+			return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Turning on whitelisting"))).build();
 		}else if(state.equalsIgnoreCase("off")){
 			Main.getVulkan().setWhitelistState(WhitelistState.OFF);
 			Apex.getLogger().info("Turning off whitelisting !");
-			return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Turning off whitelisting"))).build();
+			return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Turning off whitelisting"))).build();
 		}else{
-			return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.ERROR, "Please specify a valid arg !"))).build();
+			return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Please specify a valid arg !"))).build();
 		}
 	}
 	
@@ -75,7 +76,7 @@ public class VulkanResource {
 	public Response add(String ip){
 		Vulkan.getInstance().addIp(ip);
 		Apex.getLogger().info(ip + " added to the whitelist !");
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " added to the whitelist !"))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, ip + " added to the whitelist !"))).build();
 	}
 	
 	@GET
@@ -88,7 +89,7 @@ public class VulkanResource {
 	public Response remove(String ip){
 		Vulkan.getInstance().removeIp(ip);
 		Apex.getLogger().info(ip + " removed from the whitelist !");
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, ip + " removed from the whitelist !"))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, ip + " removed from the whitelist !"))).build();
 	}
 	
 	@GET
@@ -101,7 +102,7 @@ public class VulkanResource {
 	public Response close(){
 		Vulkan.getInstance().setListeningState(ListeningState.CLOSE);
 		Apex.getLogger().info("Frontend ports are been closed");
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Frontend ports are been closed"))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Frontend ports are been closed"))).build();
 	}
 	
 	@GET
@@ -114,7 +115,7 @@ public class VulkanResource {
 	public Response open(){
 		Vulkan.getInstance().setListeningState(ListeningState.OPEN);
 		Apex.getLogger().info("Frontend ports are been opened");
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Frontend ports are been opened"))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Frontend ports are been opened"))).build();
 	}
 	
 	@GET
@@ -125,6 +126,6 @@ public class VulkanResource {
 	}
 	
 	public Response pstatus(){
-		return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.OK, "Status : " + Vulkan.getInstance().getListeningState()))).build();
+		return Response.ok().content(gson.toJson(new ApexResponse(Status.OK, "Status : " + Vulkan.getInstance().getListeningState()))).build();
 	}
 }
