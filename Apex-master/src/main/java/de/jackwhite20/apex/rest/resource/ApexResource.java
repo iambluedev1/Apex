@@ -82,15 +82,15 @@ public class ApexResource {
     @Produces(ContentType.APPLICATION_JSON)
     public Response add(Request httpRequest, @PathParam String name, @PathParam String ip, @PathParam String port, @PathParam String frontend) {
     	BackendInfo found = null;
-    	if(Apex.getInstance().getFrontendInfo().contains(frontend)){
-    		FrontendInfo info = null;
-    		for(FrontendInfo info2 : Apex.getInstance().getFrontendInfo()){
-    			if(info2.getName().equals(frontend)){
-    				info = info2;
-    				break;
-    			}
-    		}
-    		synchronized (info) {
+		FrontendInfo info = null;
+		for(FrontendInfo info2 : Apex.getInstance().getFrontendInfo()){
+			if(info2.getName().equals(frontend)){
+				info = info2;
+				break;
+			}
+		}
+		if(info != null) {
+			synchronized (info) {
 	            for (BackendInfo backend : info.getBalancingStrategy().getBackend()) {
 	                if (backend.getName().equalsIgnoreCase(name)) {
 	                    found = backend;
@@ -98,23 +98,23 @@ public class ApexResource {
 	                }
 	            }
 	        }
-    		if (found == null) {
-                BackendInfo backend = new BackendInfo(name, ip, Integer.valueOf(port));
-                info.getBalancingStrategy().addBackend(backend);
-                info.getBackendTask().addBackend(backend);
-
-                logger.info("Added backend server {}:{} to the load balancer", ip, port);
-
-                return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
-                        "Successfully added server"))).build();
-            } else {
-                return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_MODIFIED,
-                        "Server was already added"))).build();
-            }
-    	}else{
-    		return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
+			if (found == null) {
+	            BackendInfo backend = new BackendInfo(name, ip, Integer.valueOf(port));
+	            info.getBalancingStrategy().addBackend(backend);
+	            info.getBackendTask().addBackend(backend);
+	
+	            logger.info("Added backend server {}:{} to the load balancer", ip, port);
+	
+	            return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
+	                    "Successfully added server"))).build();
+	        } else {
+	            return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_MODIFIED,
+	                    "Server was already added"))).build();
+	        }
+		}else {
+			return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
                     "Frontend not found"))).build();
-    	}
+		}
     }
 
     @GET
