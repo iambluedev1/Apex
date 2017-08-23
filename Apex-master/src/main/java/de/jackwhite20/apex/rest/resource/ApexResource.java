@@ -121,16 +121,16 @@ public class ApexResource {
     @Path("/remove/{name}/{frontend}")
     @Produces(ContentType.APPLICATION_JSON)
     public Response remove(Request httpRequest, @PathParam String name, @PathParam String frontend) {
-        BackendInfo found = null;
-    	if(Apex.getInstance().getFrontendInfo().contains(frontend)){
-    		FrontendInfo info = null;
-    		for(FrontendInfo info2 : Apex.getInstance().getFrontendInfo()){
-    			if(info2.getName().equals(frontend)){
-    				info = info2;
-    				break;
-    			}
-    		}
-    		synchronized (info) {
+    BackendInfo found = null;
+		FrontendInfo info = null;
+		for(FrontendInfo info2 : Apex.getInstance().getFrontendInfo()){
+			if(info2.getName().equals(frontend)){
+				info = info2;
+				break;
+			}
+		}
+		if(info != null) {
+			synchronized (info) {
 	            for (BackendInfo backend : info.getBalancingStrategy().getBackend()) {
 	                if (backend.getName().equalsIgnoreCase(name)) {
 	                    found = backend;
@@ -138,19 +138,19 @@ public class ApexResource {
 	                }
 	            }
 	        }
-    		if (found == null) {
-                info.getBalancingStrategy().removeBackend(found);
-                info.getBackendTask().removeBackend(found);
-
-                logger.info("Removed backend server {} from the load balancer", name);
-
-                return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
-                        "Successfully removed server"))).build();
-            } else {
-            	 return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
-                         "Server not found"))).build();
-            }
-    	}else{
+			if (found == null) {
+	            info.getBalancingStrategy().removeBackend(found);
+	            info.getBackendTask().removeBackend(found);
+	
+	            logger.info("Removed backend server {} from the load balancer", name);
+	
+	            return Response.ok().content(gson.toJson(new ApexResponse(Status.OK,
+	                    "Successfully removed server"))).build();
+	        } else {
+	        	 return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
+	                     "Server not found"))).build();
+	        }
+    	}else {
     		return Response.ok().content(gson.toJson(new ApexResponse(Status.NOT_FOUND,
                     "Frontend not found"))).build();
     	}
