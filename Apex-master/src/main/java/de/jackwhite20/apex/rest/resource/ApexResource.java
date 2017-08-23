@@ -138,7 +138,7 @@ public class ApexResource {
 	                }
 	            }
 	        }
-			if (found == null) {
+			if (found != null) {
 	            info.getBalancingStrategy().removeBackend(found);
 	            info.getBackendTask().removeBackend(found);
 	
