@@ -20,7 +20,9 @@
 package de.jackwhite20.apex.rest.resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import de.jackwhite20.apex.Apex;
-import de.jackwhite20.apex.rest.response.ApexListResponse;
 import de.jackwhite20.apex.rest.response.ApexResponse;
 import de.jackwhite20.apex.rest.response.ApexStatsResponse;
 import de.jackwhite20.apex.task.ConnectionsPerSecondTask;
@@ -40,6 +41,7 @@ import de.jackwhite20.cobra.server.http.annotation.Produces;
 import de.jackwhite20.cobra.server.http.annotation.method.GET;
 import de.jackwhite20.cobra.shared.ContentType;
 import de.jackwhite20.cobra.shared.http.Response;
+import fr.iambluedev.vulkan.rest.ApexMapResponse;
 import fr.iambluedev.vulkan.util.FrontendInfo;
 import io.netty.handler.traffic.GlobalTrafficShapingHandler;
 import io.netty.handler.traffic.TrafficCounter;
@@ -157,18 +159,24 @@ public class ApexResource {
     @Path("/list")
     @Produces(ContentType.APPLICATION_JSON)
     public Response list(Request httpRequest) {
-    	List<BackendInfo> backend = new ArrayList<BackendInfo>();
+    	Map<String, List<Map<String, Object>>> backend = new HashMap<String, List<Map<String, Object>>>();
     	for(FrontendInfo info : Apex.getInstance().getFrontendInfo()){
-    		backend.addAll(info.getBalancingStrategy().getBackend());
+    		List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+    		for(BackendInfo backInfo : info.getBalancingStrategy().getBackend()) {
+    			Map<String, Object> tmp = new HashMap<String, Object>();
+    			tmp.put("host", backInfo.getHost());
+    			tmp.put("port", backInfo.getPort());
+    			tmp.put("name", backInfo.getName());
+    			tmp.put("time", backInfo.getConnectTime());
+    			datas.add(tmp);
+    		}
+			backend.put(info.getName(), datas);
         }
     	
         if (backend.size() != 0) {
-            return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.OK, "List received",
-            		backend))).build();
+            return Response.ok().content(gson.toJson(new ApexMapResponse(ApexResponse.Status.OK, "Map received", backend))).build();
         } else {
-            return Response.ok().content(gson.toJson(new ApexListResponse(ApexResponse.Status.ERROR,
-                    "Unable to get the balancing strategy",
-                    null))).build();
+            return Response.ok().content(gson.toJson(new ApexResponse(ApexResponse.Status.ERROR, "No Backend up !"))).build();
         }
     }
 
